@@ -233,7 +233,6 @@ class F1Server(Resource):
 
         return {'error': True}, 403
 
-
     #only for debug
     @app.route(PATH+'favorites', methods=['GET'])
     def getFavorites():
@@ -249,8 +248,72 @@ class F1Server(Resource):
             res.append(favorite)
 
         return {'favorites': res}, 200
+    @app.route(PATH+'accounts', methods=['GET'])
+    def getAccounts():
+        connection = dbFunctions.get_db_connection(DATABASE)
+        accounts = connection.execute('SELECT * FROM accounts;').fetchall()
+        connection.commit()
+        connection.close()
 
+        res = []
+        for account in accounts:
+            account = dict(account)
+            res.append(account)
+
+        return {'accounts': res}, 200
     
+    #check if exists account with given mail (completa)
+    @app.route(PATH+'checkemail', methods=['GET'])
+    def checkEmail():
+        parser = reqparse.RequestParser()
+        parser.add_argument('email', type=str, required=True)
+        args = parser.parse_args()
+        email = args['email']
+
+        emailInDatabase = dbFunctions.checkIfEmailExists(DATABASE, email)
+        if emailInDatabase == 1:
+            return {'error': False}, 200
+        else:
+            return {'error': True}, 404
+           
+    # Check signed-in (NEW ACCOUNT)
+    @app.route(PATH+'signin', methods=['POST'])
+    def checkAccount():
+        data = request.get_json()
+        if data:
+            print(data)
+            try:
+                userid = data['userid']
+                email = data['email']
+                if userid != "" and email != "":
+                    dbFunctions.insertAccount(DATABASE, userid, "tokenID", email)
+                    print('Signed-in account: '+userid+', '+email)
+                    return {'error': False}, 201
+            except ValueError:
+                # Invalid token
+                pass
+        return {'error': True}, 403
+
+    # Delete an account resource
+    @app.route(PATH+'deleteaccount', methods=['DELETE'])
+    def deleteAccount():
+        parser = reqparse.RequestParser()
+        parser.add_argument('userid', type=str, required=True)
+        args = parser.parse_args()
+        userid = args['userid']
+
+        if userid != "":
+            resourceDeleted = dbFunctions.deleteAccount(DATABASE, userid)
+            if resourceDeleted:
+                print('Deleted account: '+userid)
+                return {'error': False}, 200
+            else:
+                # Not found
+                return {'error': True}, 404
+
+        return {'error': True}, 403
+
+
 api.add_resource(F1Server, PATH)
 
 if __name__=='__main__':

@@ -22,7 +22,7 @@ def get_db_connection(database):
 
 #ACCOUNT MANAGE
 #insert account (gestisce anche se gia esiste)
-def inserAccount(database, userid, tokenid, email):
+def insertAccount(database, userid, tokenid, email):
     connection = get_db_connection(database)
     cur = connection.cursor()
 
