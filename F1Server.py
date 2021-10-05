@@ -320,4 +320,4 @@ if __name__=='__main__':
     print('Initializing database...')
     dbFunctions.init_db(DATABASE, SCHEMA)
     print('Starting web server...')
-    app.run()
+    app.run(host='192.168.1.139', port = '8000')

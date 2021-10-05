@@ -27,7 +27,7 @@ class HomepageActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_formulaone, R.id.navigation_tennis, R.id.navigation_cycling, R.id.navigation_favorites, R.id.navigation_share
+                R.id.navigation_favAndShake, R.id.navigation_history, R.id.navigation_home, R.id.navigation_lastRace, R.id.navigation_teamsAndDrivers
 
             )
         )

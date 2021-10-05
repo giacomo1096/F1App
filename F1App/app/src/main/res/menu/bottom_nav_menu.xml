@@ -2,28 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_formulaone"
-        android:icon="@drawable/formulaone_selector"
-        android:title="@string/title_formulaone" />
+        android:id="@+id/navigation_history"
+        android:title="@string/title_history" />
 
     <item
-        android:id="@+id/navigation_tennis"
-        android:icon="@drawable/tennis_selector"
-        android:title="@string/title_tennis" />
+        android:id="@+id/navigation_lastRace"
+        android:title="@string/title_lastRace" />
 
     <item
-        android:id="@+id/navigation_cycling"
-        android:icon="@drawable/cycling_selector"
-        android:title="@string/title_cycling" />
+        android:id="@+id/navigation_home"
+        android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_favorites"
-        android:icon="@drawable/favorites_selector"
-        android:title="@string/title_favorites" />
+        android:id="@+id/navigation_teamsAndDrivers"
+        android:title="@string/title_teamsAndDrivers" />
 
     <item
-        android:id="@+id/navigation_share"
-        android:icon="@drawable/share_selector"
-        android:title="@string/title_share" />
+        android:id="@+id/navigation_favAndShake"
+        android:title="@string/title_favAndShake" />
 
 </menu>
