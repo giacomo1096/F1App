@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">F1App</string>
+    <string name="google_login">Login</string>
+
+
+    <string name="title_history">History</string>
+    <string name="title_teamsAndDrivers">Teams and Drivers</string>
+    <string name="title_home">Home</string>
+    <string name="title_lastRace">Last race</string>
+    <string name="title_favAndShake">Favourite and Shake</string>
+</resources>
