@@ -27,7 +27,6 @@ import com.example.f1app.ui.history.circuitAdapter
 
 class historyFragment : Fragment() {
 
-
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<circuitAdapter.ViewHolder>? = null
 
@@ -49,11 +48,6 @@ class historyFragment : Fragment() {
             adapter = circuitAdapter(context)
         }
     }
-
-    companion object {
-        private val TAG = historyFragment::class.java.name
-    }
-
 
 }
 
