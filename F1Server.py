@@ -32,7 +32,7 @@ class F1Server(Resource):
             circuit = c['CircuitName'] + ',' + c['Location']['Country']
             ret.append({'id': circuitId, "circuit":circuit})
 
-        return json.dumps(ret), 200
+        return {"list": ret}, 200
    
     #ritorna risultati ultimi 5 anni  e pole 
     #query /circuit?name=nomedato

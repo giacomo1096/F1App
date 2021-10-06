@@ -18,35 +18,87 @@ import com.android.volley.toolbox.Volley
 import com.example.f1app.SharedViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.toolbox.JsonObjectRequest
 import com.example.f1app.HomepageActivity
 import kotlinx.android.synthetic.main.fragment_history.*
 
 import com.example.f1app.R
 
 import com.example.f1app.ui.history.circuitAdapter
+import org.json.JSONException
 
 class historyFragment : Fragment() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<circuitAdapter.ViewHolder>? = null
 
+    private val url = "http://192.168.1.139:8000/circuits"
+    val jsonResponses: MutableList<String> = mutableListOf<String>()
+
+    fun sendAndRequestResponse(jsonResponses : MutableList<String>) {
+        val requestQueue = Volley.newRequestQueue(context)
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                try {
+                    val jsonArray = response.getJSONArray("list")
+                    for (i in 0 until jsonArray.length()) {
+                        val jsonObject = jsonArray.getJSONObject(i)
+                        val id = jsonObject.getString("id")
+                        val circuit_name = jsonObject.getString("circuit")
+                        jsonResponses.add(circuit_name)
+                        Toast.makeText(context, "Response :$jsonResponses", Toast.LENGTH_LONG).show() //display the response on screen
+
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Toast.makeText(context, "sei nel catch", Toast.LENGTH_LONG).show() //display the response on screen
+
+                }
+            }) { error -> error.printStackTrace() }
+
+        requestQueue.add(jsonObjectRequest)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        //sendAndRequestResponse(jsonResponses)
         return inflater.inflate(R.layout.fragment_history, container, false)
     }
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
-        rvcircuits.apply {
-            // set a LinearLayoutManager to handle Android
-            // RecyclerView behavior
-            layoutManager = LinearLayoutManager(activity)
-            // set the custom adapter to the RecyclerView
-            adapter = circuitAdapter(context)
-        }
+        val requestQueue = Volley.newRequestQueue(context)
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                try {
+                    val jsonArray = response.getJSONArray("list")
+                    for (i in 0 until jsonArray.length()) {
+                        val jsonObject = jsonArray.getJSONObject(i)
+                        val id = jsonObject.getString("id")
+                        val circuit_name = jsonObject.getString("circuit")
+                        jsonResponses.add(circuit_name)
+                    }
+                    Toast.makeText(context, "Response :$jsonResponses", Toast.LENGTH_LONG).show() //display the response on screen
+                    rvcircuits.apply {
+                        // set a LinearLayoutManager to handle Android
+                        // RecyclerView behavior
+                        layoutManager = LinearLayoutManager(activity)
+                        // set the custom adapter to the RecyclerView
+                        adapter = circuitAdapter(context, jsonResponses)
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Toast.makeText(context, "sei nel catch", Toast.LENGTH_LONG).show() //display the response on screen
+
+                }
+            }) { error -> error.printStackTrace() }
+
+        requestQueue.add(jsonObjectRequest)
     }
 
 }
