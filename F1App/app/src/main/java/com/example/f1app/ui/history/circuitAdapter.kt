@@ -55,8 +55,12 @@ class circuitAdapter(contextFrag: Context) : RecyclerView.Adapter<circuitAdapter
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
+                    Toast.makeText(contexf, "sei nel catch", Toast.LENGTH_LONG).show() //display the response on screen
+
                 }
-            }) { error -> error.printStackTrace() }
+            }) { error -> error.printStackTrace()
+            Toast.makeText(contexf, "errore", Toast.LENGTH_LONG).show() //display the response on screen
+        }
 
         requestQueue.add(jsonObjectRequest)
         return jsonResponses
