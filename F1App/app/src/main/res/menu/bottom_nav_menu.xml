@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/navigation_history"
-        android:title="@string/title_history"
-        android:icon="@drawable/history"/>
+        android:icon="@drawable/history"
+        app:itemIconSize = "40sp"/>
 
     <item
         android:id="@+id/navigation_lastRace"
-        android:title="@string/title_lastRace"
-        android:icon="@drawable/lastRace"/>
+        android:icon="@drawable/last_race"
+        app:itemIconSize = "40sp"/>
 
     <item
         android:id="@+id/navigation_home"
-        android:title="@string/title_home"
-        android:icon="@drawable/home"/>
+        android:icon="@drawable/home"
+        app:itemIconSize = "40sp"/>
 
     <item
         android:id="@+id/navigation_teamsAndDrivers"
-        android:title="@string/title_teamsAndDrivers"
-        android:icon="@drawable/teamsAndDrivers"/>
+        android:icon="@drawable/teams_and_drivers"
+        app:itemIconSize = "40sp"/>
 
     <item
         android:id="@+id/navigation_favAndShake"
-        android:title="@string/title_favAndShake"
-        android:icon="@drawable/favAndShake"/>
+        android:icon="@drawable/fav_and_shake"
+        app:itemIconSize = "40sp"/>
 
 
 

@@ -17,7 +17,7 @@
         android:name="com.example.f1app.ui.teamsAndDrivers.teamsAndDriversFragment"
         android:label="@string/title_teamsAndDrivers"
         tools:layout="@layout/fragment_teamsdrivers"
-        android:icon="@drawable/teamsAndDrivers"/>
+        android:icon="@drawable/teams_and_drivers"/>
 
     <fragment
         android:id="@+id/navigation_home"
@@ -31,12 +31,12 @@
         android:name="com.example.f1app.ui.lastRace.lastRaceFragment"
         android:label="@string/title_lastRace"
         tools:layout="@layout/fragment_lastrace"
-        android:icon="@drawable/lastRace"/>
+        android:icon="@drawable/last_race"/>
 
     <fragment
         android:id="@+id/navigation_favAndShake"
         android:name="com.example.f1app.ui.favAndShake.favAndShakeFragment"
         android:label="@string/title_favAndShake"
         tools:layout="@layout/fragment_favandshake"
-        android:icon="@drawable/favAndShake"/>
+        android:icon="@drawable/fav_and_shake"/>
 </navigation>
