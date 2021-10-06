@@ -3,22 +3,29 @@
 
     <item
         android:id="@+id/navigation_history"
-        android:title="@string/title_history" />
+        android:title="@string/title_history"
+        android:icon="@drawable/history"/>
 
     <item
         android:id="@+id/navigation_lastRace"
-        android:title="@string/title_lastRace" />
+        android:title="@string/title_lastRace"
+        android:icon="@drawable/lastRace"/>
 
     <item
         android:id="@+id/navigation_home"
-        android:title="@string/title_home" />
+        android:title="@string/title_home"
+        android:icon="@drawable/home"/>
 
     <item
         android:id="@+id/navigation_teamsAndDrivers"
-        android:title="@string/title_teamsAndDrivers" />
+        android:title="@string/title_teamsAndDrivers"
+        android:icon="@drawable/teamsAndDrivers"/>
 
     <item
         android:id="@+id/navigation_favAndShake"
-        android:title="@string/title_favAndShake" />
+        android:title="@string/title_favAndShake"
+        android:icon="@drawable/favAndShake"/>
+
+
 
 </menu>

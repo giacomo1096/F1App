@@ -9,29 +9,34 @@
         android:id="@+id/navigation_history"
         android:name="com.example.f1app.ui.history.historyFragment"
         android:label="@string/title_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history"
+        android:icon="@drawable/history"/>
 
     <fragment
         android:id="@+id/navigation_teamsAndDrivers"
         android:name="com.example.f1app.ui.teamsAndDrivers.teamsAndDriversFragment"
         android:label="@string/title_teamsAndDrivers"
-        tools:layout="@layout/fragment_teamsdrivers" />
+        tools:layout="@layout/fragment_teamsdrivers"
+        android:icon="@drawable/teamsAndDrivers"/>
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.f1app.ui.home.homeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home"
+        android:icon="@drawable/home"/>
 
     <fragment
         android:id="@+id/navigation_lastRace"
         android:name="com.example.f1app.ui.lastRace.lastRaceFragment"
         android:label="@string/title_lastRace"
-        tools:layout="@layout/fragment_lastrace" />
+        tools:layout="@layout/fragment_lastrace"
+        android:icon="@drawable/lastRace"/>
 
     <fragment
         android:id="@+id/navigation_favAndShake"
         android:name="com.example.f1app.ui.favAndShake.favAndShakeFragment"
         android:label="@string/title_favAndShake"
-        tools:layout="@layout/fragment_favandshake" />
+        tools:layout="@layout/fragment_favandshake"
+        android:icon="@drawable/favAndShake"/>
 </navigation>
