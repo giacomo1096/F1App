@@ -1,68 +1,84 @@
 package com.example.f1app.ui.history
 
+import android.app.PendingIntent.getActivity
 import android.content.Context
+import android.util.Log
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.VolleyError
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.f1app.R
+import com.google.android.material.internal.ContextUtils.getActivity
+import kotlin.reflect.typeOf
 
 
-class circuitAdapter internal constructor(context: Context?, data: List<String>) : RecyclerView.Adapter<circuitAdapter.ViewHolder>() {
-    private val mData: List<String>
-    private val mInflater: LayoutInflater
-    private var mClickListener: ItemClickListener? = null
+class circuitAdapter(contextFrag: Context) : RecyclerView.Adapter<circuitAdapter.ViewHolder>() {
+    private val kode = arrayOf("d116df5",
+        "36ffc75", "f5cfe78", "5b87628",
+        "db8d14e", "9913dc4", "e120f96",
+        "466251b")
+    private var contexf : Context = contextFrag
+    private var mRequestQueue: RequestQueue? = null
+    private var mStringRequest: StringRequest? = null
+    private val url = "http://192.168.1.139:8000/circuits"
 
-    // inflates the row layout from xml when needed
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = mInflater.inflate(R.layout.circuit_row, parent, false)
-        return ViewHolder(view)
+
+    fun sendAndRequestResponse() {
+        //RequestQueue initialized
+        mRequestQueue = Volley.newRequestQueue(contexf)
+        //String Request initialized
+        mStringRequest = StringRequest(Request.Method.GET, url, object :
+            Response.Listener<String?> {
+            override  fun onResponse(response: String?) {
+                Toast.makeText(contexf, "Response :$response", Toast.LENGTH_LONG).show() //display the response on screen
+            }
+        }, object : Response.ErrorListener {
+            override fun onErrorResponse(error: VolleyError) {
+                Toast.makeText(contexf, "ERROOOOOOORRRRREEEEEEEEEE", Toast.LENGTH_LONG).show() //display the response on screen
+            }
+        })
+        mRequestQueue!!.add(mStringRequest)
     }
 
-    // binds the data to the TextView in each row
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val circuit = mData[position]
-        holder.myTextView.text = circuit
-    }
-
-    // total number of rows
-    override fun getItemCount(): Int {
-        return mData.size
-    }
-
-    // stores and recycles views as they are scrolled off screen
-    inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
-        var myTextView: TextView
-        override fun onClick(view: View?) {
-            if (mClickListener != null) mClickListener!!.onItemClick(view, adapterPosition)
-        }
-
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var circuitName: TextView
         init {
-            myTextView = itemView.findViewById(R.id.circuitName)
-            itemView.setOnClickListener(this)
+            circuitName = itemView.findViewById(R.id.circuitName)
+            sendAndRequestResponse()
+            /*itemView.setOnClickListener {
+                var position: Int = getAdapterPosition()
+                val context = itemView.context
+                val intent = Intent(context, DetailPertanyaan::class.java).apply {
+                    putExtra("NUMBER", position)
+                    putExtra("CODE", itemKode.text)
+                    putExtra("CATEGORY", itemKategori.text)
+                    putExtra("CONTENT", itemIsi.text)
+                }
+                context.startActivity(intent)
+            }*/
         }
     }
 
-    // convenience method for getting data at click position
-    fun getItem(id: Int): String {
-        return mData[id]
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
+        val v = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.circuit_row, viewGroup, false)
+        return ViewHolder(v)
     }
 
-    // allows clicks events to be caught
-    fun setClickListener(itemClickListener: ItemClickListener?) {
-        mClickListener = itemClickListener
+    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
+        viewHolder.circuitName.text = kode[i] //kode è content della riga quindi va preso dalla risposta
     }
 
-    // parent activity will implement this method to respond to click events
-    interface ItemClickListener {
-        fun onItemClick(view: View?, position: Int)
+    override fun getItemCount(): Int {
+        return kode.size //kode è content della riga quindi va preso dalla risposta
     }
 
-    // data is passed into the constructor
-    init {
-        mInflater = LayoutInflater.from(context)
-        mData = data
-    }
 }
