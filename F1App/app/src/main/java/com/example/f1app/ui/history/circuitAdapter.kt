@@ -2,13 +2,16 @@ package com.example.f1app.ui.history
 
 import android.app.PendingIntent.getActivity
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.view.menu.MenuView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -27,13 +30,9 @@ import org.json.JSONArray
 import com.android.volley.toolbox.JsonObjectRequest
 
 
-class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<String>) : RecyclerView.Adapter<circuitAdapter.ViewHolder>() {
-    private val kode = arrayOf("d116df5",
-        "36ffc75", "f5cfe78", "5b87628",
-        "db8d14e", "9913dc4", "e120f96",
-        "466251b")
-    private var contexf : Context = contextFrag
-    private var resp : MutableList<String> = jsonResponses
+class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,String>>) : RecyclerView.Adapter<circuitAdapter.ViewHolder>() {
+    private var context : Context = contextFrag
+    private var resp : MutableList<Map<String,String>> = jsonResponses
 
     //private var mRequestQueue: RequestQueue? = null
     //private var mStringRequest: StringRequest? = null
@@ -41,21 +40,28 @@ class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<String>) : 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var circuitName: TextView
+        var circuitItem: LinearLayout
+        var cont: View = itemView
+
         init {
             circuitName = itemView.findViewById(R.id.circuitName)
+            circuitItem = itemView.findViewById(R.id.item)
             //Toast.makeText(contexf, "DEVI FUNGERE :$resp", Toast.LENGTH_LONG).show() //display the response on screen
 
-                /*itemView.setOnClickListener {
+            circuitItem.setOnClickListener {
                 var position: Int = getAdapterPosition()
                 val context = itemView.context
-                val intent = Intent(context, DetailPertanyaan::class.java).apply {
+                val id = resp.get(position).keys.toString()
+
+                Toast.makeText(context, "ID :$id", Toast.LENGTH_LONG).show() //display the response on screen
+
+                /*
+                val intent = Intent(context, circuitDetails::class.java).apply {
                     putExtra("NUMBER", position)
-                    putExtra("CODE", itemKode.text)
-                    putExtra("CATEGORY", itemKategori.text)
-                    putExtra("CONTENT", itemIsi.text)
+                    putExtra("ID", id)
                 }
-                context.startActivity(intent)
-            }*/
+                context.startActivity(intent)*/
+            }
         }
     }
 
@@ -66,7 +72,7 @@ class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<String>) : 
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        viewHolder.circuitName.text = resp[i] //kode è content della riga quindi va preso dalla risposta
+        viewHolder.circuitName.text = resp.get(i).values.toString()
     }
 
     override fun getItemCount(): Int {

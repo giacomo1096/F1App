@@ -26,39 +26,16 @@ import com.example.f1app.R
 
 import com.example.f1app.ui.history.circuitAdapter
 import org.json.JSONException
+import java.security.KeyStore
+import java.util.Map.Entry
 
 class historyFragment : Fragment() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<circuitAdapter.ViewHolder>? = null
 
-    private val url = "http://192.168.1.139:8000/circuits"
-    val jsonResponses: MutableList<String> = mutableListOf<String>()
-
-    fun sendAndRequestResponse(jsonResponses : MutableList<String>) {
-        val requestQueue = Volley.newRequestQueue(context)
-        val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.GET, url, null,
-            { response ->
-                try {
-                    val jsonArray = response.getJSONArray("list")
-                    for (i in 0 until jsonArray.length()) {
-                        val jsonObject = jsonArray.getJSONObject(i)
-                        val id = jsonObject.getString("id")
-                        val circuit_name = jsonObject.getString("circuit")
-                        jsonResponses.add(circuit_name)
-                        Toast.makeText(context, "Response :$jsonResponses", Toast.LENGTH_LONG).show() //display the response on screen
-
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                    Toast.makeText(context, "sei nel catch", Toast.LENGTH_LONG).show() //display the response on screen
-
-                }
-            }) { error -> error.printStackTrace() }
-
-        requestQueue.add(jsonObjectRequest)
-    }
+    private val url = "http://192.168.1.225:8000/circuits"
+    val jsonResponses: MutableList<Map<String,String>> = mutableListOf<Map<String,String>>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,7 +58,8 @@ class historyFragment : Fragment() {
                         val jsonObject = jsonArray.getJSONObject(i)
                         val id = jsonObject.getString("id")
                         val circuit_name = jsonObject.getString("circuit")
-                        jsonResponses.add(circuit_name)
+                        val item = mapOf(id to circuit_name)
+                        jsonResponses.add(item)
                     }
                     Toast.makeText(context, "Response :$jsonResponses", Toast.LENGTH_LONG).show() //display the response on screen
                     rvcircuits.apply {

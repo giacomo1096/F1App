@@ -6,28 +6,28 @@
     <item
         android:id="@+id/navigation_history"
         android:icon="@drawable/history"
-        app:itemIconSize = "40sp"/>
+        android:title="•"/>
 
     <item
         android:id="@+id/navigation_lastRace"
         android:icon="@drawable/last_race"
-        app:itemIconSize = "40sp"/>
+        android:title="•"/>
+
 
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/home"
-        app:itemIconSize = "40sp"/>
+        android:title="•"/>
+
 
     <item
         android:id="@+id/navigation_teamsAndDrivers"
         android:icon="@drawable/teams_and_drivers"
-        app:itemIconSize = "40sp"/>
+        android:title="•"/>
 
     <item
         android:id="@+id/navigation_favAndShake"
         android:icon="@drawable/fav_and_shake"
-        app:itemIconSize = "40sp"/>
-
-
+        android:title="•"/>
 
 </menu>
