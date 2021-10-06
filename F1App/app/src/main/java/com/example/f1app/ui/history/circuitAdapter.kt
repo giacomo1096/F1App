@@ -1,6 +1,8 @@
 package com.example.f1app.ui.history
 
+import android.app.PendingIntent.getActivity
 import android.content.Context
+import android.util.Log
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
@@ -10,10 +12,19 @@ import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.f1app.R
+import com.google.android.material.internal.ContextUtils.getActivity
+import kotlin.reflect.typeOf
+import org.json.JSONException
+
+import org.json.JSONObject
+
+import org.json.JSONArray
+
+import com.android.volley.toolbox.JsonObjectRequest
 
 
 class circuitAdapter(contextFrag: Context) : RecyclerView.Adapter<circuitAdapter.ViewHolder>() {
@@ -22,59 +33,41 @@ class circuitAdapter(contextFrag: Context) : RecyclerView.Adapter<circuitAdapter
         "db8d14e", "9913dc4", "e120f96",
         "466251b")
     private var contexf : Context = contextFrag
-    private var mRequestQueue: RequestQueue? = null
+    //private var mRequestQueue: RequestQueue? = null
     //private var mStringRequest: StringRequest? = null
-    //private var jsonObjectRequest: StringRequest? = null
-
     private val url = "http://192.168.1.139:8000/circuits"
 
+    fun sendAndRequestResponse(): MutableList<String> {
+        val jsonResponses: MutableList<String> = mutableListOf<String>()
 
-    fun sendAndRequestResponse(): JsonObjectRequest {
-        //RequestQueue initialized
-        mRequestQueue = Volley.newRequestQueue(contexf)
-        //String Request initialized
+        val requestQueue = Volley.newRequestQueue(contexf)
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                try {
+                    val jsonArray = response.getJSONArray("list")
+                    for (i in 0 until jsonArray.length()) {
+                        val jsonObject = jsonArray.getJSONObject(i)
+                        val id = jsonObject.getString("id")
+                        val circuit_name = jsonObject.getString("circuit")
+                        jsonResponses.add(circuit_name)
+                        Toast.makeText(contexf, "Response :$jsonResponses", Toast.LENGTH_LONG).show() //display the response on screen
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }) { error -> error.printStackTrace() }
 
-        val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
-            Response.Listener { response ->
-                //textView.text = "Response: %s".format(response.toString())
-                Toast.makeText(contexf, "Response :${response.toString()}", Toast.LENGTH_LONG).show() //display the response on screen
-            },
-            Response.ErrorListener { error ->
-                // TODO: Handle error
-                Toast.makeText(contexf, "ERROOOOOOORRRRREEEEEEEEEE", Toast.LENGTH_LONG).show() //display the response on screen
-            }
-        )
-        /*
-
-        mStringRequest = StringRequest(Request.Method.GET, url, object :
-            Response.Listener<String?> {
-
-
-            override fun onResponse(response: String?) {
-                Toast.makeText(contexf, "Response :$response", Toast.LENGTH_LONG).show() //display the response on screen
-            }
-
-
-
-        }, object : Response.ErrorListener {
-            override fun onErrorResponse(error: VolleyError) {
-                Toast.makeText(contexf, "ERROOOOOOORRRRREEEEEEEEEE", Toast.LENGTH_LONG).show() //display the response on screen
-            }
-        })
-        mRequestQueue!!.add(JsonObjectRequest)
-
-         */
-        return jsonObjectRequest
+        requestQueue.add(jsonObjectRequest)
+        return jsonResponses
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var circuitName: TextView
         init {
             circuitName = itemView.findViewById(R.id.circuitName)
-            var ret = sendAndRequestResponse()
-
-            Toast.makeText(contexf, "$ret", Toast.LENGTH_LONG).show() //display the response on screen
-
+            var preghiamo = sendAndRequestResponse()
+            Toast.makeText(contexf, "VEDI QUI :$preghiamo", Toast.LENGTH_LONG).show() //display the response on screen
             /*itemView.setOnClickListener {
                 var position: Int = getAdapterPosition()
                 val context = itemView.context
