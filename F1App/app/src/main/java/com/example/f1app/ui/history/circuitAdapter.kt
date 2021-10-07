@@ -53,7 +53,7 @@ class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        viewHolder.circuitName.text = resp.get(i).values.toString()
+        viewHolder.circuitName.text = resp.get(i).values.toString().removeSurrounding("[","]")
     }
 
     override fun getItemCount(): Int {
