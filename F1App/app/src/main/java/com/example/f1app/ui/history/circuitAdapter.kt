@@ -1,9 +1,6 @@
 package com.example.f1app.ui.history
 
-import android.app.PendingIntent.getActivity
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
@@ -11,33 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.appcompat.view.menu.MenuView
-import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
+import androidx.fragment.app.Fragment
 import com.example.f1app.R
-import com.google.android.material.internal.ContextUtils.getActivity
-import kotlin.reflect.typeOf
-import org.json.JSONException
-
-import org.json.JSONObject
-
-import org.json.JSONArray
-
-import com.android.volley.toolbox.JsonObjectRequest
-
+import android.annotation.SuppressLint
+import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
 
 class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,String>>) : RecyclerView.Adapter<circuitAdapter.ViewHolder>() {
     private var context : Context = contextFrag
     private var resp : MutableList<Map<String,String>> = jsonResponses
 
-    //private var mRequestQueue: RequestQueue? = null
-    //private var mStringRequest: StringRequest? = null
-
-
+    @SuppressLint("RestrictedApi")
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var circuitName: TextView
         var circuitItem: LinearLayout
@@ -48,19 +29,22 @@ class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,
             circuitItem = itemView.findViewById(R.id.item)
             //Toast.makeText(contexf, "DEVI FUNGERE :$resp", Toast.LENGTH_LONG).show() //display the response on screen
 
-            circuitItem.setOnClickListener {
+            val fragment = circuitDetails()
+
+            circuitName.setOnClickListener {
                 var position: Int = getAdapterPosition()
                 val context = itemView.context
                 val id = resp.get(position).keys.toString()
 
                 Toast.makeText(context, "ID :$id", Toast.LENGTH_LONG).show() //display the response on screen
 
-                /*
-                val intent = Intent(context, circuitDetails::class.java).apply {
-                    putExtra("NUMBER", position)
-                    putExtra("ID", id)
-                }
-                context.startActivity(intent)*/
+                val fragment: Fragment = circuitDetails()
+                val fragmentManager: FragmentManager = (context as AppCompatActivity).getSupportFragmentManager()
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.navigation_history, fragment)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
+
             }
         }
     }
@@ -76,7 +60,7 @@ class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,
     }
 
     override fun getItemCount(): Int {
-        return resp.size //kode è content della riga quindi va preso dalla risposta
+        return resp.size
     }
 
 }

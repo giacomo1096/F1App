@@ -1,38 +1,21 @@
 package com.example.f1app.ui.history
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-
 import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.f1app.SharedViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.JsonObjectRequest
-import com.example.f1app.HomepageActivity
 import kotlinx.android.synthetic.main.fragment_history.*
-
 import com.example.f1app.R
-
-import com.example.f1app.ui.history.circuitAdapter
 import org.json.JSONException
-import java.security.KeyStore
-import java.util.Map.Entry
 
 class historyFragment : Fragment() {
-
-    private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<circuitAdapter.ViewHolder>? = null
 
     private val url = "http://192.168.1.225:8000/circuits"
     val jsonResponses: MutableList<Map<String,String>> = mutableListOf<Map<String,String>>()
@@ -61,7 +44,7 @@ class historyFragment : Fragment() {
                         val item = mapOf(id to circuit_name)
                         jsonResponses.add(item)
                     }
-                    Toast.makeText(context, "Response :$jsonResponses", Toast.LENGTH_LONG).show() //display the response on screen
+                    //Toast.makeText(context, "Response :$jsonResponses", Toast.LENGTH_LONG).show() //display the response on screen
                     rvcircuits.apply {
                         // set a LinearLayoutManager to handle Android
                         // RecyclerView behavior
