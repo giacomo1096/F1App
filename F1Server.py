@@ -19,7 +19,7 @@ class F1Server(Resource):
     #ritorna elenco dei circuiti id,Nome,Nazione
     @app.route(PATH+"circuits", methods=['GET'])
     def get_circuits():
-        url = "http://ergast.com/api/f1/circuits"
+        url = "http://ergast.com/api/f1/current/circuits"
         response = urllib.request.urlopen(url)
         my_xml = response.read()
         my_dic = xmltodict.parse(my_xml)
@@ -39,7 +39,7 @@ class F1Server(Resource):
     @app.route(PATH+"circuit", methods=['GET'])
     def get_circuit():
 
-        circuitName = request.args.get('name').lower()
+        circuitName = request.args.get('name')
         results = F1ServerFunctions.get_circuit_results(circuitName)
         poles = F1ServerFunctions.get_circuit_poles(circuitName)
         ret = {'results': results, 'poles':poles}

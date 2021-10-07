@@ -137,33 +137,36 @@ def get_driver_currentStanding(driverName):
 
 def get_circuit_results(circuitName):
     results = []
-    for n in range(2017,2022):
+    for n in range(2015,2022):
         url = "https://ergast.com/api/f1/"+str(n)+"/circuits/"+circuitName+"/results/1"
         response = urllib.request.urlopen(url)
         my_xml = response.read()
         my_dic = xmltodict.parse(my_xml)
-        dri = my_dic['MRData']['RaceTable']['Race']['ResultsList']['Result']
-        name = dri['Driver']['GivenName']
-        surname = dri['Driver']['FamilyName']
-        number = dri['Driver']['PermanentNumber']
-        team = dri['Constructor']['Name']
-        driver = {'name':name, 'surname':surname, 'number':number, 'team':team}
-        results.append(driver)
+        if int(my_dic['MRData']['@total']) >= 1:
+            dri = my_dic['MRData']['RaceTable']['Race']['ResultsList']['Result']
+            name = dri['Driver']['GivenName']
+            surname = dri['Driver']['FamilyName']
+            number = dri['Driver']['PermanentNumber']
+            team = dri['Constructor']['Name']
+            driver = {'name':name, 'surname':surname, 'number':number, 'team':team}
+            results.append(driver)
     return results
+
 
 def get_circuit_poles(circuitName):
     results = []
-    for n in range(2017,2022):
+    for n in range(2015,2022):
         url = "https://ergast.com/api/f1/"+str(n)+"/circuits/"+circuitName+"/qualifying/1"
         response = urllib.request.urlopen(url)
         my_xml = response.read()
         my_dic = xmltodict.parse(my_xml)
-        dri = my_dic['MRData']['RaceTable']['Race']['QualifyingList']['QualifyingResult']
-        name = dri['Driver']['GivenName']
-        surname = dri['Driver']['FamilyName']
-        number = dri['Driver']['PermanentNumber']
-        team = dri['Constructor']['Name']
-        time = dri['Q1']
-        driver = {'name':name, 'surname':surname, 'number':number, 'team':team, 'time':time}
-        results.append(driver)
+        if int(my_dic['MRData']['@total']) >= 1:
+            dri = my_dic['MRData']['RaceTable']['Race']['QualifyingList']['QualifyingResult']
+            name = dri['Driver']['GivenName']
+            surname = dri['Driver']['FamilyName']
+            number = dri['Driver']['PermanentNumber']
+            team = dri['Constructor']['Name']
+            time = dri['Q1']
+            driver = {'name':name, 'surname':surname, 'number':number, 'team':team, 'time':time}
+            results.append(driver)
     return results
