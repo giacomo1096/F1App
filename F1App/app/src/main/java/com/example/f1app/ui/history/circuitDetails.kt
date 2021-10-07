@@ -38,8 +38,9 @@ class circuitDetails : Fragment() {
     ): View? {
         val intent = Intent(context, circuitDetails::class.java)
 
-        val ss:String = intent.getStringExtra("ID").toString()
-        Toast.makeText(context, "DEVI FUNGERE :$ss", Toast.LENGTH_LONG).show() //display the response on screen
+        //val ss:String = intent.getStringExtra("ID").toString()
+        Toast.makeText(context, "OK CAMBIO", Toast.LENGTH_LONG).show() //display the response on screen
+
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_circuit_details, container, false)

@@ -41,7 +41,7 @@ class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,
                 val fragment: Fragment = circuitDetails()
                 val fragmentManager: FragmentManager = (context as AppCompatActivity).getSupportFragmentManager()
                 val fragmentTransaction = fragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.navigation_history, fragment)
+                fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
                 fragmentTransaction.addToBackStack(null)
                 fragmentTransaction.commit()
 
