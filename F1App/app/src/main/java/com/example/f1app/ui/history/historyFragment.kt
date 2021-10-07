@@ -17,7 +17,7 @@ import org.json.JSONException
 
 class historyFragment : Fragment() {
 
-    private val url = "http://192.168.1.225:8000/circuits"
+    private val url = "http://192.168.1.139:8000/circuits"
     val jsonResponses: MutableList<Map<String,String>> = mutableListOf<Map<String,String>>()
 
     override fun onCreateView(

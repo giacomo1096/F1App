@@ -29,16 +29,13 @@ class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,
             circuitItem = itemView.findViewById(R.id.item)
             //Toast.makeText(contexf, "DEVI FUNGERE :$resp", Toast.LENGTH_LONG).show() //display the response on screen
 
-            val fragment = circuitDetails()
-
             circuitName.setOnClickListener {
                 var position: Int = getAdapterPosition()
                 val context = itemView.context
                 val id = resp.get(position).keys.toString()
 
-                Toast.makeText(context, "ID :$id", Toast.LENGTH_LONG).show() //display the response on screen
-
-                val fragment: Fragment = circuitDetails()
+                //Toast.makeText(context, "ID :$id", Toast.LENGTH_LONG).show() //display the response on screen
+                val fragment: Fragment = circuitDetails(id)
                 val fragmentManager: FragmentManager = (context as AppCompatActivity).getSupportFragmentManager()
                 val fragmentTransaction = fragmentManager.beginTransaction()
                 fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
