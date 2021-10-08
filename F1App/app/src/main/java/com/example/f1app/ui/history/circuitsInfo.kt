@@ -29,6 +29,9 @@ class circuitsInfo(circuitId:String) : Fragment() {
     private var cId = circuitId.substring(1,circuitId.length-1)
     private val url = "http://192.168.1.139:8000/circuit?name="+cId
 
+    //Giorgia
+    //private val url = "http://192.168.1.255:8000/circuit?name="+cId
+
     fun estractData(grid : GridLayout, jsonArray: JSONArray){
 
         for (i in 0 until jsonArray.length()) {
