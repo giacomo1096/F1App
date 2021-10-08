@@ -65,7 +65,7 @@ class F1Server(Resource):
                 if team not in ret:
                     ret.append(team)
 
-        return json.dumps(ret), 200
+        return {"list": ret}, 200
     
     #ritorna informazioni di un dato team
     #query /team?name=nomedato
@@ -103,7 +103,7 @@ class F1Server(Resource):
                 if driver not in ret:
                     ret.append(driver)
             
-        return json.dumps(ret), 200
+        return {"list": ret}, 200
 
     #ritorna informazioni di un dato driver
     #query /driver?name=nomedato

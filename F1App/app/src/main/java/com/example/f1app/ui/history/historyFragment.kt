@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.toolbox.Volley
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.JsonObjectRequest
 import kotlinx.android.synthetic.main.fragment_history.*
 import com.example.f1app.R
@@ -17,13 +16,10 @@ import org.json.JSONException
 
 class historyFragment : Fragment() {
 
-    private val url = "http://192.168.1.51:8000/circuits"
+    private val url = "http://192.168.1.139:8000/circuits"
     val jsonResponses: MutableList<Map<String,String>> = mutableListOf<Map<String,String>>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         //sendAndRequestResponse(jsonResponses)
         return inflater.inflate(R.layout.fragment_history, container, false)
