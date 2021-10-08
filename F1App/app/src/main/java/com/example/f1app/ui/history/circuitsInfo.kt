@@ -1,12 +1,14 @@
 package com.example.f1app.ui.history
 
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.marginLeft
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
@@ -17,12 +19,15 @@ import kotlinx.android.synthetic.main.fragment_history.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import android.widget.LinearLayout
+
+
+
 
 class circuitsInfo(circuitId:String) : Fragment() {
 
     private var cId = circuitId.substring(1,circuitId.length-1)
     private val url = "http://192.168.1.139:8000/circuit?name="+cId
-    val jsonResponses: MutableList<String> = mutableListOf<String>()
 
     fun estractData(grid : GridLayout, jsonArray: JSONArray){
 
@@ -35,10 +40,20 @@ class circuitsInfo(circuitId:String) : Fragment() {
             val time : TextView = TextView(context)
 
             name.text = jsonObject.getString("name")
-            surname.text= jsonObject.getString("surname")
-            numb.text = jsonObject.getString("number")
-            team.text = jsonObject.getString("team")
+            name.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F)
+            name.setPadding(3,0,3,0)
 
+            surname.text= jsonObject.getString("surname")
+            surname.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F)
+            surname.setPadding(3,0,3,0)
+
+            numb.text = jsonObject.getString("number")
+            numb.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
+            numb.setPadding(3,0,3,0)
+
+            team.text = jsonObject.getString("team")
+            team.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
+            team.setPadding(3,0,3,0)
 
             val list : MutableList<TextView> = mutableListOf<TextView>()
             list.add(numb)
@@ -49,6 +64,8 @@ class circuitsInfo(circuitId:String) : Fragment() {
             if (jsonObject.length() == 5){
                 time.text = jsonObject.getString("time")
                 list.add(time)
+                time.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
+                time.setPadding(3,0,3,0)
             }
 
 
