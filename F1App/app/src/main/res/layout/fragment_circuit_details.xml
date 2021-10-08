@@ -5,23 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.history.circuitsInfo"
-    android:clickable="true">
+    android:clickable="true"
+    >
 
 
-    <LinearLayout
+    <TableLayout
         android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        tools:ignore="MissingConstraints"
-        android:background="@color/white">
-        <GridLayout
-            android:id="@+id/grid"
+        android:background="@color/white"
+        android:layout_margin="5sp">
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
-    </LinearLayout>
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2017-2021 Pole Results"
+                android:textSize="25sp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:background="@color/icon_red"
+                android:padding="8dp">
+            </TextView>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <GridLayout
+                android:id="@+id/gridPole"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5sp"
+                android:orientation="horizontal" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2017-2021 Race Results"
+                android:textSize="25sp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:background="@color/icon_red"
+                android:padding="8dp">
+            </TextView>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <GridLayout
+                android:id="@+id/gridResults"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:orientation="horizontal"
+                android:layout_marginLeft="5sp"/>
+        </TableRow>
+    </TableLayout>
 
 
 </FrameLayout>
