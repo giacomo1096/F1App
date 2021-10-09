@@ -11,11 +11,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.f1app.R
 import android.annotation.SuppressLint
+import android.widget.ImageView
 import androidx.fragment.app.FragmentManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.f1app.newsAdapter.ViewHolder
-import it.sapienza.sportnewsapp.news.News
+import com.squareup.picasso.Picasso
 
+
+import it.sapienza.sportnewsapp.news.News
 
 class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : RecyclerView.Adapter<ViewHolder>() {
     private var context : Context = contextFrag
@@ -25,15 +28,17 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val news_title: TextView
-        //val news_image: TextView
         val news_desc: TextView
         val news_link: TextView
 
+        val ivBasicImage: ImageView
+
         init {
             news_title = itemView.findViewById(R.id.news_title)
-            //news_image = itemView.findViewById(R.id.)
             news_desc = itemView.findViewById(R.id.news_desc)
             news_link = itemView.findViewById(R.id.news_link)
+
+            ivBasicImage = itemView.findViewById<View>(R.id.news_img) as ImageView
 
             //Toast.makeText(context, "DEVI FUNGERE :$resp", Toast.LENGTH_LONG).show() //display the response on screen
 
@@ -48,6 +53,8 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         viewHolder.news_title.text = resp.get(i).title
+        val imageUri = resp.get(i).image
+        Picasso.get().load(imageUri).into(viewHolder.ivBasicImage)
         viewHolder.news_desc.text = resp.get(i).desc
         viewHolder.news_link.text = resp.get(i).link
 

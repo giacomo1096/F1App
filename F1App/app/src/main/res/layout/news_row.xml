@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,10 +22,23 @@
                 android:id="@+id/news_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
                 android:text="TextView"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow>
+            <ImageView
+                android:id="@+id/news_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitStart"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginLeft="5sp">
+            </ImageView>
         </TableRow>
 
         <TableRow>
@@ -32,9 +46,8 @@
                 android:id="@+id/news_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
                 android:text="TextView"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
         </TableRow>
 
         <TableRow>
@@ -42,11 +55,11 @@
                 android:id="@+id/news_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
                 android:layout_marginTop="2sp"
                 android:text="TextView"
                 android:textSize="15sp"
-                android:textStyle="italic"/>
+                android:textStyle="italic"
+                android:textColor="#0000ff"/>
         </TableRow>
 
         <View
