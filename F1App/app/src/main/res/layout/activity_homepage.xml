@@ -19,6 +19,20 @@
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_nav_menu"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/news_recycle"
+        android:background="@color/white"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvnews"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+
     <fragment
         android:id="@+id/nav_host_fragment_activity_homepage"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -31,6 +45,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.642"
-        app:navGraph="@navigation/mobile_navigation" />
+        app:navGraph="@navigation/mobile_navigation">
+
+    </fragment>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
