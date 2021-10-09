@@ -1,6 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/icon_red">
+            <TextView
+                android:textColor="@color/white"
+                android:text="Teams Info"
+                android:textSize="22sp"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <GridLayout
+                android:id="@+id/teamInfoGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="3sp"
+                >
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Name"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/teamName"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Nationality"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/nationality"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Results"
+                    android:layout_column="0"
+                    android:layout_row="2"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Champions win  "
+                    android:layout_column="0"
+                    android:layout_row="3"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/totChampWin"
+                    android:layout_column="1"
+                    android:layout_row="3"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Races Win"
+                    android:layout_column="0"
+                    android:layout_row="4"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/totWinRace"
+                    android:layout_column="1"
+                    android:layout_row="4"
+                    android:layout_gravity="fill" />
+            </GridLayout>
+        </TableRow>
+        <TableRow
+            android:layout_marginTop="5sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/icon_red">
+            <TextView
+                android:textColor="@color/white"
+                android:text="Current Season Informations"
+                android:textSize="22sp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_marginTop="2dp"
+                android:text="Current Championship"
+                android:layout_gravity="fill"
+                android:textSize="20sp"
+                android:layout_marginLeft="3sp"
+                />
+        </TableRow>
+        <TableRow>
+            <GridLayout
+                android:id="@+id/currentGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="3sp"
+                >
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Position  "
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="fill"
+                    />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/position"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Points"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/points"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Wins "
+                    android:layout_column="0"
+                    android:layout_row="2"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/wins"
+                    android:layout_column="1"
+                    android:layout_row="2"
+                    android:layout_gravity="fill" />
+            </GridLayout>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_marginTop="2dp"
+                android:text="Current Driver"
+                android:layout_gravity="fill"
+                android:textSize="20sp"
+                android:layout_marginLeft="3sp"
+                />
+        </TableRow>
+        <TableRow>
+            <GridLayout
+                android:id="@+id/currDriversGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="3sp"
+                >
+            </GridLayout>
+        </TableRow>
+
+    </TableLayout>
+
+</FrameLayout>

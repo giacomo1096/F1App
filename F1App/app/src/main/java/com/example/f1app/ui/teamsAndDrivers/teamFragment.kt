@@ -1,5 +1,6 @@
 package com.example.f1app.ui.teamsAndDrivers
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,16 +14,19 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.f1app.R
+import kotlinx.android.synthetic.main.fragment_team.*
 import org.json.JSONException
 
-class teamFragment(teamId) : Fragment() {
+class teamFragment(teamId:String, teamName:String) : Fragment() {
     private val url_driver = "http://192.168.1.139:8000/team?name="+teamId
+    val teamName = teamName
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_team, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
         val requestQueue = Volley.newRequestQueue(context)
@@ -33,46 +37,58 @@ class teamFragment(teamId) : Fragment() {
                     val nationality = response.getString("nationality")
                     val totChampWin = response.getString("totalChampRace")
                     val totWinsRace = response.getString("totalWinsRace")
+                    itemView.findViewById<TextView>(R.id.teamName).text = teamName
+                    itemView.findViewById<TextView>(R.id.nationality).text = nationality
+                    itemView.findViewById<TextView>(R.id.totChampWin).text = totChampWin
+                    itemView.findViewById<TextView>(R.id.totWinRace).text = totWinsRace
 
                     val currentStandInfo = response.getJSONObject("standInfo")
-                    val grid = itemView.findViewById<GridLayout>(R.id.currentResGrid)
-                    if (currentStanding.getString("position") == "0"){
-                        grid.removeAllViews()
+
+
+                    val driversGrid = itemView.findViewById<GridLayout>(R.id.currDriversGrid)
+                    val currentGrid = itemView.findViewById<GridLayout>(R.id.currentGrid)
+
+                    if(currentStandInfo.getString("rank") == "0"){
+                        currentGrid.removeAllViews()
                         val txt : TextView = TextView(context)
                         txt.text = "Not in current championship"
                         val row = GridLayout.spec(0, 1)
                         val colspan = GridLayout.spec(0, 1)
                         val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, colspan)
-                        grid.addView(txt, gridLayoutParam)
-                        grid.setVisibility(View.VISIBLE)
+                        currentGrid.addView(txt, gridLayoutParam)
+                        currentGrid.setVisibility(View.VISIBLE)
+
+                        driversGrid.removeAllViews()
+                        val txt1 : TextView = TextView(context)
+                        txt1.text = "No Current Drivers"
+                        val gridLayoutParam1: GridLayout.LayoutParams = GridLayout.LayoutParams(row, colspan)
+                        driversGrid.addView(txt1, gridLayoutParam1)
+                        driversGrid.setVisibility(View.VISIBLE)
                     }
                     else{
-                        itemView.findViewById<TextView>(R.id.position).text = currentStanding.getString("position")
-                        itemView.findViewById<TextView>(R.id.points).text = currentStanding.getString("points")
-                        itemView.findViewById<TextView>(R.id.team).text = currentStanding.getString("team")
-                        itemView.findViewById<TextView>(R.id.wins).text = currentStanding.getString("wins")
-                    }
+                        itemView.findViewById<TextView>(R.id.position).text = currentStandInfo.getString("rank")
+                        itemView.findViewById<TextView>(R.id.points).text = currentStandInfo.getString("points")
+                        itemView.findViewById<TextView>(R.id.wins).text = currentStandInfo.getString("wins")
 
-                    val drivers = response.getJSONArray("currentDrivers")
-                    val teamGrid = itemView.findViewById<GridLayout>(R.id.teamsGrid)
-                    teamGrid.removeAllViews()
+                        val drivers = response.getJSONArray("currentDrivers")
+                        driversGrid.removeAllViews()
 
-                    for (i in 0 until teams.length()) {
-                        val teamName : TextView = TextView(context)
-                        val teamNationality: TextView = TextView(context)
-                        val jsonObject = teams.getJSONObject(i)
-                        teamName.text = "Team: "+ jsonObject.getString("name")
-                        val row = GridLayout.spec(i, 1)
-                        val col1 =  GridLayout.spec(0, 1)
-                        val gridLayoutParamTeam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col1)
-                        teamGrid.addView(teamName, gridLayoutParamTeam)
-                        teamGrid.setVisibility(View.VISIBLE)
+                        for (i in 0 until drivers.length()) {
+                            val driverName : TextView = TextView(context)
+                            val driverNumber: TextView = TextView(context)
+                            val jsonObject = drivers.getJSONObject(i)
+                            driverNumber.text = " "+ jsonObject.getString("permanentNumber")
+                            val row = GridLayout.spec(i, 1)
+                            val col1 =  GridLayout.spec(0, 1)
+                            val gridLayoutParamTeam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col1)
+                            driversGrid.addView(driverNumber, gridLayoutParamTeam)
+                            driversGrid.setVisibility(View.VISIBLE)
 
-                        teamNationality.text = "  Team Nationality: "+ jsonObject.getString("nationality")
-                        val col2 =  GridLayout.spec(1, 1)
-                        val gridLayoutParamNation: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col2)
-                        teamGrid.addView(teamNationality, gridLayoutParamNation)
-
+                            driverName.text = "  "+ jsonObject.getString("driverSurname") + "  " + jsonObject.getString("driverName")
+                            val col2 =  GridLayout.spec(1, 1)
+                            val gridLayoutParamNation: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col2)
+                            driversGrid.addView(driverName, gridLayoutParamNation)
+                        }
                     }
 
                 } catch (e: JSONException) {
