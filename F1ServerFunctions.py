@@ -14,15 +14,15 @@ def get_team_current_drivers(teamName):
     response = urllib.request.urlopen(url)
     my_xml = response.read()
     my_dic = xmltodict.parse(my_xml)
-
-    drivers_list = my_dic['MRData']['DriverTable']['Driver']
-    currentDrivers= []
-    for t in drivers_list:
-        driverName = t['GivenName']
-        driverSurname = t['FamilyName']
-        driverNumb = t['PermanentNumber']
-        driver = {'permanentNumber':driverNumb, 'driverName': driverName, 'driverSurname': driverSurname}
-        currentDrivers.append(driver)
+    currentDrivers = []
+    if my_dic['MRData']['@total'] != "0":
+        drivers_list = my_dic['MRData']['DriverTable']['Driver']
+        for t in drivers_list:
+            driverName = t['GivenName']
+            driverSurname = t['FamilyName']
+            driverNumb = t['PermanentNumber']
+            driver = {'permanentNumber':driverNumb, 'driverName': driverName, 'driverSurname': driverSurname}
+            currentDrivers.append(driver)
     return currentDrivers
 
 def get_team_standInfo(teamName):
@@ -31,7 +31,7 @@ def get_team_standInfo(teamName):
     my_xml = response.read()
     my_dic = xmltodict.parse(my_xml)
 
-    standInfo = "no current results"
+    standInfo = {'rank' : '0'}
     standings = my_dic['MRData']['StandingsTable']
     if my_dic['MRData']['@total'] != '0' :
         rank = standings['StandingsList']['ConstructorStanding']['@position']

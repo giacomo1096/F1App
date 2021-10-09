@@ -15,16 +15,12 @@ import com.android.volley.toolbox.Volley
 import com.example.f1app.R
 import org.json.JSONException
 
-class driverFragment(driverId: String) : Fragment() {
-    private val url_driver = "http://192.168.1.139:8000/driver?name="+driverId
-    val jsonResponses: MutableList<Map<String,String>> = mutableListOf<Map<String,String>>()
+class teamFragment(teamId) : Fragment() {
+    private val url_driver = "http://192.168.1.139:8000/team?name="+teamId
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_driver, container, false)
+        return inflater.inflate(R.layout.fragment_team, container, false)
     }
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
@@ -34,22 +30,11 @@ class driverFragment(driverId: String) : Fragment() {
             Request.Method.GET, url_driver, null,
             { response ->
                 try {
-                    val driverInfo = response.getJSONObject("driverInfo")
-                    itemView.findViewById<TextView>(R.id.name).text = driverInfo.getString("name")
-                    itemView.findViewById<TextView>(R.id.surname).text = driverInfo.getString("surname")
-                    itemView.findViewById<TextView>(R.id.numb).text = driverInfo.getString("numb")
-                    itemView.findViewById<TextView>(R.id.birth).text = driverInfo.getString("birth")
-                    itemView.findViewById<TextView>(R.id.nation).text = driverInfo.getString("nationality")
+                    val nationality = response.getString("nationality")
+                    val totChampWin = response.getString("totalChampRace")
+                    val totWinsRace = response.getString("totalWinsRace")
 
-                    val poleRace = response.getString("poleRaces")
-                    val wonChamp = response.getString("wonChamp")
-                    val wonRace = response.getString("wonRaces")
-                    itemView.findViewById<TextView>(R.id.polePosition).text = poleRace
-                    itemView.findViewById<TextView>(R.id.wonChamp).text = wonChamp
-                    itemView.findViewById<TextView>(R.id.wonRaces).text = wonRace
-
-
-                    val currentStanding = response.getJSONObject("currentStanding")
+                    val currentStandInfo = response.getJSONObject("standInfo")
                     val grid = itemView.findViewById<GridLayout>(R.id.currentResGrid)
                     if (currentStanding.getString("position") == "0"){
                         grid.removeAllViews()
@@ -68,7 +53,7 @@ class driverFragment(driverId: String) : Fragment() {
                         itemView.findViewById<TextView>(R.id.wins).text = currentStanding.getString("wins")
                     }
 
-                    val teams = response.getJSONArray("teamsList")
+                    val drivers = response.getJSONArray("currentDrivers")
                     val teamGrid = itemView.findViewById<GridLayout>(R.id.teamsGrid)
                     teamGrid.removeAllViews()
 
