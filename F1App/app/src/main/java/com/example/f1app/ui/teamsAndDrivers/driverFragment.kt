@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -73,10 +75,21 @@ class driverFragment(driverId: String) : Fragment() {
                     teamGrid.removeAllViews()
 
                     for (i in 0 until teams.length()) {
+
                         val teamName : TextView = TextView(context)
                         val teamNationality: TextView = TextView(context)
                         val jsonObject = teams.getJSONObject(i)
+                        val tId = jsonObject.getString("id")
+
                         teamName.text = "Team: "+ jsonObject.getString("name")
+                        teamName.setOnClickListener {
+                            val fragment: Fragment = teamFragment(tId, jsonObject.getString("name") )
+                            val fragmentManager: FragmentManager = (context as AppCompatActivity).getSupportFragmentManager()
+                            val fragmentTransaction = fragmentManager.beginTransaction()
+                            fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
+                            fragmentTransaction.addToBackStack(null)
+                            fragmentTransaction.commit()
+                        }
                         val row = GridLayout.spec(i, 1)
                         val col1 =  GridLayout.spec(0, 1)
                         val gridLayoutParamTeam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col1)
@@ -84,6 +97,14 @@ class driverFragment(driverId: String) : Fragment() {
                         teamGrid.setVisibility(View.VISIBLE)
 
                         teamNationality.text = "  Team Nationality: "+ jsonObject.getString("nationality")
+                        teamNationality.setOnClickListener {
+                            val fragment: Fragment = teamFragment(tId, jsonObject.getString("name") )
+                            val fragmentManager: FragmentManager = (context as AppCompatActivity).getSupportFragmentManager()
+                            val fragmentTransaction = fragmentManager.beginTransaction()
+                            fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
+                            fragmentTransaction.addToBackStack(null)
+                            fragmentTransaction.commit()
+                        }
                         val col2 =  GridLayout.spec(1, 1)
                         val gridLayoutParamNation: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col2)
                         teamGrid.addView(teamNationality, gridLayoutParamNation)

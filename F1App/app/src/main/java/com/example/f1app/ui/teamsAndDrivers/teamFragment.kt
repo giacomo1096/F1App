@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -78,6 +80,14 @@ class teamFragment(teamId:String, teamName:String) : Fragment() {
                             val driverNumber: TextView = TextView(context)
                             val jsonObject = drivers.getJSONObject(i)
                             driverNumber.text = " "+ jsonObject.getString("permanentNumber")
+                            driverNumber.setOnClickListener {
+                                val fragment: Fragment = driverFragment(jsonObject.getString("driverId"))
+                                val fragmentManager: FragmentManager = (context as AppCompatActivity).getSupportFragmentManager()
+                                val fragmentTransaction = fragmentManager.beginTransaction()
+                                fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
+                                fragmentTransaction.addToBackStack(null)
+                                fragmentTransaction.commit()
+                            }
                             val row = GridLayout.spec(i, 1)
                             val col1 =  GridLayout.spec(0, 1)
                             val gridLayoutParamTeam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col1)
@@ -85,6 +95,14 @@ class teamFragment(teamId:String, teamName:String) : Fragment() {
                             driversGrid.setVisibility(View.VISIBLE)
 
                             driverName.text = "  "+ jsonObject.getString("driverSurname") + "  " + jsonObject.getString("driverName")
+                            driverName.setOnClickListener {
+                                val fragment: Fragment = driverFragment(jsonObject.getString("driverId"))
+                                val fragmentManager: FragmentManager = (context as AppCompatActivity).getSupportFragmentManager()
+                                val fragmentTransaction = fragmentManager.beginTransaction()
+                                fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
+                                fragmentTransaction.addToBackStack(null)
+                                fragmentTransaction.commit()
+                            }
                             val col2 =  GridLayout.spec(1, 1)
                             val gridLayoutParamNation: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col2)
                             driversGrid.addView(driverName, gridLayoutParamNation)

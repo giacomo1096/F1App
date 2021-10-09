@@ -18,10 +18,11 @@ def get_team_current_drivers(teamName):
     if my_dic['MRData']['@total'] != "0":
         drivers_list = my_dic['MRData']['DriverTable']['Driver']
         for t in drivers_list:
+            driverId = t['@driverId']
             driverName = t['GivenName']
             driverSurname = t['FamilyName']
             driverNumb = t['PermanentNumber']
-            driver = {'permanentNumber':driverNumb, 'driverName': driverName, 'driverSurname': driverSurname}
+            driver = {'permanentNumber':driverNumb, 'driverName': driverName, 'driverSurname': driverSurname, 'driverId': driverId}
             currentDrivers.append(driver)
     return currentDrivers
 
@@ -109,14 +110,16 @@ def get_driver_teams(driverName):
     teams = []
     if my_dic['MRData']['@total'] != '1':
         for t in teams_list:
+            tid = t['@constructorId']
             name = t['Name']
             nationality = t['Nationality']
-            team = {'name': name, 'nationality': nationality }
+            team = {'id':tid, 'name': name, 'nationality': nationality }
             teams.append(team)
     else : 
+        tid = t['@constructorId']
         name = teams_list['Name']
         nationality = teams_list['Nationality']
-        team = {'name': name, 'nationality': nationality }
+        team = {'id':tid, 'name': name, 'nationality': nationality }
         teams.append(team)
     return teams
 
