@@ -125,7 +125,7 @@ def get_driver_currentStanding(driverName):
     response = urllib.request.urlopen(url)
     my_xml = response.read()
     my_dic = xmltodict.parse(my_xml)
-    currentStanding = 'not in current championship'
+    currentStanding = {'position': '0'}
     if my_dic['MRData']['@total'] != '0':
         standing = my_dic['MRData']['StandingsTable']['StandingsList']['DriverStanding']
         position = standing['@position']
@@ -151,7 +151,6 @@ def get_circuit_results(circuitName):
             driver = {'name':name, 'surname':surname, 'number':number, 'team':team}
             results.append(driver)
     return results
-
 
 def get_circuit_poles(circuitName):
     results = []
