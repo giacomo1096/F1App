@@ -10,38 +10,27 @@ api = Api(app)
 
 
 PATH = '/'
-USER = "giulia"
+
 
 #Giorgia
-DATABASE1 = '/Users/giorg/Documents/GitHub/F1AppMobile/database.db'
-SCHEMA1 = '/Users/giorg/Documents/GitHub/F1AppMobile/db.sql'
-HOST1 = '192.168.1.225'
+#DATABASE = '/Users/giorg/Documents/GitHub/F1AppMobile/database.db'
+#SCHEMA = '/Users/giorg/Documents/GitHub/F1AppMobile/db.sql'
+#HOST = '192.168.1.225'
 
 #Giulia
-DATABASE2 = '/home/giulia/Desktop/Mobile/Proj/F1AppMobile/database.db'
-SCHEMA2 = '/home/giulia/Desktop/Mobile/Proj/F1AppMobile/db.sql'
-HOST2 = '192.168.1.139'
+DATABASE = '/home/giulia/Desktop/Mobile/Proj/F1AppMobile/database.db'
+SCHEMA = '/home/giulia/Desktop/Mobile/Proj/F1AppMobile/db.sql'
+HOST = '192.168.1.139'
 
 #Giacomo
-DATABASE3 = '/Users/giacomo/Desktop/progetto/F1AppMobile/database.db'
-SCHEMA3 = '/Users/giacomo/Desktop/progetto/F1AppMobile/db.sql'
-HOST3 = '192.168.1.51'
+#DATABASE = '/Users/giacomo/Desktop/progetto/F1AppMobile/database.db'
+#SCHEMA = '/Users/giacomo/Desktop/progetto/F1AppMobile/db.sql'
+#HOST = '192.168.1.51'
+
 
 #IL DB SI RESETTA OGNI VOLTA ---> DA SISTEMARE POI
 
 class F1Server(Resource):
-    if USER == "giorgia":
-        DATABASE = DATABASE1
-        SCHEMA = SCHEMA1
-        HOST = HOST1
-    if USER == "giulia":
-        DATABASE = DATABASE2
-        SCHEMA = SCHEMA2
-        HOST = HOST2
-    if USER == "giacomo":
-        DATABASE = DATABASE3
-        SCHEMA = SCHEMA3
-        HOST = HOST3
 
     #ritorna elenco dei circuiti id,Nome,Nazione
     @app.route(PATH+"circuits", methods=['GET'])
@@ -348,5 +337,4 @@ if __name__=='__main__':
     dbFunctions.init_db(DATABASE, SCHEMA)
     print('Starting web server...')
 
-    #Giorgia
-    app.run(host=HOST, port = '8000')
+    app.run(host= HOST, port = '8000')
