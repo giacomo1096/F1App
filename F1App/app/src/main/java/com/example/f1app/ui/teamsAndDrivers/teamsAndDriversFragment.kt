@@ -33,6 +33,7 @@ class teamsAndDriversFragment : Fragment() {
 
     private val url_drivers = "http://192.168.1.225:8000/drivers"
     private val url_teams = "http://192.168.1.225:8000/teams"
+    var query = 0 //0 drivers, 1 teams
     val jsonResponses: MutableList<Map<String,String>> = mutableListOf<Map<String,String>>()
 
     override fun onCreateView(
@@ -66,7 +67,7 @@ class teamsAndDriversFragment : Fragment() {
                         // RecyclerView behavior
                         layoutManager = LinearLayoutManager(activity)
                         // set the custom adapter to the RecyclerView
-                        adapter = teamsDriversAdapter(context, jsonResponses)
+                        adapter = teamsDriversAdapter(context, jsonResponses, query)
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -89,6 +90,7 @@ class teamsAndDriversFragment : Fragment() {
         val drivers_button = itemView.findViewById<Button>(R.id.buttonDrivers)
         drivers_button.setOnClickListener{
             jsonResponses.clear()
+            query = 0
             val jsonObjectRequest = JsonObjectRequest(
                 Request.Method.GET, url_drivers, null,
                 { response ->
@@ -109,7 +111,7 @@ class teamsAndDriversFragment : Fragment() {
                             // RecyclerView behavior
                             layoutManager = LinearLayoutManager(activity)
                             // set the custom adapter to the RecyclerView
-                            adapter = teamsDriversAdapter(context, jsonResponses)
+                            adapter = teamsDriversAdapter(context, jsonResponses, query)
                         }
                     } catch (e: JSONException) {
                         e.printStackTrace()
@@ -134,6 +136,7 @@ class teamsAndDriversFragment : Fragment() {
         val teams_button = itemView.findViewById<Button>(R.id.buttonTeams)
         teams_button.setOnClickListener{
             jsonResponses.clear()
+            query = 1
             val jsonObjectRequest = JsonObjectRequest(
                 Request.Method.GET, url_teams, null,
                 { response ->
@@ -152,7 +155,7 @@ class teamsAndDriversFragment : Fragment() {
                             // RecyclerView behavior
                             layoutManager = LinearLayoutManager(activity)
                             // set the custom adapter to the RecyclerView
-                            adapter = teamsDriversAdapter(context, jsonResponses)
+                            adapter = teamsDriversAdapter(context, jsonResponses, query)
                         }
                     } catch (e: JSONException) {
                         e.printStackTrace()

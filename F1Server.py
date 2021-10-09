@@ -10,8 +10,10 @@ api = Api(app)
 
 
 PATH = '/'
-DATABASE = '/home/giulia/Desktop/Mobile/Proj/F1App/database.db'
-SCHEMA = '/home/giulia/Desktop/Mobile/Proj/F1App/db.sql'
+
+#Giorgia
+DATABASE = '/Users/giorg/Documents/GitHub/F1AppMobile/database.db'
+SCHEMA = '/Users/giorg/Documents/GitHub/F1AppMobile/db.sql'
 #IL DB SI RESETTA OGNI VOLTA ---> DA SISTEMARE POI
 
 class F1Server(Resource):
@@ -50,7 +52,7 @@ class F1Server(Resource):
     @app.route(PATH+"teams", methods=['GET'])
     def get_teams():
         ret = []
-        for n in range(2017,2022): 
+        for n in range(2020,2022): 
             url = "http://ergast.com/api/f1/" + str(n) + "/constructors"
             response = urllib.request.urlopen(url)
             my_xml = response.read()
@@ -87,7 +89,7 @@ class F1Server(Resource):
     @app.route(PATH+"drivers", methods=['GET'])
     def get_drivers():
         ret = []
-        for n in range(2017,2022): 
+        for n in range(2020,2022): 
             url = "http://ergast.com/api/f1/" + str(n) + "/drivers"
             response = urllib.request.urlopen(url)
             my_xml = response.read()
@@ -320,4 +322,6 @@ if __name__=='__main__':
     print('Initializing database...')
     dbFunctions.init_db(DATABASE, SCHEMA)
     print('Starting web server...')
-    app.run(host='192.168.1.139', port = '8000')
+
+    #Giorgia
+    app.run(host='192.168.1.225', port = '8000')

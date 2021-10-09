@@ -14,9 +14,10 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.appcompat.app.AppCompatActivity
 
-class teamsDriversAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,String>>) : RecyclerView.Adapter<teamsDriversAdapter.ViewHolder>() {
+class teamsDriversAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,String>>, query:Int) : RecyclerView.Adapter<teamsDriversAdapter.ViewHolder>() {
     private var context : Context = contextFrag
     private var resp : MutableList<Map<String,String>> = jsonResponses
+    private var query_bol = query
 
     @SuppressLint("RestrictedApi")
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -51,17 +52,14 @@ class teamsDriversAdapter(contextFrag: Context, jsonResponses:MutableList<Map<St
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val key = resp.get(i).keys.toString().removeSurrounding("[","]")
-        if(key.equals("ferrari") || key.equals("force_india") || key.equals("haas") ||
-            key.equals("mclaren")|| key.equals("mercedes") || key.equals("red_bull") ||
-            key.equals("sauber") || key.equals("toro_rosso") || key.equals("williams") ||
-            key.equals("alfa") || key.equals("racing_point")|| key.equals("alphatauri")||
-            key.equals("alpine")|| key.equals("aston_martin")){
-            val v = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.team_row, viewGroup, false)
-            return ViewHolder(v)
-        } else{
+        if(query_bol == 0){
             val v = LayoutInflater.from(viewGroup.context)
                 .inflate(R.layout.driver_row, viewGroup, false)
+            return ViewHolder(v)
+
+        } else{
+            val v = LayoutInflater.from(viewGroup.context)
+                .inflate(R.layout.team_row, viewGroup, false)
             return ViewHolder(v)
         }
     }
