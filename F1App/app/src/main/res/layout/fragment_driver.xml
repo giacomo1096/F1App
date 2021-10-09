@@ -1,6 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:background="@color/white">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/icon_red">
+            <TextView
+                android:textColor="@color/white"
+                android:text="Driver Info"
+                android:textSize="22sp"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <GridLayout
+                android:id="@+id/driverInfoGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="3sp"
+                >
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Number"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/numb"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Name"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/name"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Surname"
+                    android:layout_column="0"
+                    android:layout_row="2"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/surname"
+                    android:layout_column="1"
+                    android:layout_row="2"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Date of Birth  "
+                    android:layout_column="0"
+                    android:layout_row="3"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/birth"
+                    android:layout_column="1"
+                    android:layout_row="3"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Nationality"
+                    android:layout_column="0"
+                    android:layout_row="4"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/nation"
+                    android:layout_column="1"
+                    android:layout_row="4"
+                    android:layout_gravity="fill" />
+            </GridLayout>
+        </TableRow>
+        <TableRow
+            android:layout_marginTop="5sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/icon_red">
+            <TextView
+                android:textColor="@color/white"
+                android:text="Careeer Results"
+                android:textSize="22sp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_marginTop="2dp"
+                android:text="Current Season"
+                android:layout_gravity="fill"
+                android:textSize="20sp"
+                android:layout_marginLeft="3sp"
+                />
+        </TableRow>
+        <TableRow>
+            <GridLayout
+                android:id="@+id/currentResGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="3sp"
+                >
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Position"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="fill"
+                    />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/position"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Points"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/points"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Team "
+                    android:layout_column="0"
+                    android:layout_row="2"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/team"
+                    android:layout_column="1"
+                    android:layout_row="2"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Wins "
+                    android:layout_column="0"
+                    android:layout_row="3"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/wins"
+                    android:layout_column="1"
+                    android:layout_row="3"
+                    android:layout_gravity="fill" />
+            </GridLayout>
+        </TableRow>
+        <TableRow>
+            <GridLayout
+                android:id="@+id/careerResGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="3sp"
+                >
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Summary"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="fill"
+                    android:textSize="20sp"
+                    />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Pole Position "
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/polePosition"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Won Races "
+                    android:layout_column="0"
+                    android:layout_row="2"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/wonRaces"
+                    android:layout_column="1"
+                    android:layout_row="2"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:text="Won Championship "
+                    android:layout_column="0"
+                    android:layout_row="3"
+                    android:layout_gravity="fill" />
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/wonChamp"
+                    android:layout_column="1"
+                    android:layout_row="3"
+                    android:layout_gravity="fill" />
+            </GridLayout>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_marginTop="2dp"
+                android:text="Past/Current Teams"
+                android:layout_gravity="fill"
+                android:textSize="20sp"
+                android:layout_marginLeft="3sp"
+                />
+        </TableRow>
+        <TableRow>
+            <GridLayout
+                android:id="@+id/teamsGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="3sp"
+                >
+            </GridLayout>
+        </TableRow>
+
+    </TableLayout>
+
+
+</FrameLayout>

@@ -32,7 +32,7 @@ class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,
             circuitName.setOnClickListener {
                 var position: Int = getAdapterPosition()
                 val context = itemView.context
-                val id = resp.get(position).keys.toString()
+                val id = resp.get(position).keys.toString().removeSurrounding("[","]")
 
                 //Toast.makeText(context, "ID :$id", Toast.LENGTH_LONG).show() //display the response on screen
                 val fragment: Fragment = circuitsInfo(id)

@@ -36,22 +36,23 @@ class teamsDriversAdapter(contextFrag: Context, jsonResponses:MutableList<Map<St
                 val context = itemView.context
                 val id = resp.get(position).keys.toString()
 
-                Toast.makeText(context, "ID :$id", Toast.LENGTH_LONG).show() //display the response on screen
+                //Toast.makeText(context, "ID :$id", Toast.LENGTH_LONG).show() //display the response on screen
 
-                /*
-                val fragment: Fragment = teamsDriversDetails(id)
-                val fragmentManager: FragmentManager = (context as AppCompatActivity).getSupportFragmentManager()
-                val fragmentTransaction = fragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
-                fragmentTransaction.addToBackStack(null)
-                fragmentTransaction.commit()*/
+                if (query_bol == 0){
+                    val fragment: Fragment = driverFragment(id.removeSurrounding("[","]"))
+                    val fragmentManager: FragmentManager = (context as AppCompatActivity).getSupportFragmentManager()
+                    val fragmentTransaction = fragmentManager.beginTransaction()
+                    fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
+                    fragmentTransaction.addToBackStack(null)
+                    fragmentTransaction.commit()
+                }
 
             }
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        val key = resp.get(i).keys.toString().removeSurrounding("[","]")
+        val key = resp.get(i).keys.toString()
         if(query_bol == 0){
             val v = LayoutInflater.from(viewGroup.context)
                 .inflate(R.layout.driver_row, viewGroup, false)

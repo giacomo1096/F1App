@@ -31,8 +31,8 @@ import kotlinx.android.synthetic.main.fragment_teamsdrivers.*
 
 class teamsAndDriversFragment : Fragment() {
 
-    private val url_drivers = "http://192.168.1.225:8000/drivers"
-    private val url_teams = "http://192.168.1.225:8000/teams"
+    private val url_drivers = "http://192.168.1.139:8000/drivers"
+    private val url_teams = "http://192.168.1.139:8000/teams"
     var query = 0 //0 drivers, 1 teams
     val jsonResponses: MutableList<Map<String,String>> = mutableListOf<Map<String,String>>()
 
