@@ -17,10 +17,32 @@
         android:orientation="horizontal"
         android:background="@color/white"
         android:layout_margin="5sp">
+        <TableRow
+            android:background="@color/icon_red">
+            <TextView
+                android:id="@+id/circuitName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/white"
+                android:padding="8dp"/>
+        </TableRow>
+        <TableRow>
+            <ImageView
+                android:id="@+id/circuit_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitStart"
+                android:adjustViewBounds="true"
+                android:layout_margin="5sp">
+            </ImageView>
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/icon_red">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -28,7 +50,6 @@
                 android:textSize="25sp"
                 android:gravity="center_horizontal"
                 android:textColor="@color/white"
-                android:background="@color/icon_red"
                 android:padding="8dp">
             </TextView>
         </TableRow>
@@ -45,7 +66,8 @@
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/icon_red">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

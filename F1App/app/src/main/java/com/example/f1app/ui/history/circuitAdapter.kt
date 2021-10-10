@@ -35,7 +35,7 @@ class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,
                 val id = resp.get(position).keys.toString().removeSurrounding("[","]")
 
                 //Toast.makeText(context, "ID :$id", Toast.LENGTH_LONG).show() //display the response on screen
-                val fragment: Fragment = circuitsInfo(id)
+                val fragment: Fragment = circuitsInfo(id, resp.get(position).values.toString().removeSurrounding("[","]"))
                 val fragmentManager: FragmentManager = (context as AppCompatActivity).getSupportFragmentManager()
                 val fragmentTransaction = fragmentManager.beginTransaction()
                 fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)

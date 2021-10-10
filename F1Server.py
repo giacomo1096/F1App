@@ -189,8 +189,9 @@ class F1Server(Resource):
         raceRound = lastRace['@round']
         raceDate = lastRace['Date']
         raceTime = lastRace['Time']
+        raceCoordinate = lastRace['Circuit']['Location']['@lat'] +","+lastRace['Circuit']['Location']['@long']
         raceCircuit = lastRace['Circuit']['CircuitName']+ ',' + lastRace['Circuit']['Location']['Locality'] + ',' + lastRace['Circuit']['Location']['Country']
-        raceInfo = {'race': raceRound, 'raceDate':raceDate, 'raceTime':raceTime + " Local time", 'raceCircuit': raceCircuit}
+        raceInfo = {'race': raceRound, 'raceDate':raceDate, 'raceTime':raceTime + " Local time", 'raceCircuit': raceCircuit , 'raceLocation': raceCoordinate}
 
         ret ={'raceInfo': raceInfo}
         return json.dumps(ret), 200

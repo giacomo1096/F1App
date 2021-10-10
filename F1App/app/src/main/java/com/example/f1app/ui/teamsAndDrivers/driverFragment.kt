@@ -12,14 +12,49 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.f1app.R
+import kotlinx.android.synthetic.main.activity_homepage.*
 import org.json.JSONException
+import org.json.JSONObject
+
+
+import android.widget.ImageView
+import com.squareup.picasso.Picasso
 
 class driverFragment(driverId: String) : Fragment() {
     private val url_driver = "http://192.168.1.139:8000/driver?name="+driverId
-    val jsonResponses: MutableList<Map<String,String>> = mutableListOf<Map<String,String>>()
+
+
+    private fun wiki_api(name :String, surname : String, itemView: View) {
+        //Create request queue
+        val requestQueue = Volley.newRequestQueue(context)
+        val url = "https://en.wikipedia.org/w/api.php?action=query&titles="+name+"_"+surname+"&prop=pageimages&format=json&pithumbsize=100"
+        val stringRequest = StringRequest(
+            Request.Method.GET, url,
+            { response: String? ->
+                try {
+                    val jsonObj = JSONObject(response).toString()
+                    if (jsonObj.split("source").size > 1) {
+                        val src: String = jsonObj.split("source")[1].split("\"")[2]
+                        //Toast.makeText(context, "SOURCEEEEE:   " + src , Toast.LENGTH_SHORT).show()
+                        Picasso.get().load(src)
+                            .into(itemView.findViewById<ImageView>(R.id.driver_img))
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        )  //Method that handles error in volley
+        { error: VolleyError ->
+            Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+        }
+
+        requestQueue.add(stringRequest)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +77,8 @@ class driverFragment(driverId: String) : Fragment() {
                     itemView.findViewById<TextView>(R.id.numb).text = driverInfo.getString("numb")
                     itemView.findViewById<TextView>(R.id.birth).text = driverInfo.getString("birth")
                     itemView.findViewById<TextView>(R.id.nation).text = driverInfo.getString("nationality")
+
+                    wiki_api(driverInfo.getString("name"),driverInfo.getString("surname"), itemView)
 
                     val poleRace = response.getString("poleRaces")
                     val wonChamp = response.getString("wonChamp")

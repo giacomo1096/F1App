@@ -116,7 +116,7 @@ def get_driver_teams(driverName):
             team = {'id':tid, 'name': name, 'nationality': nationality }
             teams.append(team)
     else : 
-        tid = t['@constructorId']
+        tid = teams_list['@constructorId']
         name = teams_list['Name']
         nationality = teams_list['Nationality']
         team = {'id':tid, 'name': name, 'nationality': nationality }

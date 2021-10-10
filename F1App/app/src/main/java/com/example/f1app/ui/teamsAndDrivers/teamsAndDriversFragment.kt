@@ -9,25 +9,16 @@ import android.widget.Button
 import android.widget.Toast
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.f1app.R
-import com.example.f1app.SharedViewModel
 import org.json.JSONException
 import com.android.volley.DefaultRetryPolicy
-import com.example.f1app.HomepageActivity
-import com.google.android.gms.common.SignInButton
 import kotlinx.android.synthetic.main.fragment_teamsdrivers.*
 
 
-// https://guides.codepath.com/android/using-the-recyclerview
-// https://www.geeksforgeeks.org/how-to-implement-swipe-down-to-refresh-in-android-using-android-studio/
-
-// https://medium.com/androiddevelopers/viewmodels-a-simple-example-ed5ac416317e
-// https://betterprogramming.pub/everything-to-understand-about-viewmodel-400e8e637a58
 
 class teamsAndDriversFragment : Fragment() {
 

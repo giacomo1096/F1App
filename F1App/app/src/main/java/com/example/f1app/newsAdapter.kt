@@ -6,14 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import com.example.f1app.R
+
 import android.annotation.SuppressLint
 import android.widget.ImageView
-import androidx.fragment.app.FragmentManager
-import androidx.appcompat.app.AppCompatActivity
 import com.example.f1app.newsAdapter.ViewHolder
 import com.squareup.picasso.Picasso
 
