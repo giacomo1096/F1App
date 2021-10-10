@@ -87,23 +87,20 @@ class circuitsInfo(circuitId:String, circuitName:String) : Fragment() {
 
     }
 
-    private fun wiki_api(name :String, itemView: View) {
+    private fun wiki_api_En(name :String, itemView: View){
         //Create request queue
-        var itEn=0 //if 0 En funge if 1 prova It
         val requestQueue = Volley.newRequestQueue(context)
         val urlEn = "https://en.wikipedia.org/w/api.php?action=query&titles="+name+"&prop=pageimages&format=json&pithumbsize=100"
-        val urlIt = "https://it.wikipedia.org/w/api.php?action=query&titles="+name+"&prop=pageimages&format=json&pithumbsize=100"
         val stringRequestEn = StringRequest(Request.Method.GET, urlEn,
             { response: String? ->
                 try {
                     val jsonObj = JSONObject(response).toString()
+                    Toast.makeText(context, "RESP Size:   " + jsonObj.split("source").size , Toast.LENGTH_SHORT).show()
                     if (jsonObj.split("source").size > 1) {
                         val src: String = jsonObj.split("source")[1].split("\"")[2]
-                        //Toast.makeText(context, "SOURCEEEEE:   " + src , Toast.LENGTH_SHORT).show()
                         Picasso.get().load(src)
                             .into(itemView.findViewById<ImageView>(R.id.circuit_img))
                     }
-                    else {itEn = 1}
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
@@ -112,31 +109,31 @@ class circuitsInfo(circuitId:String, circuitName:String) : Fragment() {
         { error: VolleyError ->
             Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
         }
-        var stringRequest = stringRequestEn
-        if (itEn == 1) {
-            val stringRequestIt = StringRequest(Request.Method.GET, urlIt,
-                { response: String? ->
-                    try {
-                        val jsonObj = JSONObject(response).toString()
-                        if (jsonObj.split("source").size > 1) {
-                            val src: String = jsonObj.split("source")[1].split("\"")[2]
-                            //Toast.makeText(context, "SOURCEEEEE:   " + src , Toast.LENGTH_SHORT).show()
-                            Picasso.get().load(src)
-                                .into(itemView.findViewById<ImageView>(R.id.circuit_img))
-                        } else {
-                            itEn = 1
-                        }
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
+        requestQueue.add(stringRequestEn)
+    }
+    private fun wiki_api_It(name :String, itemView: View){
+        //Create request queue
+        val requestQueue = Volley.newRequestQueue(context)
+        val urlIt = "https://it.wikipedia.org/w/api.php?action=query&titles="+name+"&prop=pageimages&format=json&pithumbsize=100"
+        val stringRequestIt = StringRequest(Request.Method.GET, urlIt,
+            { response: String? ->
+                try {
+                    val jsonObj = JSONObject(response).toString()
+                    Toast.makeText(context, "RESP Size:   " + jsonObj.split("source").size , Toast.LENGTH_SHORT).show()
+                    if (jsonObj.split("source").size > 1) {
+                        val src: String = jsonObj.split("source")[1].split("\"")[2]
+                        Picasso.get().load(src)
+                            .into(itemView.findViewById<ImageView>(R.id.circuit_img))
                     }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
                 }
-            ) //Method that handles error in volley
-            { error: VolleyError ->
-                Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
             }
-            stringRequest = stringRequestEn
+        ) //Method that handles error in volley
+        { error: VolleyError ->
+            Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
         }
-        requestQueue.add(stringRequest)
+        requestQueue.add(stringRequestIt)
     }
 
     fun createGrid(response: JSONObject, root: View){
@@ -169,7 +166,9 @@ class circuitsInfo(circuitId:String, circuitName:String) : Fragment() {
                 nameCircuit = nameCircuit + "_" + name_list[c]
             }
         }
-        wiki_api(nameCircuit, itemView)
+        wiki_api_En(nameCircuit, itemView)
+        wiki_api_It(nameCircuit, itemView)
+
         itemView.findViewById<TextView>(R.id.circuitName).text = cN
 
         val requestQueue = Volley.newRequestQueue(context)

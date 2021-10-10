@@ -140,7 +140,7 @@ def get_driver_currentStanding(driverName):
 
 def get_circuit_results(circuitName):
     results = []
-    for n in range(2015,2022):
+    for n in range(2017,2022):
         url = "https://ergast.com/api/f1/"+str(n)+"/circuits/"+circuitName+"/results/1"
         response = urllib.request.urlopen(url)
         my_xml = response.read()
@@ -157,7 +157,7 @@ def get_circuit_results(circuitName):
 
 def get_circuit_poles(circuitName):
     results = []
-    for n in range(2015,2022):
+    for n in range(2017,2022):
         url = "https://ergast.com/api/f1/"+str(n)+"/circuits/"+circuitName+"/qualifying/1"
         response = urllib.request.urlopen(url)
         my_xml = response.read()
