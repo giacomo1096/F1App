@@ -8,12 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.widget.ImageView
 import com.example.f1app.newsAdapter.ViewHolder
 import com.squareup.picasso.Picasso
 
+import com.example.f1app.News
 
-import it.sapienza.sportnewsapp.news.News
+
+
 
 class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : RecyclerView.Adapter<ViewHolder>() {
     private var context : Context = contextFrag
@@ -52,6 +56,10 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
         Picasso.get().load(imageUri).into(viewHolder.ivBasicImage)
         viewHolder.news_desc.text = resp.get(i).desc
         viewHolder.news_link.text = resp.get(i).link
+        viewHolder.news_link.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(resp.get(i).link))
+            context.startActivity(browserIntent)
+        }
 
     }
 

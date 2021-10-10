@@ -26,8 +26,6 @@ import com.android.volley.toolbox.Volley
 
 import com.android.volley.RequestQueue
 import com.android.volley.VolleyError
-import com.example.f1app.ui.history.circuitAdapter
-import it.sapienza.sportnewsapp.news.News
 import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.android.synthetic.main.fragment_history.*
 

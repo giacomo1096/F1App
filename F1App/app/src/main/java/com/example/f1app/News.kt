@@ -1,4 +1,5 @@
-package it.sapienza.sportnewsapp.news
+package com.example.f1app
+
 
 data class News (
     val title: String,
