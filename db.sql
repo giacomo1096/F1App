@@ -9,7 +9,8 @@ CREATE TABLE accounts (
 );
 
 CREATE TABLE news (
-    webTitle TEXT PRIMARY KEY,
+    id TEXT PRIMARY KEY,
+    webTitle TEXT NOT NULL,
     webImage TEXT NOT NULL,
     webDesc TEXT NOT NULL,
     webUrl TEXT NOT NULL
@@ -20,5 +21,5 @@ CREATE TABLE favorites (
     content TEXT NOT NULL,
     PRIMARY KEY (account, content),
     FOREIGN KEY (account) REFERENCES accounts (userID),
-    FOREIGN KEY (content) REFERENCES news (webTitle)
+    FOREIGN KEY (content) REFERENCES news (id)
 );

@@ -1,44 +1,29 @@
-package com.example.f1app
-
-import android.content.Context
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
-import android.view.LayoutInflater
-import android.view.View
+package com.example.f1app.ui.favAndShake
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.opengl.Visibility
-import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.f1app.newsAdapter.ViewHolder
+import com.example.f1app.News
+import com.example.f1app.R
+import org.json.JSONObject
 import com.squareup.picasso.Picasso
 
-import com.example.f1app.News
-import com.example.f1app.ui.history.circuitAdapter
-import kotlinx.android.synthetic.main.fragment_history.*
-import org.json.JSONException
-import org.json.JSONObject
-import java.nio.charset.Charset
-
-
-class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : RecyclerView.Adapter<ViewHolder>() {
+class favoritesAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : RecyclerView.Adapter<favoritesAdapter.ViewHolder>() {
     private var context : Context = contextFrag
     private var resp : MutableList<News> = jsonResponses
 
-
-    private val urlCreate = "http://192.168.1.139:8000/createfavorite"
-    private val urlDelete = "http://192.168.1.139:8000/deletefavorite?newsid="
-
+    private val urlDelete = "http://192.168.1.139:8000/deletefavorite?id="
     @SuppressLint("RestrictedApi")
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -55,11 +40,9 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
             news_link = itemView.findViewById(R.id.news_link)
             news_no_pref = itemView.findViewById(R.id.empty_star)
             news_pref = itemView.findViewById(R.id.star)
-
+            news_pref.visibility = View.VISIBLE
+            news_no_pref.visibility = View.GONE
             ivBasicImage = itemView.findViewById<View>(R.id.news_img) as ImageView
-
-            //Toast.makeText(context, "DEVI FUNGERE :$resp", Toast.LENGTH_LONG).show() //display the response on screen
-
         }
     }
 
@@ -83,31 +66,6 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
         viewHolder.news_no_pref.setOnClickListener {
             viewHolder.news_pref.visibility = View.VISIBLE
             viewHolder.news_no_pref.visibility = View.GONE
-
-            val requestQueue = Volley.newRequestQueue(context)
-            val newsJSON = JSONObject()
-            newsJSON.put("id", i.toString())
-            newsJSON.put("webTitle", resp.get(i).title)
-            newsJSON.put("webImage", resp.get(i).image)
-            newsJSON.put("webDesc", resp.get(i).desc)
-            newsJSON.put("webUrl", resp.get(i).link)
-            val jsonobj = JSONObject()
-            jsonobj.put("news", newsJSON)
-            jsonobj.put("userId", "1")
-            val request = JsonObjectRequest(Request.Method.POST,urlCreate,jsonobj,
-                { response ->
-                    // Process the json
-                    try {
-                        Toast.makeText(context, "Response: $response", Toast.LENGTH_LONG).show()
-                    }catch (e:Exception){
-                        Toast.makeText(context, "Exception: $e", Toast.LENGTH_LONG).show()
-                    }
-
-                }, {
-                    // Error in request
-                    Toast.makeText(context, "Volley error: $it", Toast.LENGTH_LONG).show()
-                })
-            requestQueue.add(request)
         }
 
         viewHolder.news_pref.setOnClickListener {
@@ -133,5 +91,7 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
     override fun getItemCount(): Int {
         return resp.size
     }
+
+
 
 }

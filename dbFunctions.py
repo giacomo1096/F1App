@@ -102,13 +102,13 @@ def insertFavorite(database, userid, news):
     resourceCreated = False
     cur = connection.cursor()
     try:
-        cur.execute("INSERT INTO news (webTitle, webImage, webDesc, webUrl) VALUES (?,?,?,?)", (news['webTitle'], news['webImage'], news['webDesc'], news['webUrl']))
+        cur.execute("INSERT INTO news (id, webTitle, webImage, webDesc, webUrl) VALUES (?,?,?,?,?)", (news['id'], news['webTitle'], news['webImage'], news['webUrl'], news['webUrl']))
     except IntegrityError:
         # News registered yet
         pass
     finally:
         try:
-            cur.execute("INSERT INTO favorites (account, content) VALUES (?,?)", (userid, news['webTitle'] ))
+            cur.execute("INSERT INTO favorites (account, content) VALUES (?,?)", (userid, news['id'], ))
             resourceCreated = True
         except IntegrityError:
             # Favorite registered yet

@@ -256,7 +256,7 @@ class F1Server(Resource):
     def getFavorites():
         connection = dbFunctions.get_db_connection(DATABASE)
         userid = request.args.get('userId')
-        favorites = connection.execute("SELECT webTitle, webImage, webDesc, webUrl FROM favorites JOIN news on content=webTitle WHERE account='"+userid+"' ;").fetchall()
+        favorites = connection.execute("SELECT webTitle, webImage, webDesc, webUrl FROM favorites JOIN news on content=id WHERE account='"+userid+"' ;").fetchall()
         connection.commit()
         connection.close()
 
@@ -280,7 +280,7 @@ class F1Server(Resource):
             favorite = dict(favorite)
             res.append(favorite)
 
-        return {'favorites': res}, 200
+        return {'news': res}, 200
 
     @app.route(PATH+'accounts', methods=['GET'])
     def getAccounts():
