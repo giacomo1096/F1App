@@ -102,7 +102,7 @@ def insertFavorite(database, userid, news):
     resourceCreated = False
     cur = connection.cursor()
     try:
-        cur.execute("INSERT INTO news (webTitle, webImage, webDesc, webUrl) VALUES (?,?,?,?,?)", (news['webTitle'], news['webImage'], news['webDesc'], news['webUrl']))
+        cur.execute("INSERT INTO news (webTitle, webImage, webDesc, webUrl) VALUES (?,?,?,?)", (news['webTitle'], news['webImage'], news['webDesc'], news['webUrl']))
     except IntegrityError:
         # News registered yet
         pass

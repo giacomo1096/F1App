@@ -251,13 +251,12 @@ class F1Server(Resource):
 
         return {'error': True}, 403
 
-    #only for debug
+    #Get Favorite of specific account
     @app.route(PATH+'favorites', methods=['GET'])
     def getFavorites():
         connection = dbFunctions.get_db_connection(DATABASE)
-        #userid = request.args.get('userId')
-        #favorites = connection.execute("SELECT id, webTitle FROM favorites JOIN news on content=id WHERE account='"+userid+"' ;").fetchall()
-        favorites = connection.execute("SELECT id, webTitle FROM favorites JOIN news on content=id ;").fetchall()
+        userid = request.args.get('userId')
+        favorites = connection.execute("SELECT webTitle, webImage, webDesc, webUrl FROM favorites JOIN news on content=webTitle WHERE account='"+userid+"' ;").fetchall()
         connection.commit()
         connection.close()
 
@@ -267,6 +266,22 @@ class F1Server(Resource):
             res.append(favorite)
 
         return {'favorites': res}, 200
+
+    #get all saved news
+    @app.route(PATH+'news', methods=['GET'])
+    def getNews():
+        connection = dbFunctions.get_db_connection(DATABASE)
+        favorites = connection.execute("SELECT webTitle, webImage, webDesc, webUrl FROM news;").fetchall()
+        connection.commit()
+        connection.close()
+        
+        res = []
+        for favorite in favorites:
+            favorite = dict(favorite)
+            res.append(favorite)
+
+        return {'favorites': res}, 200
+
     @app.route(PATH+'accounts', methods=['GET'])
     def getAccounts():
         connection = dbFunctions.get_db_connection(DATABASE)
