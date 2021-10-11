@@ -2,6 +2,7 @@ package com.example.f1app
 
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Adapter
 import android.widget.LinearLayout
@@ -22,29 +23,37 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import android.os.Looper
+import android.util.AttributeSet
+import android.view.View
+import java.lang.Exception
 
 
+class SensorThread @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+    ) : View(context, attrs, defStyleAttr){
 
-
-class SensorThread(context: Context): Thread() {
-
-    private var context : Context = context
+    //var context : Context = context
     private var mShaker: Sensor? = null
 
-    override fun run():Unit{
+    init{
+        val thread = Thread{
+            try{
 
-        mShaker = Sensor(this, context)
-        mShaker!!.setOnShakeListener(object : Sensor.OnShakeListener {
-            override fun onShake() {
-                Toast.makeText(context, "SI SHAKERAAAAAAA", Toast.LENGTH_LONG).show() //display the response on screen
+                mShaker = Sensor(this, context)
+                mShaker!!.setOnShakeListener(object : Sensor.OnShakeListener {
+                    override fun onShake() {
+                        Toast.makeText(context, "SI SHAKERAAAAAAA", Toast.LENGTH_LONG).show() //display the response on screen
 
-            }
-        })
+                    }
+                })
 
-    }
+            } catch (e:Exception){ e.printStackTrace() }
+        }
 
-    fun onCreate(){
+        thread.start()
 
-    }
+        }
 
 }

@@ -58,8 +58,8 @@ class HomepageActivity : AppCompatActivity() {
 
         prepareData()
 
-        val thread = SensorThread(this)
-        thread.start()
+        //val thread = SensorThread(this)
+        //thread.start()
     }
 
     private fun prepareData() {
