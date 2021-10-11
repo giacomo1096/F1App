@@ -61,6 +61,23 @@
                 android:textStyle="italic"
                 android:textColor="#0000ff"/>
         </TableRow>
+        <TableRow>
+            <ImageView
+                android:id="@+id/empty_star"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_gravity="right"
+                android:src="@android:drawable/btn_star_big_off" />
+        </TableRow>
+        <TableRow>
+            <ImageView
+                android:id="@+id/star"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_gravity="right"
+                android:src="@android:drawable/btn_star_big_on"
+                android:visibility="gone"/>
+        </TableRow>
 
         <View
             android:layout_width="800sp"

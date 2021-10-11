@@ -3,23 +3,13 @@ package com.example.f1app
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 
 import kotlinx.android.synthetic.main.activity_main.*
 
-import java.io.IOException
 import com.google.android.gms.common.SignInButton
-import android.R.id.home
-
-
-// https://johncodeos.com/how-to-add-google-login-button-to-your-android-app-using-kotlin/
 
 class MainActivity : AppCompatActivity() {
 

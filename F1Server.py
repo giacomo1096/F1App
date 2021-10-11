@@ -211,24 +211,25 @@ class F1Server(Resource):
                     news = data['news']
                     #da sistemare con token
                     userid = data['userId']
-                    if 'id' in news and 'webPublicationDate' in news and 'webTitle' in news and 'webUrl' in news:
+                    #if 'id' in news and 'webImage' in news and 'webTitle' in news and 'webUrl' in news and 'webDesc' in news:
+                    if 'webTitle' in news :
                         resourceCreated = dbFunctions.insertFavorite(DATABASE, userid, news)
                         if resourceCreated:
                             print('Created favorite: ('+userid+', '+news['id']+')')
                             return {'error': False}, 201
                         else:
                             # Duplicate
-                            return {'error': True}, 403
+                            return {'error': True}, 401
                     else:
                         # Bad request
-                        return {'error': True}, 400
+                        return {'error': True}, 402
                 else:
                     # Bad request
-                    return {'error': True}, 400
+                    return {'error': True}, 403
             except ValueError:
                 # Invalid tokenID or forbidden insertion
                 pass
-        return {'error': True}, 403
+        return {'error': True}, 404
 
     # Delete a favorite resource SISTEMA USER/TOKEN
     @app.route(PATH+'deletefavorite', methods=['DELETE'])
@@ -254,8 +255,9 @@ class F1Server(Resource):
     @app.route(PATH+'favorites', methods=['GET'])
     def getFavorites():
         connection = dbFunctions.get_db_connection(DATABASE)
-        userid = request.args.get('userId')
-        favorites = connection.execute("SELECT id, webPublicationDate, webTitle, webUrl FROM favorites JOIN news on content=id WHERE account='"+userid+"' ;").fetchall()
+        #userid = request.args.get('userId')
+        #favorites = connection.execute("SELECT id, webTitle FROM favorites JOIN news on content=id WHERE account='"+userid+"' ;").fetchall()
+        favorites = connection.execute("SELECT id, webTitle FROM favorites JOIN news on content=id ;").fetchall()
         connection.commit()
         connection.close()
 
