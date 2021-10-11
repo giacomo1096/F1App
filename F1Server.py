@@ -13,14 +13,14 @@ PATH = '/'
 
 
 #Giorgia
-#DATABASE = '/Users/giorg/Documents/GitHub/F1AppMobile/database.db'
-#SCHEMA = '/Users/giorg/Documents/GitHub/F1AppMobile/db.sql'
-#HOST = '192.168.1.225'
+DATABASE = '/Users/giorg/Documents/GitHub/F1AppMobile/database.db'
+SCHEMA = '/Users/giorg/Documents/GitHub/F1AppMobile/db.sql'
+HOST = '192.168.1.225'
 
 #Giulia
-DATABASE = '/home/giulia/Desktop/Mobile/Proj/F1AppMobile/database.db'
-SCHEMA = '/home/giulia/Desktop/Mobile/Proj/F1AppMobile/db.sql'
-HOST = '192.168.1.139'
+#DATABASE = '/home/giulia/Desktop/Mobile/Proj/F1AppMobile/database.db'
+#SCHEMA = '/home/giulia/Desktop/Mobile/Proj/F1AppMobile/db.sql'
+#HOST = '192.168.1.139'
 
 #Giacomo
 #DATABASE = '/Users/giacomo/Desktop/progetto/F1AppMobile/database.db'
@@ -195,6 +195,31 @@ class F1Server(Resource):
 
         ret ={'raceInfo': raceInfo}
         return json.dumps(ret), 200
+
+    #ritorna la classifica piloti
+    @app.route(PATH+"driverStandings", methods=['GET'])
+    def get_driverStandings():
+        ret = []
+        url = "http://ergast.com/api/f1/current/driverStandings"
+        response = urllib.request.urlopen(url)
+        my_xml = response.read()
+
+        my_dic = xmltodict.parse(my_xml)
+        drivers_list = my_dic['MRData']['StandingsTable']['StandingsList']['DriverStanding']
+        
+        for t in drivers_list:
+            driverId = t['Driver']['@driverId']
+            driverName = t['Driver']['GivenName']
+            driverSurname = t['Driver']['FamilyName']
+            driverPermanentNumber = t['Driver']['PermanentNumber']
+            driverPosition = t['@position']
+            driverPoints = t['@points']
+            driverTeam = t['Constructor']['Name']
+
+            driver = {'driverId': driverId, 'driverName': driverName, 'driverSurname': driverSurname, 'driverTeam': driverTeam, 'driverPermanentNumber': driverPermanentNumber, 'driverPosition': driverPosition, 'driverPoints': driverPoints}
+            ret.append(driver)
+            
+        return {"list": ret}, 200
 
     
     #DB Request

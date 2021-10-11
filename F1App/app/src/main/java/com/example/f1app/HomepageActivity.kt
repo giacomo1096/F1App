@@ -57,6 +57,9 @@ class HomepageActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         prepareData()
+
+        val thread = SensorThread(this)
+        thread.start()
     }
 
     private fun prepareData() {
