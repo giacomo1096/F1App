@@ -98,6 +98,7 @@
                 android:textSize="20sp"
                 android:layout_marginLeft="3sp"
                 />
+
         </TableRow>
         <TableRow>
             <GridLayout
@@ -169,6 +170,14 @@
                     android:layout_row="8"
                     android:layout_gravity="fill" />
             </GridLayout>
+
+            <ImageView
+                android:id="@+id/weather_img"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_margin="5sp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"></ImageView>
         </TableRow>
 
 

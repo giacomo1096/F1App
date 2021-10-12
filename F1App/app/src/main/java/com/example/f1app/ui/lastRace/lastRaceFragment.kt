@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 
@@ -19,6 +20,7 @@ import com.example.f1app.newsAdapter
 import kotlinx.android.synthetic.main.activity_homepage.*
 import org.json.JSONArray
 import org.json.JSONException
+import com.squareup.picasso.Picasso
 
 class lastRaceFragment : Fragment() {
 
@@ -74,6 +76,10 @@ class lastRaceFragment : Fragment() {
                     val weatherInfo = jsonArray.getJSONObject(0) // weatherInfo
                     itemView.findViewById<TextView>(R.id.weather).text = weatherInfo.getString("main")
                     itemView.findViewById<TextView>(R.id.weather_description).text = weatherInfo.getString("description")
+                    val icon = weatherInfo.getString("icon")
+                    val url_icon = "http://openweathermap.org/img/w/"+icon+".png"
+                    //Toast.makeText(context, url_icon, Toast.LENGTH_LONG).show() //display the response on screen
+                    Picasso.get().load(url_icon).into(itemView.findViewById<ImageView>(R.id.weather_img))
 
                     val tempInfo = response.getJSONObject("main")
                     itemView.findViewById<TextView>(R.id.weather_temperature).text = tempInfo.getString("temp")
