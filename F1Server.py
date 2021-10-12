@@ -13,14 +13,14 @@ PATH = '/'
 
 
 #Giorgia
-DATABASE = '/Users/giorg/Documents/GitHub/F1AppMobile/database.db'
-SCHEMA = '/Users/giorg/Documents/GitHub/F1AppMobile/db.sql'
-HOST = '192.168.1.225'
+#DATABASE = '/Users/giorg/Documents/GitHub/F1AppMobile/database.db'
+#SCHEMA = '/Users/giorg/Documents/GitHub/F1AppMobile/db.sql'
+#HOST = '192.168.1.225'
 
 #Giulia
-#DATABASE = '/home/giulia/Desktop/Mobile/Proj/F1AppMobile/database.db'
-#SCHEMA = '/home/giulia/Desktop/Mobile/Proj/F1AppMobile/db.sql'
-#HOST = '192.168.1.139'
+DATABASE = '/home/giulia/Desktop/Mobile/Proj/F1AppMobile/database.db'
+SCHEMA = '/home/giulia/Desktop/Mobile/Proj/F1AppMobile/db.sql'
+HOST = '192.168.1.139'
 
 #Giacomo
 #DATABASE = '/Users/giacomo/Desktop/progetto/F1AppMobile/database.db'

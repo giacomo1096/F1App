@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 import com.google.android.gms.common.SignInButton
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
