@@ -23,21 +23,17 @@ import com.android.volley.toolbox.Volley
 import com.example.f1app.newsAdapter.ViewHolder
 import com.squareup.picasso.Picasso
 
-import com.example.f1app.News
-import com.example.f1app.ui.history.circuitAdapter
 import kotlinx.android.synthetic.main.fragment_history.*
-import org.json.JSONException
 import org.json.JSONObject
-import java.nio.charset.Charset
+import com.example.f1app.*
 
 
 class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : RecyclerView.Adapter<ViewHolder>() {
     private var context : Context = contextFrag
     private var resp : MutableList<News> = jsonResponses
 
-
-    private val urlCreate = "http://192.168.1.139:8000/createfavorite"
-    private val urlDelete = "http://192.168.1.139:8000/deletefavorite?newsid="
+    private val urlCreate = URL_PYTHONANYWHERE + "createfavorite"
+    private val urlDelete = URL_PYTHONANYWHERE + "deletefavorite?newsid="
 
     @SuppressLint("RestrictedApi")
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

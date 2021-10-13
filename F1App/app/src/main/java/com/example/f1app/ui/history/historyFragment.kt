@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.toolbox.JsonObjectRequest
 import kotlinx.android.synthetic.main.fragment_history.*
 import com.example.f1app.R
+import com.example.f1app.URL_PYTHONANYWHERE
 import org.json.JSONException
 
 class historyFragment : Fragment() {
 
-    private val url = "http://192.168.1.139:8000/circuits"
+    private val url = URL_PYTHONANYWHERE + "circuits"
 
     // Giorgia
     //private val url = "http://192.168.1.225:8000/circuits"

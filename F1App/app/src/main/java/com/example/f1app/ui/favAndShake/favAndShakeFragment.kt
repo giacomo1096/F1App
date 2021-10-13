@@ -15,6 +15,7 @@ import com.android.volley.toolbox.Volley
 import com.example.f1app.News
 import com.example.f1app.R
 import com.example.f1app.SharedViewModel
+import com.example.f1app.URL_PYTHONANYWHERE
 import kotlinx.android.synthetic.main.fragment_favandshake.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -22,7 +23,7 @@ import org.json.JSONObject
 
 class favAndShakeFragment : Fragment() {
     //userId va reso dinamico
-    private val url = "http://192.168.1.139:8000/favorites?userId=1"
+    private val url = URL_PYTHONANYWHERE + "favorites?userId=1"
 
     val news_list: MutableList<News> = mutableListOf<News>()
 

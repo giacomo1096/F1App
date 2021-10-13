@@ -1,6 +1,5 @@
 package com.example.f1app.ui.teamsAndDrivers
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,14 +15,15 @@ import com.android.volley.toolbox.Volley
 import com.example.f1app.R
 import org.json.JSONException
 import com.android.volley.DefaultRetryPolicy
+import com.example.f1app.URL_PYTHONANYWHERE
 import kotlinx.android.synthetic.main.fragment_teamsdrivers.*
 
 
 
 class teamsAndDriversFragment : Fragment() {
 
-    private val url_drivers = "http://192.168.1.139:8000/drivers"
-    private val url_teams = "http://192.168.1.139:8000/teams"
+    private val url_drivers = URL_PYTHONANYWHERE + "drivers"
+    private val url_teams =  URL_PYTHONANYWHERE + "teams"
     var query = 0 //0 drivers, 1 teams
     val jsonResponses: MutableList<Map<String,String>> = mutableListOf<Map<String,String>>()
 

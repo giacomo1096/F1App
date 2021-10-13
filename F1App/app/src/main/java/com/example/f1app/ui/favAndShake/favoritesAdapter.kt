@@ -16,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.f1app.News
 import com.example.f1app.R
+import com.example.f1app.URL_PYTHONANYWHERE
 import org.json.JSONObject
 import com.squareup.picasso.Picasso
 
@@ -23,7 +24,7 @@ class favoritesAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : 
     private var context : Context = contextFrag
     private var resp : MutableList<News> = jsonResponses
 
-    private val urlDelete = "http://192.168.1.139:8000/deletefavorite?id="
+    private val urlDelete = URL_PYTHONANYWHERE + "deletefavorite?id="
     @SuppressLint("RestrictedApi")
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

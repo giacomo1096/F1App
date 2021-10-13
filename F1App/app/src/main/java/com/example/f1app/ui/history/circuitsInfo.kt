@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_history.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import com.example.f1app.*
 
 
 import android.widget.ImageView
@@ -30,10 +31,7 @@ class circuitsInfo(circuitId:String, circuitName:String) : Fragment() {
     private var cN = circuitName
     private var cName = cN.split(",")[0]
 
-    private val url = "http://192.168.1.139:8000/circuit?name="+cId
-
-    //Giorgia
-    //private val url = "http://192.168.1.255:8000/circuit?name="+cId
+    private val url = URL_PYTHONANYWHERE + "circuit?name="+cId
 
     fun estractData(grid : GridLayout, jsonArray: JSONArray){
 

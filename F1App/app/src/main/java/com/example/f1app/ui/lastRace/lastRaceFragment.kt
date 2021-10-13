@@ -16,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.f1app.R
+import com.example.f1app.URL_PYTHONANYWHERE
 import com.example.f1app.newsAdapter
 import kotlinx.android.synthetic.main.activity_homepage.*
 import org.json.JSONArray
@@ -24,8 +25,8 @@ import com.squareup.picasso.Picasso
 
 class lastRaceFragment : Fragment() {
 
-    private val url_nextRace = "http://192.168.1.51:8000/NextRace"
-    private val url_lastRace = "http://192.168.1.51:8000/lastRace"
+    private val url_nextRace = URL_PYTHONANYWHERE + "NextRace"
+    private val url_lastRace = URL_PYTHONANYWHERE + "lastRace"
 
     private fun next_race_api(itemView: View) {
         val requestQueue = Volley.newRequestQueue(context)

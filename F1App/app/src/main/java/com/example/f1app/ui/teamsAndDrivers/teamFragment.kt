@@ -16,11 +16,12 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.f1app.R
+import com.example.f1app.URL_PYTHONANYWHERE
 import kotlinx.android.synthetic.main.fragment_team.*
 import org.json.JSONException
 
 class teamFragment(teamId:String, teamName:String) : Fragment() {
-    private val url_driver = "http://192.168.1.139:8000/team?name="+teamId
+    private val url_driver = URL_PYTHONANYWHERE + "team?name="+teamId
     val teamName = teamName
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

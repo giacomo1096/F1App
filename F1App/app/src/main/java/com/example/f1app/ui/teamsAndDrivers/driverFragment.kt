@@ -23,11 +23,11 @@ import org.json.JSONObject
 
 
 import android.widget.ImageView
+import com.example.f1app.URL_PYTHONANYWHERE
 import com.squareup.picasso.Picasso
 
 class driverFragment(driverId: String) : Fragment() {
-    private val url_driver = "http://192.168.1.139:8000/driver?name="+driverId
-
+    private val url_driver = URL_PYTHONANYWHERE + "driver?name="+driverId
 
     private fun wiki_api(name :String, surname : String, itemView: View) {
         //Create request queue

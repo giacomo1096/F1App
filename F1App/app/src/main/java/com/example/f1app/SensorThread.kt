@@ -36,7 +36,7 @@ class SensorThread @JvmOverloads constructor(
     ) : LinearLayout(context, attrs, defStyleAttr){
 
     private var mShaker: Sensor? = null
-    private val url = "http://192.168.1.139:8000/driverStandings"
+    private val url = URL_PYTHONANYWHERE+ "driverStandings"
     init{
         val thread = Thread{
             try{
