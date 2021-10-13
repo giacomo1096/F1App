@@ -68,13 +68,6 @@ class teamsAndDriversFragment : Fragment() {
                 }
             }) { error -> error.printStackTrace() }
 
-        jsonObjectRequest.setRetryPolicy(
-            DefaultRetryPolicy(
-                5000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-            )
-        )
 
         requestQueue.add(jsonObjectRequest)
 
@@ -111,14 +104,6 @@ class teamsAndDriversFragment : Fragment() {
 
                     }
                 }) { error -> error.printStackTrace() }
-
-            jsonObjectRequest.setRetryPolicy(
-                DefaultRetryPolicy(
-                    5000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-                )
-            )
 
             requestQueue.add(jsonObjectRequest)
 

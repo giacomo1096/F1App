@@ -23,6 +23,7 @@ import org.json.JSONObject
 
 
 import android.widget.ImageView
+import com.android.volley.RetryPolicy
 import com.example.f1app.URL_PYTHONANYWHERE
 import com.squareup.picasso.Picasso
 
@@ -156,13 +157,19 @@ class driverFragment(driverId: String) : Fragment() {
                 }
             }) { error -> error.printStackTrace() }
 
-        jsonObjectRequest.setRetryPolicy(
-            DefaultRetryPolicy(
-                5000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-            )
-        )
+        jsonObjectRequest.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 90000
+            }
+
+            override fun getCurrentRetryCount(): Int {
+                return 90000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
 
         requestQueue.add(jsonObjectRequest)
 

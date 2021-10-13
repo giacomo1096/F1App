@@ -23,6 +23,10 @@ import com.example.f1app.*
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_circuit_details.*
+import com.android.volley.RetryPolicy
+
+
+
 
 
 class circuitsInfo(circuitId:String, circuitName:String) : Fragment() {
@@ -182,6 +186,19 @@ class circuitsInfo(circuitId:String, circuitName:String) : Fragment() {
                 }
             }) { error -> error.printStackTrace() }
 
+        jsonObjectRequest.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 90000
+            }
+
+            override fun getCurrentRetryCount(): Int {
+                return 90000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
         requestQueue.add(jsonObjectRequest)
     }
 
