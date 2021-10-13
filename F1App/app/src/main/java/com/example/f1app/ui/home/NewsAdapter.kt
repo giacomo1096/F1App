@@ -1,4 +1,4 @@
-package com.example.f1app
+package com.example.f1app.ui.home
 
 import android.content.Context
 import android.widget.TextView
@@ -10,17 +10,12 @@ import android.view.View
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
-import android.opengl.Visibility
-import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.f1app.newsAdapter.ViewHolder
+import com.example.f1app.ui.home.newsAdapter.ViewHolder
 import com.squareup.picasso.Picasso
 
 import kotlinx.android.synthetic.main.fragment_history.*

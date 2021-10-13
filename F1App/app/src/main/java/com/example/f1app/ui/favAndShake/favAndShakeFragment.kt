@@ -12,13 +12,11 @@ import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.example.f1app.News
+import com.example.f1app.ui.home.News
 import com.example.f1app.R
-import com.example.f1app.SharedViewModel
 import com.example.f1app.URL_PYTHONANYWHERE
 import kotlinx.android.synthetic.main.fragment_favandshake.*
 import org.json.JSONException
-import org.json.JSONObject
 
 
 class favAndShakeFragment : Fragment() {
