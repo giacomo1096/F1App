@@ -24,7 +24,7 @@ import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    //private lateinit var mGoogleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN: Int = 1
     private val TAG = "GOOGLEAUTH"
     private lateinit var auth: FirebaseAuth
@@ -39,12 +39,13 @@ class MainActivity : AppCompatActivity() {
         // Configure Google Sign In
 
         // Configure Google Sign In
+        val str = getString(R.string.default_web_client_id)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            //.requestIdToken("383941913038-98q977pgcur044guk4o3kldo3leck5d3.apps.googleusercontent.com")
+            .requestIdToken(str)
             .requestEmail()
             .build()
-        //Toast.makeText(this@MainActivity, "id : "+R.string.default_web_client_id , Toast.LENGTH_SHORT).show()
+
+        Toast.makeText(this@MainActivity, "id : $str" , Toast.LENGTH_SHORT).show()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
         /*
@@ -58,8 +59,6 @@ class MainActivity : AppCompatActivity() {
         val signInbtn = findViewById<Button>(R.id.google_signIn)
         signInbtn.setOnClickListener {
             signIn()
-            val home = Intent(this@MainActivity,HomepageActivity::class.java)
-            startActivity(home) // takes the user to the signup activity
         }
     }
 
@@ -96,11 +95,9 @@ class MainActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
-                    //  val i = Intent(this@MainActivity, Logout::class.java) //
-                    //  startActivity(i) //
-                    //  finish() //
-                    //     dialog.dismiss()
                     updateUI(user)  //decomm
+                    val home = Intent(this@MainActivity,HomepageActivity::class.java)
+                    startActivity(home) // takes the user to the signup activity
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -121,6 +118,8 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
+        Toast.makeText(this@MainActivity, "$currentUser" , Toast.LENGTH_SHORT).show()
+
         updateUI(currentUser)
     }
 

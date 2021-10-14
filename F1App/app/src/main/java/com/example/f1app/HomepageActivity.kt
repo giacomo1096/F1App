@@ -1,7 +1,12 @@
 package com.example.f1app
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -28,11 +33,35 @@ import com.android.volley.RequestQueue
 import com.android.volley.VolleyError
 import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.android.synthetic.main.fragment_history.*
+import androidx.annotation.NonNull
+
+import com.google.android.gms.tasks.OnCompleteListener
+
+
+
 
 
 class HomepageActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomepageBinding
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.logout_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item : MenuItem): Boolean {
+        val id = item.getItemId()
+        if (id == R.id.item1){
+            mGoogleSignInClient.signOut().addOnCompleteListener {
+                val intent= Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+        return true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

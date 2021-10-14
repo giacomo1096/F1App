@@ -26,6 +26,7 @@ import com.example.f1app.ui.teamsAndDrivers.driverFragment
 
 import java.lang.Exception
 import android.content.Context.LAYOUT_INFLATER_SERVICE
+import android.content.Intent
 import android.graphics.Color
 import androidx.core.content.ContextCompat
 
@@ -35,7 +36,9 @@ import android.view.MotionEvent
 
 import android.view.Gravity
 import android.view.View.OnTouchListener
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.marginRight
+import com.google.android.gms.tasks.OnCompleteListener
 
 
 class SensorThread(val cont:Context){
