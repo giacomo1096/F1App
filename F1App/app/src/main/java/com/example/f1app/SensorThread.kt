@@ -106,6 +106,7 @@ class SensorThread(val cont:Context){
                             fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
                             fragmentTransaction.addToBackStack(null)
                             fragmentTransaction.commit()
+                            popupWindow.dismiss()
                         }
                         val col1 =  GridLayout.spec(1, 1)
                         val gridLayoutParamName: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col1)

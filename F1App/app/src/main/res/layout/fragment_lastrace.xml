@@ -402,7 +402,7 @@
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:text="Visibility:"
+                    android:text="Visibility(m):"
                     android:textStyle="bold"
                     android:textSize="14sp"
                     android:textColor="@color/black"
@@ -418,7 +418,7 @@
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:text="Wind speed: "
+                    android:text="Wind speed(m/s): "
                     android:textStyle="bold"
                     android:textSize="14sp"
                     android:textColor="@color/black"
