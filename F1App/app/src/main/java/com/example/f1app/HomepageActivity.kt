@@ -55,8 +55,7 @@ class HomepageActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        //val thread = SensorThread(this)
-        //thread.start()
+        SensorThread(this)
     }
 
 

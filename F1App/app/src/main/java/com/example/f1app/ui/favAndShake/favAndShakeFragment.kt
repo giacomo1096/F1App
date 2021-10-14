@@ -61,7 +61,7 @@ class favAndShakeFragment : Fragment() {
                     rvfavorites.apply {
                         // set a LinearLayoutManager to handle Android
                         // RecyclerView behavior
-                        layoutManager = LinearLayoutManager(context)
+                        layoutManager = LinearLayoutManager( context)
                         // set the custom adapter to the RecyclerView
                         adapter = favoritesAdapter(context, news_list)
                     }
