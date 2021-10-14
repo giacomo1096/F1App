@@ -1,6 +1,8 @@
 package com.example.f1app.ui.teamsAndDrivers
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,7 +51,6 @@ class teamFragment(teamId:String, teamName:String) : Fragment() {
 
                     val currentStandInfo = response.getJSONObject("standInfo")
 
-
                     val driversGrid = itemView.findViewById<GridLayout>(R.id.currDriversGrid)
                     val currentGrid = itemView.findViewById<GridLayout>(R.id.currentGrid)
 
@@ -78,26 +79,64 @@ class teamFragment(teamId:String, teamName:String) : Fragment() {
                         val drivers = response.getJSONArray("currentDrivers")
                         driversGrid.removeAllViews()
 
+                        val number: TextView = TextView(context)
+                        number.text = "Number"
+                        number.setTextColor(Color.BLACK)
+                        number.setTextSize(16F)
+                        number.setTypeface(Typeface.DEFAULT_BOLD);
+                        val row_number = GridLayout.spec(0, 1)
+                        val col_number =  GridLayout.spec(0, 1)
+                        val gridLayoutParamTeam_number: GridLayout.LayoutParams = GridLayout.LayoutParams(row_number, col_number)
+                        driversGrid.addView(number, gridLayoutParamTeam_number)
+                        driversGrid.setVisibility(View.VISIBLE)
+
                         for (i in 0 until drivers.length()) {
-                            val driverName : TextView = TextView(context)
                             val driverNumber: TextView = TextView(context)
                             val jsonObject = drivers.getJSONObject(i)
-                            driverNumber.text = " "+ jsonObject.getString("permanentNumber")
+
+                            driverNumber.text = jsonObject.getString("permanentNumber")+"    "
+                            driverNumber.setTextColor(Color.BLACK)
+                            driverNumber.setTextSize(16F)
                             driverNumber.setOnClickListener {
-                                val fragment: Fragment = driverFragment(jsonObject.getString("driverId"))
-                                val fragmentManager: FragmentManager = (context as AppCompatActivity).getSupportFragmentManager()
+                                val fragment: Fragment =
+                                    driverFragment(jsonObject.getString("driverId"))
+                                val fragmentManager: FragmentManager =
+                                    (context as AppCompatActivity).getSupportFragmentManager()
                                 val fragmentTransaction = fragmentManager.beginTransaction()
-                                fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
+                                fragmentTransaction.replace(
+                                    R.id.nav_host_fragment_activity_homepage,
+                                    fragment
+                                )
                                 fragmentTransaction.addToBackStack(null)
                                 fragmentTransaction.commit()
                             }
-                            val row = GridLayout.spec(i, 1)
-                            val col1 =  GridLayout.spec(0, 1)
-                            val gridLayoutParamTeam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col1)
+                            val row = GridLayout.spec(i+1, 1)
+                            val col1 = GridLayout.spec(0, 1)
+                            val gridLayoutParamTeam: GridLayout.LayoutParams =
+                                GridLayout.LayoutParams(row, col1)
                             driversGrid.addView(driverNumber, gridLayoutParamTeam)
                             driversGrid.setVisibility(View.VISIBLE)
+                        }
 
-                            driverName.text = "  "+ jsonObject.getString("driverSurname") + "  " + jsonObject.getString("driverName")
+                        for (i in 0 until drivers.length()) {
+
+                            val name : TextView = TextView(context)
+                            name.text = "    Name"
+                            name.setTextColor(Color.BLACK)
+                            name.setTextSize(16F)
+                            name.setTypeface(Typeface.DEFAULT_BOLD);
+                            val row_name = GridLayout.spec(0, 1)
+                            val col_name =  GridLayout.spec(1, 1)
+                            val gridLayoutParamTeam_name: GridLayout.LayoutParams = GridLayout.LayoutParams(row_name, col_name)
+                            driversGrid.addView(name, gridLayoutParamTeam_name)
+                            driversGrid.setVisibility(View.VISIBLE)
+
+                            val driverName: TextView = TextView(context)
+                            val jsonObject = drivers.getJSONObject(i)
+
+                            driverName.text = "    "+jsonObject.getString("driverName") + "  " + jsonObject.getString("driverSurname")
+                            driverName.setTextColor(Color.BLACK)
+                            driverName.setTextSize(16F)
                             driverName.setOnClickListener {
                                 val fragment: Fragment = driverFragment(jsonObject.getString("driverId"))
                                 val fragmentManager: FragmentManager = (context as AppCompatActivity).getSupportFragmentManager()
@@ -106,10 +145,12 @@ class teamFragment(teamId:String, teamName:String) : Fragment() {
                                 fragmentTransaction.addToBackStack(null)
                                 fragmentTransaction.commit()
                             }
+                            val row = GridLayout.spec(i+1, 1)
                             val col2 =  GridLayout.spec(1, 1)
                             val gridLayoutParamNation: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col2)
                             driversGrid.addView(driverName, gridLayoutParamNation)
                         }
+
                     }
 
                 } catch (e: JSONException) {
