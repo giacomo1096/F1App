@@ -71,7 +71,6 @@ class lastRaceFragment : Fragment() {
                     val jsonArray = response.getJSONArray("weather")
                     val weatherInfo = jsonArray.getJSONObject(0) // weatherInfo
                     itemView.findViewById<TextView>(R.id.weather).text = weatherInfo.getString("main")
-                    itemView.findViewById<TextView>(R.id.weather_description).text = weatherInfo.getString("description")
                     val icon = weatherInfo.getString("icon")
                     val url_icon = "http://openweathermap.org/img/w/"+icon+".png"
                     //Toast.makeText(context, url_icon, Toast.LENGTH_LONG).show() //display the response on screen
@@ -125,14 +124,12 @@ class lastRaceFragment : Fragment() {
 
                     val winnerInfo = response.getJSONObject("winnerInfo")
                     itemView.findViewById<TextView>(R.id.winner_number).text = winnerInfo.getString("number")
-                    itemView.findViewById<TextView>(R.id.winner_name).text = winnerInfo.getString("driverName")
-                    itemView.findViewById<TextView>(R.id.winner_surname).text = winnerInfo.getString("driverSurname")
+                    itemView.findViewById<TextView>(R.id.winner_name).text = winnerInfo.getString("driverName")+" "+winnerInfo.getString("driverSurname")
                     itemView.findViewById<TextView>(R.id.winner_constructor).text = winnerInfo.getString("constructor")
 
                     val poleInfo = response.getJSONObject("PoleManInfo")
                     itemView.findViewById<TextView>(R.id.pole_number).text = poleInfo.getString("number")
-                    itemView.findViewById<TextView>(R.id.pole_name).text = poleInfo.getString("driverName")
-                    itemView.findViewById<TextView>(R.id.pole_surname).text = poleInfo.getString("driverSurname")
+                    itemView.findViewById<TextView>(R.id.pole_name).text = poleInfo.getString("driverName")+" "+poleInfo.getString("driverSurname")
                     itemView.findViewById<TextView>(R.id.pole_constructor).text = poleInfo.getString("constructor")
 
 

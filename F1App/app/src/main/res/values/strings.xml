@@ -3,11 +3,9 @@
     <string name="google_login">Login</string>
 
 
-    <string name="title_history">History</string>
-    <string name="title_teamsAndDrivers">Teams and Drivers</string>
+    <string name="title_history">Races History</string>
+    <string name="title_teamsAndDrivers">Drivers and Teams</string>
     <string name="title_home">Home</string>
-    <string name="title_lastRace">Last race</string>
-    <string name="title_favAndShake">Favourite and Shake</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_lastRace">Races Agenda</string>
+    <string name="title_favAndShake">Favourites</string>
 </resources>

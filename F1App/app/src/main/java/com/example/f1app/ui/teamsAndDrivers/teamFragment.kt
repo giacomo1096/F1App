@@ -122,11 +122,11 @@ class teamFragment(teamId:String, teamName:String) : Fragment() {
 
         jsonObjectRequest.setRetryPolicy(object : RetryPolicy {
             override fun getCurrentTimeout(): Int {
-                return 90000
+                return 9000000
             }
 
             override fun getCurrentRetryCount(): Int {
-                return 90000
+                return 9000000
             }
 
             @Throws(VolleyError::class)

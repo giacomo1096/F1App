@@ -10,23 +10,250 @@
         android:id="@+id/raceGrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/icon_red">
+            android:background="@color/icon_red"
+            android:layout_marginTop="4sp"
+            android:layout_marginLeft="4sp"
+            android:layout_marginRight="4sp">
             <TextView
                 android:textColor="@color/white"
-                android:text="Next Race"
-                android:textSize="22sp"/>
+                android:text="Last race"
+                android:textSize="20sp"
+                android:layout_marginLeft="4sp"
+                android:layout_marginTop="2sp"
+                android:layout_marginBottom="2sp"/>
         </TableRow>
         <TableRow>
             <TextView
-                android:layout_marginTop="2dp"
-                android:text="Race Info "
+                android:text="Details"
                 android:layout_gravity="fill"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="2dp"/>
+        </TableRow>
+        <TableRow>
+            <GridLayout
+                android:id="@+id/lastRaceGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:layout_marginLeft="5sp">
+
+                <TextView
+                    android:text="Number: "
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="fill"/>
+                <TextView
+                    android:id="@+id/last_race_id"
+                    android:textSize="14sp"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:text="Date: "
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:layout_gravity="fill"/>
+                <TextView
+                    android:id="@+id/last_race_date"
+                    android:textSize="14sp"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:text="Circuit: "
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_column="0"
+                    android:layout_row="2"
+                    android:layout_gravity="fill"/>
+                <TextView
+                    android:id="@+id/last_race_circuit"
+                    android:textSize="14sp"
+                    android:layout_column="1"
+                    android:layout_row="2"
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+            </GridLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="5sp">
+            <TextView
+                android:text="Winner"
+                android:layout_gravity="fill"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5sp"/>
+        </TableRow>
+        <TableRow>
+            <GridLayout
+                android:id="@+id/winnerGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:layout_marginLeft="5sp">
+
+                <TextView
+                    android:text="Number: "
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="fill"/>
+                <TextView
+                    android:id="@+id/winner_number"
+                    android:textSize="14sp"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:text="Name: "
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:layout_gravity="fill"/>
+                <TextView
+                    android:id="@+id/winner_name"
+                    android:textSize="14sp"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:text="Team: "
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_column="0"
+                    android:layout_row="2"
+                    android:layout_gravity="fill"/>
+                <TextView
+                    android:id="@+id/winner_constructor"
+                    android:textSize="14sp"
+                    android:layout_column="1"
+                    android:layout_row="2"
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+            </GridLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="5sp">
+            <TextView
+                android:text="Poleman"
+                android:layout_gravity="fill"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5sp"/>
+        </TableRow>
+        <TableRow>
+            <GridLayout
+                android:id="@+id/poleGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:layout_marginLeft="5sp">
+
+                <TextView
+                    android:text="Number: "
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:layout_gravity="fill"/>
+                <TextView
+                    android:id="@+id/pole_number"
+                    android:textSize="14sp"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:text="Name: "
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:layout_gravity="fill"/>
+                <TextView
+                    android:id="@+id/pole_name"
+                    android:textSize="14sp"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:text="Team: "
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_column="0"
+                    android:layout_row="2"
+                    android:layout_gravity="fill"/>
+                <TextView
+                    android:id="@+id/pole_constructor"
+                    android:textSize="14sp"
+                    android:layout_column="1"
+                    android:layout_row="2"
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+            </GridLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/icon_red"
+            android:layout_marginTop="4sp"
+            android:layout_marginLeft="4sp"
+            android:layout_marginRight="4sp">
+            <TextView
+                android:textColor="@color/white"
+                android:text="Next race"
                 android:textSize="20sp"
-                android:layout_marginLeft="3sp"
-                />
+                android:layout_marginLeft="4sp"
+                android:layout_marginTop="2sp"
+                android:layout_marginBottom="2sp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="Details"
+                android:layout_gravity="fill"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="2dp"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -36,69 +263,103 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:columnCount="2"
-                android:layout_marginLeft="5sp"
-                android:layout_marginTop="3sp"
-                >
+                android:layout_marginLeft="5sp">
+
                 <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Race "
+                    android:text="Number: "
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:layout_column="0"
                     android:layout_row="0"
-                    android:layout_gravity="fill" />
+                    android:layout_gravity="fill"/>
                 <TextView
-                    android:layout_marginTop="2dp"
                     android:id="@+id/race_id"
+                    android:textSize="14sp"
                     android:layout_column="1"
                     android:layout_row="0"
-                    android:layout_gravity="fill" />
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+
                 <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Race Date "
+                    android:text="Date: "
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:layout_column="0"
                     android:layout_row="1"
-                    android:layout_gravity="fill" />
+                    android:layout_gravity="fill"/>
                 <TextView
-                    android:layout_marginTop="2dp"
                     android:id="@+id/race_date"
+                    android:textSize="14sp"
                     android:layout_column="1"
                     android:layout_row="1"
-                    android:layout_gravity="fill" />
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+
                 <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Race Time "
+                    android:text="Time: "
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:layout_column="0"
                     android:layout_row="2"
-                    android:layout_gravity="fill" />
+                    android:layout_gravity="fill"/>
                 <TextView
-                    android:layout_marginTop="2dp"
                     android:id="@+id/race_time"
+                    android:textSize="14sp"
                     android:layout_column="1"
                     android:layout_row="2"
-                    android:layout_gravity="fill" />
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+
                 <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Race Circuit "
+                    android:text="Circuit: "
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:layout_column="0"
                     android:layout_row="3"
-                    android:layout_gravity="fill" />
+                    android:layout_gravity="fill"/>
                 <TextView
-                    android:layout_marginTop="2dp"
                     android:id="@+id/race_circuit"
+                    android:textSize="14sp"
                     android:layout_column="1"
                     android:layout_row="3"
-                    android:layout_gravity="fill" />
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
             </GridLayout>
         </TableRow>
 
-        <TableRow>
-            <TextView
-                android:layout_marginTop="2dp"
-                android:text="Weather Info "
-                android:layout_gravity="fill"
-                android:textSize="20sp"
-                android:layout_marginLeft="3sp"
-                />
+        <TableRow
+            android:layout_marginTop="5sp">
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weather forecast"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="2dp"
+                android:layout_column="0"
+                android:layout_row="0"/>
+            <ImageView
+                android:id="@+id/weather_img"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_column="1"
+                android:layout_row="0"
+                android:layout_marginTop="2sp"
+                android:layout_marginLeft="2sp"/>
+            </GridLayout>
         </TableRow>
         <TableRow>
             <GridLayout
@@ -106,285 +367,72 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:columnCount="2"
-                android:layout_marginLeft="5sp"
-                android:layout_marginTop="3sp"
-                >
+                android:layout_marginLeft="5sp">
+
                 <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Weather "
+                    android:text="Weather: "
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:layout_column="0"
-                    android:layout_row="4"
-                    android:layout_gravity="fill" />
+                    android:layout_row="0"
+                    android:layout_gravity="fill"/>
                 <TextView
-                    android:layout_marginTop="2dp"
                     android:id="@+id/weather"
+                    android:textSize="14sp"
                     android:layout_column="1"
-                    android:layout_row="4"
-                    android:layout_gravity="fill" />
+                    android:layout_row="0"
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+
                 <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Description "
+                    android:text="Temperature(C): "
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:layout_column="0"
-                    android:layout_row="5"
-                    android:layout_gravity="fill" />
+                    android:layout_row="1"
+                    android:layout_gravity="fill"/>
                 <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/weather_description"
-                    android:layout_column="1"
-                    android:layout_row="5"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Temperature  "
-                    android:layout_column="0"
-                    android:layout_row="6"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
                     android:id="@+id/weather_temperature"
+                    android:textSize="14sp"
                     android:layout_column="1"
-                    android:layout_row="6"
-                    android:layout_gravity="fill" />
+                    android:layout_row="1"
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+
                 <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Visibility  "
+                    android:text="Visibility:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:layout_column="0"
-                    android:layout_row="7"
-                    android:layout_gravity="fill" />
+                    android:layout_row="2"
+                    android:layout_gravity="fill"/>
                 <TextView
-                    android:layout_marginTop="2dp"
                     android:id="@+id/weather_visibility"
+                    android:textSize="14sp"
                     android:layout_column="1"
-                    android:layout_row="7"
-                    android:layout_gravity="fill" />
+                    android:layout_row="2"
+                    android:layout_gravity="fill"
+                    android:textColor="@color/black"/>
+
                 <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Wind Speed  "
+                    android:text="Wind speed: "
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:layout_column="0"
-                    android:layout_row="8"
-                    android:layout_gravity="fill" />
+                    android:layout_row="3"
+                    android:layout_gravity="fill"/>
                 <TextView
-                    android:layout_marginTop="2dp"
                     android:id="@+id/weather_wind"
+                    android:textSize="14sp"
                     android:layout_column="1"
-                    android:layout_row="8"
-                    android:layout_gravity="fill" />
-            </GridLayout>
-
-            <ImageView
-                android:id="@+id/weather_img"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_margin="5sp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"></ImageView>
-        </TableRow>
-
-
-        <TableRow
-            android:layout_marginTop="5sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/icon_red">
-            <TextView
-                android:textColor="@color/white"
-                android:text="Last Race"
-                android:textSize="22sp"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:layout_marginTop="2dp"
-                android:text="Race Info "
-                android:layout_gravity="fill"
-                android:textSize="20sp"
-                android:layout_marginLeft="3sp"
-                />
-        </TableRow>
-        <TableRow>
-            <GridLayout
-                android:id="@+id/lastRaceGrid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:layout_marginLeft="5sp"
-                android:layout_marginTop="3sp"
-                >
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Race "
-                    android:layout_column="0"
-                    android:layout_row="0"
+                    android:layout_row="3"
                     android:layout_gravity="fill"
-                    />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/last_race_id"
-                    android:layout_column="1"
-                    android:layout_row="0"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Race Date "
-                    android:layout_column="0"
-                    android:layout_row="1"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/last_race_date"
-                    android:layout_column="1"
-                    android:layout_row="1"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Race Circuit "
-                    android:layout_column="0"
-                    android:layout_row="2"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/last_race_circuit"
-                    android:layout_column="1"
-                    android:layout_row="2"
-                    android:layout_gravity="fill" />
+                    android:textColor="@color/black"/>
             </GridLayout>
         </TableRow>
-        <TableRow>
-            <GridLayout
-                android:id="@+id/winnerGrid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:layout_marginLeft="5sp"
-                android:layout_marginTop="3sp"
-                >
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Winner Info"
-                    android:layout_column="0"
-                    android:layout_row="0"
-                    android:layout_gravity="fill"
-                    android:textSize="20sp"
-                    />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Number "
-                    android:layout_column="0"
-                    android:layout_row="1"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/winner_number"
-                    android:layout_column="1"
-                    android:layout_row="1"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Name  "
-                    android:layout_column="0"
-                    android:layout_row="2"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/winner_name"
-                    android:layout_column="1"
-                    android:layout_row="2"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Surname "
-                    android:layout_column="0"
-                    android:layout_row="3"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/winner_surname"
-                    android:layout_column="1"
-                    android:layout_row="3"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Constructor "
-                    android:layout_column="0"
-                    android:layout_row="4"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/winner_constructor"
-                    android:layout_column="1"
-                    android:layout_row="4"
-                    android:layout_gravity="fill" />
-            </GridLayout>
-        </TableRow>
-        <TableRow>
-            <GridLayout
-                android:id="@+id/poleGrid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:layout_marginLeft="5sp"
-                android:layout_marginTop="3sp"
-                >
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Pole Man Info"
-                    android:layout_column="0"
-                    android:layout_row="0"
-                    android:layout_gravity="fill"
-                    android:textSize="20sp"
-                    />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Number "
-                    android:layout_column="0"
-                    android:layout_row="1"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/pole_number"
-                    android:layout_column="1"
-                    android:layout_row="1"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Name  "
-                    android:layout_column="0"
-                    android:layout_row="2"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/pole_name"
-                    android:layout_column="1"
-                    android:layout_row="2"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Surname "
-                    android:layout_column="0"
-                    android:layout_row="3"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/pole_surname"
-                    android:layout_column="1"
-                    android:layout_row="3"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:text="Constructor "
-                    android:layout_column="0"
-                    android:layout_row="4"
-                    android:layout_gravity="fill" />
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/pole_constructor"
-                    android:layout_column="1"
-                    android:layout_row="4"
-                    android:layout_gravity="fill" />
-            </GridLayout>
-        </TableRow>
-
     </TableLayout>
-
-
-
 </FrameLayout>
