@@ -26,6 +26,7 @@ import com.example.f1app.ui.teamsAndDrivers.driverFragment
 
 import java.lang.Exception
 import android.content.Context.LAYOUT_INFLATER_SERVICE
+import android.graphics.Color
 import androidx.core.content.ContextCompat
 
 import androidx.core.content.ContextCompat.getSystemService
@@ -34,6 +35,7 @@ import android.view.MotionEvent
 
 import android.view.Gravity
 import android.view.View.OnTouchListener
+import androidx.core.view.marginRight
 
 
 class SensorThread(val cont:Context){
@@ -76,6 +78,7 @@ class SensorThread(val cont:Context){
 
                     val sens = itemView.findViewById<LinearLayout>(R.id.sensorThread)
                     sens.visibility= View.VISIBLE
+                    sens.setBackgroundColor(Color.parseColor("#FFF02E0E"))
                     val standGrid = itemView.findViewById<GridLayout>(R.id.standingsGrid)
                     standGrid.removeAllViews()
 
@@ -83,7 +86,9 @@ class SensorThread(val cont:Context){
                         val jsonObject = driver_list.get(i)
 
                         val position: TextView = TextView(cont)
-                        position.text = jsonObject.getString("driverPosition")
+                        position.text = " "+jsonObject.getString("driverPosition")+"  "
+                        position.setTextColor(Color.WHITE)
+                        position.setTextSize(16F)
                         val row = GridLayout.spec(i, 1)
                         val col =  GridLayout.spec(0, 1)
                         val gridLayoutParamPosition: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col)
@@ -91,7 +96,9 @@ class SensorThread(val cont:Context){
 
                         val name : TextView = TextView(cont)
                         val driverId = jsonObject.getString("driverId")
-                        name.text =jsonObject.getString("driverName") +" "+jsonObject.getString("driverSurname")
+                        name.text =jsonObject.getString("driverName") +" "+jsonObject.getString("driverSurname")+"  "
+                        name.setTextColor(Color.WHITE)
+                        name.setTextSize(16F)
                         name.setOnClickListener {
                             val fragment: Fragment = driverFragment(driverId)
                             val fragmentManager: FragmentManager = ( cont as AppCompatActivity).getSupportFragmentManager()
@@ -106,13 +113,17 @@ class SensorThread(val cont:Context){
 
 
                         val team: TextView = TextView(cont)
-                        team.text = jsonObject.getString("driverTeam")
+                        team.text = jsonObject.getString("driverTeam")+"  "
+                        team.setTextColor(Color.WHITE)
+                        team.setTextSize(16F)
                         val col2 =  GridLayout.spec(2, 1)
                         val gridLayoutParamTeam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col2)
                         standGrid.addView(team, gridLayoutParamTeam)
 
                         val points: TextView = TextView(cont)
-                        points.text = jsonObject.getString("driverPoints")
+                        points.setTextColor(Color.WHITE)
+                        points.setTextSize(16F)
+                        points.text = jsonObject.getString("driverPoints")+" "
                         val col3 =  GridLayout.spec(3, 1)
                         val gridLayoutParamPoints: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col3)
                         standGrid.addView(points, gridLayoutParamPoints)
