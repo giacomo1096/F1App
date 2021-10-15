@@ -60,7 +60,7 @@ class favoritesAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : 
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        viewHolder.news_title.text = resp.get(i).title
+        viewHolder.news_title.text = resp.get(i).title.substring(1)
         val imageUri = resp.get(i).image
         Picasso.get().load(imageUri).into(viewHolder.ivBasicImage)
         viewHolder.news_desc.text = resp.get(i).desc
