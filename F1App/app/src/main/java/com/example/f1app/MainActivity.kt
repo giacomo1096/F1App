@@ -8,6 +8,13 @@ import android.util.Log
 import android.view.Window
 import android.widget.Button
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.VolleyError
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.example.f1app.ui.favAndShake.favoritesAdapter
+import com.example.f1app.ui.home.News
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -20,6 +27,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.fragment_favandshake.*
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
@@ -37,23 +47,13 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         // Configure Google Sign In
-
-        // Configure Google Sign In
         val str = getString(R.string.default_web_client_id)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(str)
             .requestEmail()
             .build()
 
-        Toast.makeText(this@MainActivity, "id : $str" , Toast.LENGTH_SHORT).show()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-
-        /*
-        dialog = Dialog(this@MainActivity)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_wait1)
-        dialog.setCanceledOnTouchOutside(false)
-         */
 
         // Getting the Button Click
         val signInbtn = findViewById<Button>(R.id.google_signIn)
@@ -77,10 +77,16 @@ class MainActivity : AppCompatActivity() {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
-                userId = account.id
                 userToken = account.idToken
                 userMail = account.email
                 userName = account.displayName
+                val accId = checkAlreadyRegister(account.id)
+                if (accId != ""){
+                    userId = accId
+                }
+                else{
+                    userId = account.id
+                }
                 Log.d(TAG, "firebaseAuthWithGoogle:" + userId)
 
                 firebaseAuthWithGoogle(userToken!!)
@@ -90,6 +96,59 @@ class MainActivity : AppCompatActivity() {
                 //dialog.dismiss()
             }
         }
+    }
+
+    private fun checkAlreadyRegister(ID : String): String {
+        val url = URL_PYTHONANYWHERE + "checkemail?email="+userMail
+        val requestQueue = Volley.newRequestQueue(this)
+        var accountId = ""
+        val stringRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                try {
+                    if( response.getString("userId") != "none"){
+                        accountId = response.getString("userId")
+                    }
+                    else{
+                        createNewAccount(ID)
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        )  //Method that handles error in volley
+        { error: VolleyError ->
+            Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+        }
+
+        //add string request to request queue
+        requestQueue.add(stringRequest)
+        return accountId
+    }
+
+    private fun createNewAccount(ID: String) {
+        val url = URL_PYTHONANYWHERE + "signin"
+        val requestQueue = Volley.newRequestQueue(this)
+        val jsonobj = JSONObject()
+        jsonobj.put("userid", ID)
+        jsonobj.put("email", userMail)
+        val stringRequest = JsonObjectRequest(
+            Request.Method.POST, url, jsonobj,
+            { response ->
+                try {
+                    Toast.makeText(this, "new Account", Toast.LENGTH_SHORT).show()
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        )  //Method that handles error in volley
+        { error: VolleyError ->
+            Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+        }
+
+        //add string request to request queue
+        requestQueue.add(stringRequest)
+
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
