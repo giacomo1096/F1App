@@ -5,95 +5,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.history.circuitsInfo"
-    android:clickable="true"
-    >
-
+    android:clickable="true">
 
     <TableLayout
         android:id="@+id/ll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
         android:background="@color/white"
-        android:layout_margin="5sp">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:background="@color/icon_red"
-            android:layout_width="match_parent">
+            android:layout_marginTop="4sp"
+            android:layout_marginLeft="4sp"
+            android:layout_marginRight="4sp">
             <TextView
-                android:id="@+id/circuitName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:gravity="center_horizontal"
                 android:textColor="@color/white"
-                android:padding="8dp"
-                android:layout_weight="1"/>
+                android:id="@+id/circuitName"
+                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="4sp"
+                android:layout_marginTop="2sp"
+                android:layout_marginBottom="2sp"/>
         </TableRow>
         <TableRow>
             <ImageView
                 android:id="@+id/circuit_img"
-                android:layout_width="100sp"
-                android:layout_height="150sp"
-                android:scaleType="fitXY"
-                android:adjustViewBounds="true"
-                android:layout_margin="5sp"
-                >
+                android:layout_width="80sp"
+                android:layout_height="80sp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds ="true"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="5sp">
             </ImageView>
         </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/icon_red">
+        <TableRow>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2017-2021 Pole Results"
-                android:textSize="25sp"
-                android:gravity="center_horizontal"
-                android:textColor="@color/white"
-                android:padding="8dp">
-            </TextView>
+                android:text="Pole results (seasons 2017-2021)"
+                android:layout_gravity="fill"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="2dp"/>
         </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TableRow>
             <GridLayout
                 android:id="@+id/gridPole"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="5sp"
-                android:orientation="horizontal" />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/icon_red">
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2017-2021 Race Results"
-                android:textSize="25sp"
-                android:gravity="center_horizontal"
-                android:textColor="@color/white"
-                android:background="@color/icon_red"
-                android:padding="8dp">
-            </TextView>
+                android:columnCount="4"
+                android:layout_marginLeft="5sp"/>
         </TableRow>
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="5sp">
+            <TextView
+                android:text="Race results (seasons 2017-2021)"
+                android:layout_gravity="fill"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="2dp"/>
+        </TableRow>
+        <TableRow>
             <GridLayout
                 android:id="@+id/gridResults"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:orientation="horizontal"
+                android:columnCount="3"
                 android:layout_marginLeft="5sp"/>
         </TableRow>
     </TableLayout>
-
-
 </FrameLayout>

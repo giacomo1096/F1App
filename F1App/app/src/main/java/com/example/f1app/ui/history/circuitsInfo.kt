@@ -1,5 +1,7 @@
 package com.example.f1app.ui.history
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -39,54 +41,123 @@ class circuitsInfo(circuitId:String, circuitName:String) : Fragment() {
 
     fun estractData(grid : GridLayout, jsonArray: JSONArray){
 
+        var pole_race_bol = 0 //0 pole, 1 race
+
+        val number: TextView = TextView(context)
+        number.text = "Number"
+        number.setTextColor(Color.BLACK)
+        number.setTextSize(16F)
+        number.setTypeface(Typeface.DEFAULT_BOLD);
+        val row_number = GridLayout.spec(0, 1)
+        val col_number =  GridLayout.spec(0, 1)
+        val gridLayoutParamTeam_number: GridLayout.LayoutParams = GridLayout.LayoutParams(row_number, col_number)
+        grid.addView(number, gridLayoutParamTeam_number)
+        grid.setVisibility(View.VISIBLE)
+
         for (i in 0 until jsonArray.length()) {
             val jsonObject = jsonArray.getJSONObject(i)
-            val name : TextView = TextView(context)
-            val surname : TextView = TextView(context)
-            val numb : TextView = TextView(context)
-            val team : TextView = TextView(context)
-            val time : TextView = TextView(context)
-
-            name.text = jsonObject.getString("name")
-            name.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F)
-            name.setPadding(3,0,3,0)
-
-            surname.text= jsonObject.getString("surname")
-            surname.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F)
-            surname.setPadding(3,0,3,0)
+            val numb: TextView = TextView(context)
 
             numb.text = jsonObject.getString("number")
-            numb.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
-            numb.setPadding(3,0,3,0)
+            numb.setTextColor(Color.BLACK)
+            numb.setTextSize(16F)
 
-            team.text = jsonObject.getString("team")
-            team.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
-            team.setPadding(3,0,3,0)
+            val row = GridLayout.spec(i+1, 1)
+            val col1 = GridLayout.spec(0, 1)
+            val gridLayoutParam: GridLayout.LayoutParams =
+                GridLayout.LayoutParams(row, col1)
+            grid.addView(numb, gridLayoutParam)
+            grid.setVisibility(View.VISIBLE)
 
-            val list : MutableList<TextView> = mutableListOf<TextView>()
-            list.add(numb)
-            list.add(name)
-            list.add(surname)
-            list.add(team)
+            //set the boolean variable
+            if (jsonObject.length() < 5){ pole_race_bol = 1 }
+        }
 
-            if (jsonObject.length() == 5){
-                time.text = jsonObject.getString("time")
-                list.add(time)
-                time.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20F);
-                time.setPadding(3,0,3,0)
-            }
+        val n: TextView = TextView(context)
+        n.text = "    Name"
+        n.setTextColor(Color.BLACK)
+        n.setTextSize(16F)
+        n.setTypeface(Typeface.DEFAULT_BOLD);
+        val row_n = GridLayout.spec(0, 1)
+        val col_n =  GridLayout.spec(1, 1)
+        val gridLayoutParam_n: GridLayout.LayoutParams = GridLayout.LayoutParams(row_n, col_n)
+        grid.addView(n, gridLayoutParam_n)
+        grid.setVisibility(View.VISIBLE)
+
+        for (i in 0 until jsonArray.length()) {
+            val jsonObject = jsonArray.getJSONObject(i)
+            val name: TextView = TextView(context)
+
+            name.text = "    "+jsonObject.getString("name") +" "+ jsonObject.getString("surname")
+            name.setTextColor(Color.BLACK)
+            name.setTextSize(16F)
+
+            val row = GridLayout.spec(i+1, 1)
+            val col1 = GridLayout.spec(1, 1)
+            val gridLayoutParam: GridLayout.LayoutParams =
+                GridLayout.LayoutParams(row, col1)
+            grid.addView(name, gridLayoutParam)
+            grid.setVisibility(View.VISIBLE)
+        }
+
+        val t: TextView = TextView(context)
+        t.text = "    Team"
+        t.setTextColor(Color.BLACK)
+        t.setTextSize(16F)
+        t.setTypeface(Typeface.DEFAULT_BOLD);
+        val row_t = GridLayout.spec(0, 1)
+        val col_t =  GridLayout.spec(2, 1)
+        val gridLayoutParam_t: GridLayout.LayoutParams = GridLayout.LayoutParams(row_t, col_t)
+        grid.addView(t, gridLayoutParam_t)
+        grid.setVisibility(View.VISIBLE)
+
+        for (i in 0 until jsonArray.length()) {
+            val jsonObject = jsonArray.getJSONObject(i)
+            val team: TextView = TextView(context)
+
+            team.text = "    "+jsonObject.getString("team")
+            team.setTextColor(Color.BLACK)
+            team.setTextSize(16F)
+
+            val row = GridLayout.spec(i+1, 1)
+            val col1 = GridLayout.spec(2, 1)
+            val gridLayoutParam: GridLayout.LayoutParams =
+                GridLayout.LayoutParams(row, col1)
+            grid.addView(team, gridLayoutParam)
+            grid.setVisibility(View.VISIBLE)
+        }
 
 
-            for (j in 0 until list.size) {
-                val txt : TextView = list[j]
-                val row = GridLayout.spec(i, 1)
-                val colspan = GridLayout.spec(j, 1)
-                val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, colspan)
-                grid.addView(txt, gridLayoutParam)
+        if (pole_race_bol == 0) { //pole result -> add time
+
+            val tempo: TextView = TextView(context)
+            tempo.text = "    Time"
+            tempo.setTextColor(Color.BLACK)
+            tempo.setTextSize(16F)
+            tempo.setTypeface(Typeface.DEFAULT_BOLD);
+            val row_tempo = GridLayout.spec(0, 1)
+            val col_tempo = GridLayout.spec(3, 1)
+            val gridLayoutParam_tempo: GridLayout.LayoutParams =
+                GridLayout.LayoutParams(row_tempo, col_tempo)
+            grid.addView(tempo, gridLayoutParam_tempo)
+            grid.setVisibility(View.VISIBLE)
+
+            for (i in 0 until jsonArray.length()) {
+                val jsonObject = jsonArray.getJSONObject(i)
+                val time: TextView = TextView(context)
+
+                time.text = "    " + jsonObject.getString("time")
+                time.setTextColor(Color.BLACK)
+                time.setTextSize(16F)
+
+                val row = GridLayout.spec(i + 1, 1)
+                val col1 = GridLayout.spec(3, 1)
+                val gridLayoutParam: GridLayout.LayoutParams =
+                    GridLayout.LayoutParams(row, col1)
+                grid.addView(time, gridLayoutParam)
                 grid.setVisibility(View.VISIBLE)
             }
         }
-
     }
 
     private fun wiki_api_En(name :String, itemView: View){
@@ -97,7 +168,7 @@ class circuitsInfo(circuitId:String, circuitName:String) : Fragment() {
             { response: String? ->
                 try {
                     val jsonObj = JSONObject(response).toString()
-                    Toast.makeText(context, "RESP Size:   " + jsonObj.split("source").size , Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "RESP Size:   " + jsonObj.split("source").size , Toast.LENGTH_SHORT).show()
                     if (jsonObj.split("source").size > 1) {
                         val src: String = jsonObj.split("source")[1].split("\"")[2]
                         Picasso.get().load(src)
@@ -121,7 +192,7 @@ class circuitsInfo(circuitId:String, circuitName:String) : Fragment() {
             { response: String? ->
                 try {
                     val jsonObj = JSONObject(response).toString()
-                    Toast.makeText(context, "RESP Size:   " + jsonObj.split("source").size , Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "RESP Size:   " + jsonObj.split("source").size , Toast.LENGTH_SHORT).show()
                     if (jsonObj.split("source").size > 1) {
                         val src: String = jsonObj.split("source")[1].split("\"")[2]
                         Picasso.get().load(src)
@@ -140,16 +211,39 @@ class circuitsInfo(circuitId:String, circuitName:String) : Fragment() {
 
     fun createGrid(response: JSONObject, root: View){
 
+        //pole
         val gridPole = root.findViewById(R.id.gridPole) as GridLayout
-        gridPole.removeAllViews()
-
-        val gridResults = root.findViewById(R.id.gridResults) as GridLayout
-        gridPole.removeAllViews()
-
         val jsonArrayPoles = response.getJSONArray("poles")
-        estractData(gridPole, jsonArrayPoles)
+        if(jsonArrayPoles.length() == 0){
+            gridPole.removeAllViews()
+            val txt: TextView = TextView(context)
+            txt.text = "No information available"
+            val row = GridLayout.spec(0, 1)
+            val col = GridLayout.spec(0, 1)
+            val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col)
+            gridPole.addView(txt, gridLayoutParam)
+            gridPole.setVisibility(View.VISIBLE)
+        }else {
+            gridPole.removeAllViews()
+            estractData(gridPole, jsonArrayPoles)
+        }
+
+        //race
+        val gridResults = root.findViewById(R.id.gridResults) as GridLayout
         val jsonArrayResults = response.getJSONArray("results")
-        estractData(gridResults, jsonArrayResults)
+        if(jsonArrayPoles.length() == 0) {
+            gridResults.removeAllViews()
+            val txt: TextView = TextView(context)
+            txt.text = "No information available"
+            val row = GridLayout.spec(0, 1)
+            val col = GridLayout.spec(0, 1)
+            val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, col)
+            gridResults.addView(txt, gridLayoutParam)
+            gridResults.setVisibility(View.VISIBLE)
+        }else {
+            gridResults.removeAllViews()
+            estractData(gridResults, jsonArrayResults)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

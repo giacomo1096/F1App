@@ -291,7 +291,7 @@
         <TableRow
             android:layout_marginTop="5sp">
             <TextView
-                android:text="Past/Current Teams"
+                android:text="Past and current teams"
                 android:layout_gravity="fill"
                 android:textSize="18sp"
                 android:textStyle="italic"

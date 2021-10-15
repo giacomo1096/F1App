@@ -57,7 +57,7 @@ class teamFragment(teamId:String, teamName:String) : Fragment() {
                     if(currentStandInfo.getString("rank") == "0"){
                         currentGrid.removeAllViews()
                         val txt : TextView = TextView(context)
-                        txt.text = "Not in current championship"
+                        txt.text = "Not in the current championship"
                         val row = GridLayout.spec(0, 1)
                         val colspan = GridLayout.spec(0, 1)
                         val gridLayoutParam: GridLayout.LayoutParams = GridLayout.LayoutParams(row, colspan)
@@ -66,7 +66,7 @@ class teamFragment(teamId:String, teamName:String) : Fragment() {
 
                         driversGrid.removeAllViews()
                         val txt1 : TextView = TextView(context)
-                        txt1.text = "No Current Drivers"
+                        txt1.text = "No current drivers"
                         val gridLayoutParam1: GridLayout.LayoutParams = GridLayout.LayoutParams(row, colspan)
                         driversGrid.addView(txt1, gridLayoutParam1)
                         driversGrid.setVisibility(View.VISIBLE)
@@ -118,18 +118,18 @@ class teamFragment(teamId:String, teamName:String) : Fragment() {
                             driversGrid.setVisibility(View.VISIBLE)
                         }
 
-                        for (i in 0 until drivers.length()) {
+                        val name : TextView = TextView(context)
+                        name.text = "    Name"
+                        name.setTextColor(Color.BLACK)
+                        name.setTextSize(16F)
+                        name.setTypeface(Typeface.DEFAULT_BOLD);
+                        val row_name = GridLayout.spec(0, 1)
+                        val col_name =  GridLayout.spec(1, 1)
+                        val gridLayoutParamTeam_name: GridLayout.LayoutParams = GridLayout.LayoutParams(row_name, col_name)
+                        driversGrid.addView(name, gridLayoutParamTeam_name)
+                        driversGrid.setVisibility(View.VISIBLE)
 
-                            val name : TextView = TextView(context)
-                            name.text = "    Name"
-                            name.setTextColor(Color.BLACK)
-                            name.setTextSize(16F)
-                            name.setTypeface(Typeface.DEFAULT_BOLD);
-                            val row_name = GridLayout.spec(0, 1)
-                            val col_name =  GridLayout.spec(1, 1)
-                            val gridLayoutParamTeam_name: GridLayout.LayoutParams = GridLayout.LayoutParams(row_name, col_name)
-                            driversGrid.addView(name, gridLayoutParamTeam_name)
-                            driversGrid.setVisibility(View.VISIBLE)
+                        for (i in 0 until drivers.length()) {
 
                             val driverName: TextView = TextView(context)
                             val jsonObject = drivers.getJSONObject(i)
