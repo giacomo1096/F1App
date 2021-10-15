@@ -77,8 +77,13 @@ class MainActivity : AppCompatActivity() {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
-                Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
-                firebaseAuthWithGoogle(account.idToken!!)
+                userId = account.id
+                userToken = account.idToken
+                userMail = account.email
+                userName = account.displayName
+                Log.d(TAG, "firebaseAuthWithGoogle:" + userId)
+
+                firebaseAuthWithGoogle(userToken!!)
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e)
@@ -110,7 +115,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
-            Toast.makeText(this@MainActivity, "User : "+user.displayName+" "+user.email, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@MainActivity, "User : "+ userName+" "+ userMail, Toast.LENGTH_SHORT).show()
         }
     }
 

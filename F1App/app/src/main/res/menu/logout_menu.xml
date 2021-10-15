@@ -3,5 +3,4 @@
 
     <item  android:id="@+id/item1"
         android:title="Logout"/>
-
 </menu>

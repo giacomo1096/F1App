@@ -15,6 +15,7 @@ import com.example.f1app.R
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONArray
 import org.json.JSONException
+import java.security.MessageDigest
 
 
 class homeFragment : Fragment() {
@@ -48,10 +49,11 @@ class homeFragment : Fragment() {
                         val news_image = jo.getString("imgsrc")
                         val news_desc = jo.getString("shortdesc")
                         val news_link = jo.getString("link")
+                        val news_id = hashString(news_title+news_image+news_desc+news_link)
 
                         //Toast.makeText(this, "TEST news-title: $news_title desc: $news_desc link: $news_link", Toast.LENGTH_LONG).show() //display the response on screen
 
-                        val news_item = News(news_title, news_image, news_desc, news_link)
+                        val news_item = News(news_id, news_title, news_image, news_desc, news_link)
 
                         news_list.add(news_item)
                     }
@@ -76,4 +78,20 @@ class homeFragment : Fragment() {
         requestQueue.add(stringRequest)
     }
 
+
+    private fun hashString( input: String): String {
+        val HEX_CHARS = "0123456789ABCDEF"
+        val bytes = MessageDigest
+            .getInstance("SHA-256")
+            .digest(input.toByteArray())
+        val result = StringBuilder(bytes.size * 2)
+
+        bytes.forEach {
+            val i = it.toInt()
+            result.append(HEX_CHARS[i shr 4 and 0x0f])
+            result.append(HEX_CHARS[i and 0x0f])
+        }
+
+        return result.toString()
+    }
 }

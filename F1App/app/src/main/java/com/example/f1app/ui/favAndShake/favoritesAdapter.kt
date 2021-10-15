@@ -10,6 +10,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -17,13 +20,17 @@ import com.android.volley.toolbox.Volley
 import com.example.f1app.ui.home.News
 import com.example.f1app.R
 import com.example.f1app.URL_PYTHONANYWHERE
+import com.example.f1app.ui.teamsAndDrivers.driverFragment
+import com.example.f1app.userId
 import com.squareup.picasso.Picasso
+import org.json.JSONObject
+import java.security.MessageDigest
 
 class favoritesAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : RecyclerView.Adapter<favoritesAdapter.ViewHolder>() {
     private var context : Context = contextFrag
     private var resp : MutableList<News> = jsonResponses
 
-    private val urlDelete = URL_PYTHONANYWHERE + "deletefavorite?id="
+    private val urlDelete = URL_PYTHONANYWHERE + "deletefavorite"
     @SuppressLint("RestrictedApi")
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -72,11 +79,21 @@ class favoritesAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : 
             viewHolder.news_pref.visibility = View.GONE
             viewHolder.news_no_pref.visibility = View.VISIBLE
             val requestQueue = Volley.newRequestQueue(context)
+            val jsonobj = JSONObject()
+            jsonobj.put("newsId", resp.get(i).id)
+            jsonobj.put("userId", userId)
             val jsonObjectRequest = JsonObjectRequest(
-                Request.Method.DELETE, urlDelete+i.toString(), null,
+                Request.Method.POST, urlDelete, jsonobj,
                 { response ->
                     try {
-                        Toast.makeText(context, "Response: $response", Toast.LENGTH_LONG).show()
+                        //Toast.makeText(context, "Response: $response", Toast.LENGTH_LONG).show()
+                        val fragment: Fragment = favAndShakeFragment()
+                        val fragmentManager: FragmentManager =
+                            (context as AppCompatActivity).getSupportFragmentManager()
+                        val fragmentTransaction = fragmentManager.beginTransaction()
+                        fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
+                        fragmentTransaction.addToBackStack(null)
+                        fragmentTransaction.commit()
                     }catch (e:Exception){
                         Toast.makeText(context, "Exception: $e", Toast.LENGTH_LONG).show()
                     }
@@ -90,6 +107,22 @@ class favoritesAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : 
 
     override fun getItemCount(): Int {
         return resp.size
+    }
+
+    private fun hashString( input: String): String {
+        val HEX_CHARS = "0123456789ABCDEF"
+        val bytes = MessageDigest
+            .getInstance("SHA-256")
+            .digest(input.toByteArray())
+        val result = StringBuilder(bytes.size * 2)
+
+        bytes.forEach {
+            val i = it.toInt()
+            result.append(HEX_CHARS[i shr 4 and 0x0f])
+            result.append(HEX_CHARS[i and 0x0f])
+        }
+
+        return result.toString()
     }
 
 
