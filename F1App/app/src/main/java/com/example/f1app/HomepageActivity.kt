@@ -1,5 +1,6 @@
 package com.example.f1app
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -34,8 +35,13 @@ import com.android.volley.VolleyError
 import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.android.synthetic.main.fragment_history.*
 import androidx.annotation.NonNull
+import com.android.volley.toolbox.JsonObjectRequest
 
 import com.google.android.gms.tasks.OnCompleteListener
+import android.content.DialogInterface
+
+
+
 
 
 
@@ -60,7 +66,49 @@ class HomepageActivity : AppCompatActivity() {
                 finish()
             }
         }
+        if (id == R.id.delete){
+            confirmAction()
+            }
         return true
+    }
+
+    private fun confirmAction(){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setCancelable(true)
+        builder.setTitle("ATTENTION!!")
+        builder.setMessage("Delate Account" + userName + " and the relative information")
+        builder.setPositiveButton("Confirm",
+            DialogInterface.OnClickListener { dialog,which ->
+                deleteAccount()
+                mGoogleSignInClient.signOut().addOnCompleteListener {
+                    val intent= Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()}
+            })
+        builder.setNegativeButton(android.R.string.cancel,
+            DialogInterface.OnClickListener { dialog, which -> })
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+    private fun deleteAccount() {
+        val url = URL_PYTHONANYWHERE + "deleteaccount?userid="+ userId
+        val requestQueue = Volley.newRequestQueue(this)
+        val stringRequest = JsonObjectRequest(
+            Request.Method.DELETE, url, null,
+            { response ->
+                try {
+                    Toast.makeText(this, "ACCOUNT DELATED", Toast.LENGTH_SHORT).show()
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        )  //Method that handles error in volley
+        { error: VolleyError ->
+            Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+        }
+
+        //add string request to request queue
+        requestQueue.add(stringRequest)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

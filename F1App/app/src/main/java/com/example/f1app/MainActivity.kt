@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity() {
             Request.Method.POST, url, jsonobj,
             { response ->
                 try {
-                    Toast.makeText(this, "new Account", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "new Account", Toast.LENGTH_SHORT).show()
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
@@ -174,7 +174,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
-            Toast.makeText(this@MainActivity, "User : "+ userName+" "+ userMail, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this@MainActivity, "User : "+ userName+" "+ userMail, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -182,7 +182,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        Toast.makeText(this@MainActivity, "$currentUser" , Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this@MainActivity, "$currentUser" , Toast.LENGTH_SHORT).show()
 
         updateUI(currentUser)
     }
