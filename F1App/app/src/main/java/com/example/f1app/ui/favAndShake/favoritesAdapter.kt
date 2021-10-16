@@ -15,16 +15,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.f1app.ui.home.News
 import com.example.f1app.R
 import com.example.f1app.URL_PYTHONANYWHERE
-import com.example.f1app.ui.teamsAndDrivers.driverFragment
 import com.example.f1app.userId
+import com.example.f1app.userPrefeNewsId
 import com.squareup.picasso.Picasso
+import org.json.JSONException
 import org.json.JSONObject
-import java.security.MessageDigest
 
 class favoritesAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : RecyclerView.Adapter<favoritesAdapter.ViewHolder>() {
     private var context : Context = contextFrag
@@ -37,6 +38,7 @@ class favoritesAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : 
         val news_title: TextView
         val news_desc: TextView
         val news_link: TextView
+        val news_like: TextView
         val news_pref: ImageView
         val news_no_pref: ImageView
         val ivBasicImage: ImageView
@@ -46,6 +48,7 @@ class favoritesAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : 
             news_desc = itemView.findViewById(R.id.news_desc)
             news_link = itemView.findViewById(R.id.news_link)
             news_no_pref = itemView.findViewById(R.id.empty_star)
+            news_like = itemView.findViewById(R.id.likes)
             news_pref = itemView.findViewById(R.id.star)
             news_pref.visibility = View.VISIBLE
             news_no_pref.visibility = View.GONE
@@ -70,37 +73,15 @@ class favoritesAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : 
             context.startActivity(browserIntent)
         }
 
-        viewHolder.news_no_pref.setOnClickListener {
-            viewHolder.news_pref.visibility = View.VISIBLE
-            viewHolder.news_no_pref.visibility = View.GONE
-        }
+        viewHolder.news_pref.visibility = View.VISIBLE
+        viewHolder.news_no_pref.visibility = View.GONE
+        getPrefe(viewHolder, i)
 
         viewHolder.news_pref.setOnClickListener {
             viewHolder.news_pref.visibility = View.GONE
             viewHolder.news_no_pref.visibility = View.VISIBLE
-            val requestQueue = Volley.newRequestQueue(context)
-            val jsonobj = JSONObject()
-            jsonobj.put("newsId", resp.get(i).id)
-            jsonobj.put("userId", userId)
-            val jsonObjectRequest = JsonObjectRequest(
-                Request.Method.POST, urlDelete, jsonobj,
-                { response ->
-                    try {
-                        //Toast.makeText(context, "Response: $response", Toast.LENGTH_LONG).show()
-                        val fragment: Fragment = favAndShakeFragment()
-                        val fragmentManager: FragmentManager =
-                            (context as AppCompatActivity).getSupportFragmentManager()
-                        val fragmentTransaction = fragmentManager.beginTransaction()
-                        fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
-                        fragmentTransaction.addToBackStack(null)
-                        fragmentTransaction.commit()
-                    }catch (e:Exception){
-                        Toast.makeText(context, "Exception: $e", Toast.LENGTH_LONG).show()
-                    }
-                }) { error ->  Toast.makeText(context, "Volley error: $it", Toast.LENGTH_LONG).show()
-            }
-
-            requestQueue.add(jsonObjectRequest)
+            viewHolder.news_like.visibility = View.GONE
+            deletePrefe(i)
         }
 
     }
@@ -109,22 +90,56 @@ class favoritesAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : 
         return resp.size
     }
 
-    private fun hashString( input: String): String {
-        val HEX_CHARS = "0123456789ABCDEF"
-        val bytes = MessageDigest
-            .getInstance("SHA-256")
-            .digest(input.toByteArray())
-        val result = StringBuilder(bytes.size * 2)
-
-        bytes.forEach {
-            val i = it.toInt()
-            result.append(HEX_CHARS[i shr 4 and 0x0f])
-            result.append(HEX_CHARS[i and 0x0f])
+    private fun deletePrefe(i : Int){
+        val requestQueue = Volley.newRequestQueue(context)
+        val jsonobj = JSONObject()
+        jsonobj.put("newsId", resp.get(i).id)
+        jsonobj.put("userId", userId)
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST, urlDelete, jsonobj,
+            { response ->
+                try {
+                    //Toast.makeText(context, "Response: $response", Toast.LENGTH_LONG).show()
+                    val fragment: Fragment = favAndShakeFragment()
+                    val fragmentManager: FragmentManager =
+                        (context as AppCompatActivity).getSupportFragmentManager()
+                    val fragmentTransaction = fragmentManager.beginTransaction()
+                    fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
+                    fragmentTransaction.addToBackStack(null)
+                    fragmentTransaction.commit()
+                }catch (e:Exception){
+                    Toast.makeText(context, "Exception: $e", Toast.LENGTH_LONG).show()
+                }
+            }) { error ->  Toast.makeText(context, "Volley error", Toast.LENGTH_LONG).show()
         }
 
-        return result.toString()
+        requestQueue.add(jsonObjectRequest)
+        userPrefeNewsId.remove(resp.get(i).id)
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun getPrefe(viewHolder: ViewHolder, i: Int) {
+        val url = URL_PYTHONANYWHERE + "favoritesNumber?newsId="+resp.get(i).id
+        val requestQueue = Volley.newRequestQueue(context)
+        val request = JsonObjectRequest(Request.Method.GET,url, null,
+            { response ->
+                // Process the json
+                try {
+                    //Toast.makeText(context, "Response: $response", Toast.LENGTH_LONG).show()
+                    viewHolder.news_like.visibility = View.VISIBLE
+                    var numb = response.getInt("count")
+                    if (numb != 0){
+                        viewHolder.news_like.text = "Other " + numb + " users save this article"
+                    }
+                }catch (e:Exception){
+                    Toast.makeText(context, "Exception: $e", Toast.LENGTH_LONG).show()
+                }
 
+            }, {
+                // Error in request
+                //Toast.makeText(context, "Volley error: $it", Toast.LENGTH_LONG).show()
+            })
+        requestQueue.add(request)
+    }
 
 }

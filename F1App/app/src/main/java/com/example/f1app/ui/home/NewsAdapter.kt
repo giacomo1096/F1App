@@ -35,7 +35,6 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
 
     private val urlCreate = URL_PYTHONANYWHERE + "createfavorite"
     private val urlDelete = URL_PYTHONANYWHERE + "deletefavorite"
-    val favId = getFavoriteId()
 
     @SuppressLint("RestrictedApi")
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -44,6 +43,7 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
         val news_desc: TextView
         val news_link: TextView
         val news_pref: ImageView
+        val news_like: TextView
         val news_no_pref: ImageView
         val ivBasicImage: ImageView
 
@@ -51,13 +51,11 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
             news_title = itemView.findViewById(R.id.news_title)
             news_desc = itemView.findViewById(R.id.news_desc)
             news_link = itemView.findViewById(R.id.news_link)
+            news_like = itemView.findViewById(R.id.likes)
             news_no_pref = itemView.findViewById(R.id.empty_star)
             news_pref = itemView.findViewById(R.id.star)
 
             ivBasicImage = itemView.findViewById<View>(R.id.news_img) as ImageView
-
-            //Toast.makeText(context, "DEVI FUNGERE :$resp", Toast.LENGTH_LONG).show() //display the response on screen
-
         }
     }
 
@@ -68,10 +66,16 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        if(favId.contains(resp.get(i).id)){
+        if(userPrefeNewsId.contains(resp.get(i).id)){
             viewHolder.news_pref.visibility = View.VISIBLE
             viewHolder.news_no_pref.visibility = View.GONE
+            getPrefe(viewHolder, i)
+        }else{
+            viewHolder.news_pref.visibility = View.GONE
+            viewHolder.news_no_pref.visibility = View.VISIBLE
+            viewHolder.news_like.visibility = View.GONE
         }
+
         viewHolder.news_title.text = resp.get(i).title.substring(1)
         val imageUri = resp.get(i).image
         Picasso.get().load(imageUri).into(viewHolder.ivBasicImage)
@@ -85,52 +89,15 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
         viewHolder.news_no_pref.setOnClickListener {
             viewHolder.news_pref.visibility = View.VISIBLE
             viewHolder.news_no_pref.visibility = View.GONE
-
-            val requestQueue = Volley.newRequestQueue(context)
-            val newsJSON = JSONObject()
-            newsJSON.put("id", resp.get(i).id)
-            newsJSON.put("webTitle", resp.get(i).title)
-            newsJSON.put("webImage", resp.get(i).image)
-            newsJSON.put("webDesc", resp.get(i).desc)
-            newsJSON.put("webUrl", resp.get(i).link)
-            val jsonobj = JSONObject()
-            jsonobj.put("news", newsJSON)
-            jsonobj.put("userId", userId)
-            val request = JsonObjectRequest(Request.Method.POST,urlCreate,jsonobj,
-                { response ->
-                    // Process the json
-                    try {
-                        //Toast.makeText(context, "Response: $response", Toast.LENGTH_LONG).show()
-                    }catch (e:Exception){
-                        Toast.makeText(context, "Exception: $e", Toast.LENGTH_LONG).show()
-                    }
-
-                }, {
-                    // Error in request
-                    //Toast.makeText(context, "Volley error: $it", Toast.LENGTH_LONG).show()
-                })
-            requestQueue.add(request)
+            createPrefe(i)
+            getPrefe(viewHolder, i)
         }
 
         viewHolder.news_pref.setOnClickListener {
             viewHolder.news_pref.visibility = View.GONE
             viewHolder.news_no_pref.visibility = View.VISIBLE
-            val requestQueue = Volley.newRequestQueue(context)
-            val jsonobj = JSONObject()
-            jsonobj.put("newsId", resp.get(i).id)
-            jsonobj.put("userId", userId)
-            val jsonObjectRequest = JsonObjectRequest(
-                Request.Method.POST, urlDelete, jsonobj,
-                { response ->
-                    try {
-                        //Toast.makeText(context, "Response: $response", Toast.LENGTH_LONG).show()
-                    }catch (e:Exception){
-                        Toast.makeText(context, "Exception: $e", Toast.LENGTH_LONG).show()
-                    }
-                }) { error ->  //Toast.makeText(context, "Volley error: $it", Toast.LENGTH_LONG).show()
-            }
-
-            requestQueue.add(jsonObjectRequest)
+            viewHolder.news_like.visibility = View.GONE
+            deletePrefe(i)
         }
 
     }
@@ -139,36 +106,77 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
         return resp.size
     }
 
-    private fun getFavoriteId(): MutableList<String> {
-        val url = URL_PYTHONANYWHERE + "favorites?userId="+userId
-        //Create request queue
+    private fun deletePrefe(i : Int){
         val requestQueue = Volley.newRequestQueue(context)
-        //Create new String request
-        var prefe : MutableList<String> = mutableListOf<String>()
-        val stringRequest = JsonObjectRequest(
-            Request.Method.GET, url, null,
+        val jsonobj = JSONObject()
+        jsonobj.put("newsId", resp.get(i).id)
+        jsonobj.put("userId", userId)
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST, urlDelete, jsonobj,
             { response ->
                 try {
-                    val resultArray = response.getJSONArray("favorites")
-                    for (i in 0 until resultArray.length()) {
-                        val jo = resultArray.getJSONObject(i)
-                        val news_id = jo.getString("id")
-                        //Toast.makeText(context, "Response: $news_id list  $prefe", Toast.LENGTH_LONG).show()
-                        prefe.add(news_id)
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
+                    //Toast.makeText(context, "Response: $response", Toast.LENGTH_LONG).show()
+                }catch (e:Exception){
+                    Toast.makeText(context, "Exception: $e", Toast.LENGTH_LONG).show()
                 }
-            }
-        )  //Method that handles error in volley
-        { error: VolleyError ->
-            Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+            }) { error ->  //Toast.makeText(context, "Volley error: $it", Toast.LENGTH_LONG).show()
         }
 
-        //add string request to request queue
-        requestQueue.add(stringRequest)
-        return prefe
+        requestQueue.add(jsonObjectRequest)
+        userPrefeNewsId.remove(resp.get(i).id)
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun getPrefe(viewHolder: ViewHolder, i: Int) {
+        val url = URL_PYTHONANYWHERE + "favoritesNumber?newsId="+resp.get(i).id
+        val requestQueue = Volley.newRequestQueue(context)
+        val request = JsonObjectRequest(Request.Method.GET,url, null,
+            { response ->
+                // Process the json
+                try {
+                    //Toast.makeText(context, "Response: $response", Toast.LENGTH_LONG).show()
+                    viewHolder.news_like.visibility = View.VISIBLE
+                    var numb = response.getInt("count")
+                    if (numb != 0){
+                         viewHolder.news_like.text = "Other " + numb + " users save this article"
+                    }
+                }catch (e:Exception){
+                    Toast.makeText(context, "Exception: $e", Toast.LENGTH_LONG).show()
+                }
+
+            }, {
+                // Error in request
+                //Toast.makeText(context, "Volley error: $it", Toast.LENGTH_LONG).show()
+            })
+        requestQueue.add(request)
+    }
+
+    private fun createPrefe(i : Int){
+        val requestQueue = Volley.newRequestQueue(context)
+        val newsJSON = JSONObject()
+        newsJSON.put("id", resp.get(i).id)
+        newsJSON.put("webTitle", resp.get(i).title)
+        newsJSON.put("webImage", resp.get(i).image)
+        newsJSON.put("webDesc", resp.get(i).desc)
+        newsJSON.put("webUrl", resp.get(i).link)
+        val jsonobj = JSONObject()
+        jsonobj.put("news", newsJSON)
+        jsonobj.put("userId", userId)
+        val request = JsonObjectRequest(Request.Method.POST,urlCreate,jsonobj,
+            { response ->
+                // Process the json
+                try {
+                    //Toast.makeText(context, "Response: $response", Toast.LENGTH_LONG).show()
+                }catch (e:Exception){
+                    Toast.makeText(context, "Exception: $e", Toast.LENGTH_LONG).show()
+                }
+
+            }, {
+                // Error in request
+                //Toast.makeText(context, "Volley error: $it", Toast.LENGTH_LONG).show()
+            })
+        requestQueue.add(request)
+        userPrefeNewsId.add(resp.get(i).id)
+    }
 
 }

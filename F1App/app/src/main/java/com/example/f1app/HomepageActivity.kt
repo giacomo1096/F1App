@@ -40,13 +40,6 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.google.android.gms.tasks.OnCompleteListener
 import android.content.DialogInterface
 
-
-
-
-
-
-
-
 class HomepageActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomepageBinding
@@ -72,47 +65,10 @@ class HomepageActivity : AppCompatActivity() {
         return true
     }
 
-    private fun confirmAction(){
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setCancelable(true)
-        builder.setTitle("ATTENTION!!")
-        builder.setMessage("Delate Account" + userName + " and the relative information")
-        builder.setPositiveButton("Confirm",
-            DialogInterface.OnClickListener { dialog,which ->
-                deleteAccount()
-                mGoogleSignInClient.signOut().addOnCompleteListener {
-                    val intent= Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()}
-            })
-        builder.setNegativeButton(android.R.string.cancel,
-            DialogInterface.OnClickListener { dialog, which -> })
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
-    }
-    private fun deleteAccount() {
-        val url = URL_PYTHONANYWHERE + "deleteaccount?userid="+ userId
-        val requestQueue = Volley.newRequestQueue(this)
-        val stringRequest = JsonObjectRequest(
-            Request.Method.DELETE, url, null,
-            { response ->
-                try {
-                    Toast.makeText(this, "ACCOUNT DELATED", Toast.LENGTH_SHORT).show()
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-            }
-        )  //Method that handles error in volley
-        { error: VolleyError ->
-            Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
-        }
-
-        //add string request to request queue
-        requestQueue.add(stringRequest)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        getFavoriteId()
 
         binding = ActivityHomepageBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -135,5 +91,72 @@ class HomepageActivity : AppCompatActivity() {
         SensorThread(this)
     }
 
+    private fun confirmAction(){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setCancelable(true)
+        builder.setTitle("ATTENTION!!")
+        builder.setMessage("Delate Account" + userName + " and the relative information")
+        builder.setPositiveButton("Confirm",
+            DialogInterface.OnClickListener { dialog,which ->
+                deleteAccount()
+                mGoogleSignInClient.signOut().addOnCompleteListener {
+                    val intent= Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()}
+            })
+        builder.setNegativeButton(android.R.string.cancel,
+            DialogInterface.OnClickListener { dialog, which -> })
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
+    private fun deleteAccount() {
+        val url = URL_PYTHONANYWHERE + "deleteaccount?userid="+ userId
+        val requestQueue = Volley.newRequestQueue(this)
+        val stringRequest = JsonObjectRequest(
+            Request.Method.DELETE, url, null,
+            { response ->
+                try {
+                    Toast.makeText(this, "ACCOUNT DELATED", Toast.LENGTH_SHORT).show()
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        )  //Method that handles error in volley
+        { error: VolleyError ->
+            Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+        }
+
+        //add string request to request queue
+        requestQueue.add(stringRequest)
+    }
+
+    private fun getFavoriteId(){
+        val url = URL_PYTHONANYWHERE + "favorites?userId="+userId
+        //Create request queue
+        val requestQueue = Volley.newRequestQueue(this)
+        //Create new String request
+        val stringRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                try {
+                    val resultArray = response.getJSONArray("favorites")
+                    for (i in 0 until resultArray.length()) {
+                        val jo = resultArray.getJSONObject(i)
+                        val news_id = jo.getString("id")
+                        userPrefeNewsId.add(news_id)
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+        )  //Method that handles error in volley
+        { error: VolleyError ->
+            Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+        }
+
+        //add string request to request queue
+        requestQueue.add(stringRequest)
+    }
 
 }

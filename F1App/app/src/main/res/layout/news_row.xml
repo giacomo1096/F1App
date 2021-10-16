@@ -100,14 +100,24 @@
         </TableRow>
 
         <TableRow>
+            <LinearLayout>
+            <TextView
+                android:id="@+id/likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="15sp"
+                android:visibility="gone"/>
             <ImageView
                 android:id="@+id/star"
                 android:layout_width="22sp"
                 android:layout_height="22sp"
                 android:layout_gravity="right"
                 android:layout_marginBottom="2sp"
+                android:layout_marginLeft="160sp"
                 android:src="@android:drawable/btn_star_big_on"
                 android:visibility="gone"/>
+            </LinearLayout>
         </TableRow>
 
         <View
