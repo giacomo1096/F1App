@@ -37,7 +37,8 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
         val news_desc: TextView
         val news_link: TextView
         val news_pref: ImageView
-        val news_like: TextView
+        val news_like1: TextView
+        val news_like2: TextView
         val news_no_pref: ImageView
         val ivBasicImage: ImageView
 
@@ -45,7 +46,8 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
             news_title = itemView.findViewById(R.id.news_title)
             news_desc = itemView.findViewById(R.id.news_desc)
             news_link = itemView.findViewById(R.id.news_link)
-            news_like = itemView.findViewById(R.id.likes)
+            news_like1 = itemView.findViewById(R.id.likes1)
+            news_like2 = itemView.findViewById(R.id.likes2)
             news_no_pref = itemView.findViewById(R.id.empty_star)
             news_pref = itemView.findViewById(R.id.star)
 
@@ -67,14 +69,14 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
         }else{
             viewHolder.news_pref.visibility = View.GONE
             viewHolder.news_no_pref.visibility = View.VISIBLE
-            viewHolder.news_like.visibility = View.GONE
+            viewHolder.news_like2.visibility = View.GONE
         }
 
         viewHolder.news_title.text = resp.get(i).title.substring(1)
         val imageUri = resp.get(i).image
         Picasso.get().load(imageUri).into(viewHolder.ivBasicImage)
         viewHolder.news_desc.text = resp.get(i).desc
-        viewHolder.news_link.text = resp.get(i).link
+        //viewHolder.news_link.text = resp.get(i).link
         viewHolder.news_link.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(resp.get(i).link))
             context.startActivity(browserIntent)
@@ -90,7 +92,7 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
         viewHolder.news_pref.setOnClickListener {
             viewHolder.news_pref.visibility = View.GONE
             viewHolder.news_no_pref.visibility = View.VISIBLE
-            viewHolder.news_like.visibility = View.GONE
+            viewHolder.news_like2.visibility = View.GONE
             deletePrefe(i)
         }
 
@@ -129,11 +131,15 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
                 // Process the json
                 try {
                     //Toast.makeText(context, "Response: $response", Toast.LENGTH_LONG).show()
-                    viewHolder.news_like.visibility = View.VISIBLE
+                    viewHolder.news_like2.visibility = View.VISIBLE
                     var numb = response.getInt("count")
-                    if (numb != 0){
-                         viewHolder.news_like.text = "Other " + numb + " users save this article"
+                    if(numb == 0) {
+                        viewHolder.news_like2.text = "1"
                     }
+                    else{
+                        viewHolder.news_like2.text = numb.toString()
+                    }
+
                 }catch (e:Exception){
                     Toast.makeText(context, "Exception: $e", Toast.LENGTH_LONG).show()
                 }

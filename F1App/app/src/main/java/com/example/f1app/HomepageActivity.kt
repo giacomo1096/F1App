@@ -78,8 +78,8 @@ class HomepageActivity : AppCompatActivity() {
     private fun confirmAction(){
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setCancelable(true)
-        builder.setTitle("ATTENTION!!")
-        builder.setMessage("Delate Account" + userName + " and the relative information")
+        builder.setTitle("Hey " + userName + "!")
+        builder.setMessage("Do you want to delete your account and the relative information?")
         builder.setPositiveButton("Confirm",
             DialogInterface.OnClickListener { dialog,which ->
                 deleteAccount()
@@ -88,7 +88,7 @@ class HomepageActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()}
             })
-        builder.setNegativeButton(android.R.string.cancel,
+        builder.setNegativeButton("Cancel",
             DialogInterface.OnClickListener { dialog, which -> })
         val dialog: AlertDialog = builder.create()
         dialog.show()
@@ -101,7 +101,7 @@ class HomepageActivity : AppCompatActivity() {
             Request.Method.DELETE, url, null,
             { response ->
                 try {
-                    Toast.makeText(this, "ACCOUNT DELATED", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT).show()
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }

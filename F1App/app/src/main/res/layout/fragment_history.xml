@@ -10,12 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_history"
-        android:background="@color/white"
-        >
+        android:background="@color/white">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvcircuits"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"/>
 
     </LinearLayout>
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
@@ -15,12 +16,15 @@ import com.example.f1app.R
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONArray
 import org.json.JSONException
+import org.json.JSONObject
 import java.security.MessageDigest
 
 
-class homeFragment : Fragment() {
+class homeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     val news_list: MutableList<News> = mutableListOf<News>()
+
+    var mSwipeRefreshLayout: SwipeRefreshLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -31,6 +35,13 @@ class homeFragment : Fragment() {
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
         prepareData()
+
+        mSwipeRefreshLayout = itemView.findViewById(R.id.swipe_container)
+
+        mSwipeRefreshLayout!!.setOnRefreshListener {
+                prepareData()
+                mSwipeRefreshLayout!!.isRefreshing = false
+        }
     }
 
     private fun prepareData() {
@@ -94,4 +105,9 @@ class homeFragment : Fragment() {
 
         return result.toString()
     }
+
+    override fun onRefresh() {
+        prepareData()
+    }
+
 }
