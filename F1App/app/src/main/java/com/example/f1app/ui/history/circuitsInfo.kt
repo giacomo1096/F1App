@@ -3,7 +3,6 @@ package com.example.f1app.ui.history
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,20 +14,14 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.f1app.R
-import kotlinx.android.synthetic.main.fragment_history.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import com.example.f1app.*
 
-
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_circuit_details.*
 import com.android.volley.RetryPolicy
-
-
-
 
 
 class circuitsInfo(circuitId:String, circuitName:String) : Fragment() {
@@ -276,17 +269,17 @@ class circuitsInfo(circuitId:String, circuitName:String) : Fragment() {
                     //Toast.makeText(context, "Response :$jsonResponses", Toast.LENGTH_LONG).show() //display the response on screen
                  } catch (e: JSONException) {
                     e.printStackTrace()
-                    Toast.makeText(context, "sei nel catch", Toast.LENGTH_LONG).show() //display the response on screen
+                    //Toast.makeText(context, "sei nel catch", Toast.LENGTH_LONG).show() //display the response on screen
                 }
             }) { error -> error.printStackTrace() }
 
         jsonObjectRequest.setRetryPolicy(object : RetryPolicy {
             override fun getCurrentTimeout(): Int {
-                return 90000
+                return 9000000
             }
 
             override fun getCurrentRetryCount(): Int {
-                return 90000
+                return 9000000
             }
 
             @Throws(VolleyError::class)

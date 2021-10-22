@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
+import com.android.volley.RetryPolicy
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -139,6 +140,19 @@ class favoritesAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : 
                 // Error in request
                 //Toast.makeText(context, "Volley error: $it", Toast.LENGTH_LONG).show()
             })
+        request.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 9000000
+            }
+
+            override fun getCurrentRetryCount(): Int {
+                return 9000000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
         requestQueue.add(request)
     }
 

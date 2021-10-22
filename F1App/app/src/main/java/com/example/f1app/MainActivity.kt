@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
+import com.android.volley.RetryPolicy
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -100,6 +101,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkAlreadyRegister(ID : String): String {
         val url = URL_PYTHONANYWHERE + "checkemail?email="+userMail
+
+        Toast.makeText(this, "in else $userMail", Toast.LENGTH_SHORT).show()
         val requestQueue = Volley.newRequestQueue(this)
         var accountId = ""
         val stringRequest = JsonObjectRequest(
@@ -118,8 +121,22 @@ class MainActivity : AppCompatActivity() {
             }
         )  //Method that handles error in volley
         { error: VolleyError ->
-            Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error: $error", Toast.LENGTH_SHORT).show()
         }
+
+        stringRequest.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 9000000
+            }
+
+            override fun getCurrentRetryCount(): Int {
+                return 9000000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
 
         //add string request to request queue
         requestQueue.add(stringRequest)
@@ -138,13 +155,28 @@ class MainActivity : AppCompatActivity() {
                 try {
                     //Toast.makeText(this, "new Account", Toast.LENGTH_SHORT).show()
                 } catch (e: JSONException) {
-                    e.printStackTrace()
+                    //e.printStackTrace()
                 }
             }
         )  //Method that handles error in volley
         { error: VolleyError ->
-            Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error: $error", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "ErrorRRRRR", Toast.LENGTH_SHORT).show()
         }
+
+        stringRequest.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 9000000
+            }
+
+            override fun getCurrentRetryCount(): Int {
+                return 9000000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
 
         //add string request to request queue
         requestQueue.add(stringRequest)
@@ -160,14 +192,14 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
                     updateUI(user)  //decomm
-                    val home = Intent(this@MainActivity,HomepageActivity::class.java)
+                    val home = Intent(this,HomepageActivity::class.java)
                     startActivity(home) // takes the user to the signup activity
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     updateUI(null) //decomm
                     //dialog.dismiss()
-                    Toast.makeText(this@MainActivity, "Login failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -183,7 +215,6 @@ class MainActivity : AppCompatActivity() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         //Toast.makeText(this@MainActivity, "$currentUser" , Toast.LENGTH_SHORT).show()
-
         updateUI(currentUser)
     }
 

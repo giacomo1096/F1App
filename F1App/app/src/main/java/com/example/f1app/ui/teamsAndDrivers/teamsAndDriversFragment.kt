@@ -15,6 +15,8 @@ import com.android.volley.toolbox.Volley
 import com.example.f1app.R
 import org.json.JSONException
 import com.android.volley.DefaultRetryPolicy
+import com.android.volley.RetryPolicy
+import com.android.volley.VolleyError
 import com.example.f1app.URL_PYTHONANYWHERE
 import kotlinx.android.synthetic.main.fragment_teamsdrivers.*
 
@@ -68,6 +70,19 @@ class teamsAndDriversFragment : Fragment() {
                 }
             }) { error -> error.printStackTrace() }
 
+        jsonObjectRequest.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 9000000
+            }
+
+            override fun getCurrentRetryCount(): Int {
+                return 9000000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
 
         requestQueue.add(jsonObjectRequest)
 
@@ -105,6 +120,20 @@ class teamsAndDriversFragment : Fragment() {
                     }
                 }) { error -> error.printStackTrace() }
 
+            jsonObjectRequest.setRetryPolicy(object : RetryPolicy {
+                override fun getCurrentTimeout(): Int {
+                    return 9000000
+                }
+
+                override fun getCurrentRetryCount(): Int {
+                    return 9000000
+                }
+
+                @Throws(VolleyError::class)
+                override fun retry(error: VolleyError) {
+                }
+            })
+
             requestQueue.add(jsonObjectRequest)
 
         }
@@ -141,13 +170,19 @@ class teamsAndDriversFragment : Fragment() {
                     }
                 }) { error -> error.printStackTrace() }
 
-            jsonObjectRequest.setRetryPolicy(
-                DefaultRetryPolicy(
-                    5000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-                )
-            )
+            jsonObjectRequest.setRetryPolicy(object : RetryPolicy {
+                override fun getCurrentTimeout(): Int {
+                    return 9000000
+                }
+
+                override fun getCurrentRetryCount(): Int {
+                    return 9000000
+                }
+
+                @Throws(VolleyError::class)
+                override fun retry(error: VolleyError) {
+                }
+            })
 
             requestQueue.add(jsonObjectRequest)
 

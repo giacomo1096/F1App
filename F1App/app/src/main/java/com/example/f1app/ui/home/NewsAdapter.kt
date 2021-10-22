@@ -12,22 +12,16 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
+import com.android.volley.RetryPolicy
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.f1app.ui.home.newsAdapter.ViewHolder
 import com.squareup.picasso.Picasso
 
-import kotlinx.android.synthetic.main.fragment_history.*
 import org.json.JSONObject
 import com.example.f1app.*
-import com.example.f1app.ui.favAndShake.favoritesAdapter
-import kotlinx.android.synthetic.main.fragment_favandshake.*
-import org.json.JSONException
-import java.security.MessageDigest
-
 
 class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : RecyclerView.Adapter<ViewHolder>() {
     private var context : Context = contextFrag
@@ -148,6 +142,20 @@ class newsAdapter(contextFrag: Context, jsonResponses:MutableList<News>) : Recyc
                 // Error in request
                 //Toast.makeText(context, "Volley error: $it", Toast.LENGTH_LONG).show()
             })
+
+        request.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 9000000
+            }
+
+            override fun getCurrentRetryCount(): Int {
+                return 9000000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
         requestQueue.add(request)
     }
 

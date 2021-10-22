@@ -1,12 +1,6 @@
 package com.example.f1app
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import android.os.AsyncTask
-import android.os.Bundle
-import android.view.LayoutInflater
-
 import androidx.appcompat.app.AppCompatActivity
 
 import com.android.volley.Request
@@ -25,20 +19,12 @@ import androidx.fragment.app.FragmentManager
 import com.example.f1app.ui.teamsAndDrivers.driverFragment
 
 import java.lang.Exception
-import android.content.Context.LAYOUT_INFLATER_SERVICE
-import android.content.Intent
 import android.graphics.Color
-import androidx.core.content.ContextCompat
-
-import androidx.core.content.ContextCompat.getSystemService
 import android.widget.PopupWindow
-import android.view.MotionEvent
 
 import android.view.Gravity
 import android.view.View.OnTouchListener
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.view.marginRight
-import com.google.android.gms.tasks.OnCompleteListener
+import com.android.volley.RetryPolicy
 
 
 class SensorThread(val cont:Context){
@@ -52,7 +38,7 @@ class SensorThread(val cont:Context){
                 mShaker = Sensor(this, cont)
                 mShaker!!.setOnShakeListener(object : Sensor.OnShakeListener {
                     override fun onShake() {
-                        Toast.makeText(cont, "SI SHAKERAAAAAAA", Toast.LENGTH_LONG).show() //display the response on screen
+                        Toast.makeText(cont, "Updating driver standings...", Toast.LENGTH_LONG).show() //display the response on screen
                         prepareData(View.inflate(cont, R.layout.standing_result_shake, null))
                     }
                 })
@@ -147,8 +133,22 @@ class SensorThread(val cont:Context){
             }
         )  //Method that handles error in volley
         { error: VolleyError ->
-            Toast.makeText(cont, error.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(cont, "errore : $error", Toast.LENGTH_SHORT).show()
         }
+
+        stringRequest.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 9000000
+            }
+
+            override fun getCurrentRetryCount(): Int {
+                return 9000000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
 
         //add string request to request queue
         requestQueue.add(stringRequest)

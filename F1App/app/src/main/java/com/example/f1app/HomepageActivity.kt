@@ -6,9 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -17,28 +14,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.f1app.databinding.ActivityHomepageBinding
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 
 import org.json.JSONException
-
-import org.json.JSONObject
-
-import org.json.JSONArray
-
-import com.android.volley.toolbox.StringRequest
-
 import com.android.volley.toolbox.Volley
-
-import com.android.volley.RequestQueue
 import com.android.volley.VolleyError
-import kotlinx.android.synthetic.main.activity_homepage.*
-import kotlinx.android.synthetic.main.fragment_history.*
-import androidx.annotation.NonNull
-import com.android.volley.toolbox.JsonObjectRequest
 
-import com.google.android.gms.tasks.OnCompleteListener
+import com.android.volley.toolbox.JsonObjectRequest
 import android.content.DialogInterface
+import com.android.volley.RetryPolicy
 
 class HomepageActivity : AppCompatActivity() {
 
@@ -127,6 +111,20 @@ class HomepageActivity : AppCompatActivity() {
             Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
         }
 
+        stringRequest.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 9000000
+            }
+
+            override fun getCurrentRetryCount(): Int {
+                return 9000000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
+
         //add string request to request queue
         requestQueue.add(stringRequest)
     }
@@ -152,8 +150,22 @@ class HomepageActivity : AppCompatActivity() {
             }
         )  //Method that handles error in volley
         { error: VolleyError ->
-            Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error: $error", Toast.LENGTH_SHORT).show()
         }
+
+        stringRequest.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 9000000
+            }
+
+            override fun getCurrentRetryCount(): Int {
+                return 9000000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
 
         //add string request to request queue
         requestQueue.add(stringRequest)

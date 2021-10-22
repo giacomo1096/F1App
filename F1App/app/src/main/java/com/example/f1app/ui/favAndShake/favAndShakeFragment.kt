@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
+import com.android.volley.RetryPolicy
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -72,7 +73,19 @@ class favAndShakeFragment : Fragment() {
         { error: VolleyError ->
             Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
         }
+        stringRequest.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 9000000
+            }
 
+            override fun getCurrentRetryCount(): Int {
+                return 9000000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
         //add string request to request queue
         requestQueue.add(stringRequest)
     }

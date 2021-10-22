@@ -10,6 +10,8 @@ import android.widget.Toast
 
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
+import com.android.volley.RetryPolicy
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.f1app.R
@@ -52,6 +54,20 @@ class lastRaceFragment : Fragment() {
 
                 }
             }) { error -> error.printStackTrace() }
+
+        jsonObjectRequest.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 9000000
+            }
+
+            override fun getCurrentRetryCount(): Int {
+                return 9000000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
 
         requestQueue.add(jsonObjectRequest)
 
@@ -135,7 +151,7 @@ class lastRaceFragment : Fragment() {
 
                 } catch (e: JSONException) {
                     e.printStackTrace()
-                    Toast.makeText(context, "sei nel catch", Toast.LENGTH_LONG).show() //display the response on screen
+                    //Toast.makeText(context, "sei nel catch", Toast.LENGTH_LONG).show() //display the response on screen
 
                 }
             }) { error -> error.printStackTrace() }
