@@ -23,6 +23,7 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import android.content.DialogInterface
 import com.android.volley.RetryPolicy
+import com.google.android.material.navigation.NavigationView
 
 class HomepageActivity : AppCompatActivity() {
 
@@ -50,15 +51,13 @@ class HomepageActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         getFavoriteId()
 
         binding = ActivityHomepageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val navView: BottomNavigationView = binding.navView
-        navView.itemIconTintList = null
 
         val navController = findNavController(R.id.nav_host_fragment_activity_homepage)
         // Passing each menu ID as a set of Ids because each
@@ -69,8 +68,22 @@ class HomepageActivity : AppCompatActivity() {
 
             )
         )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+
+        // Initialize the NavigationView if it is present,
+        // so that clicking an item takes
+        // the user to the appropriate destination.
+        val sideNavView = findViewById<NavigationView>(R.id.nav_view_ham)
+        sideNavView?.setupWithNavController(navController)
+        sideNavView?.itemIconTintList = null
+
+        // Initialize the BottomNavigationView if it is present,
+        // so that clicking an item takes
+        // the user to the appropriate destination.
+        val bottomNav = findViewById<BottomNavigationView>(R.id.nav_view)
+        bottomNav?.setupWithNavController(navController)
+        bottomNav?.itemIconTintList = null
 
         SensorThread(this)
     }

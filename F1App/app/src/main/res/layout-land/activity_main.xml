@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:orientation="vertical"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        tools:ignore="MissingConstraints">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:orientation="horizontal"
+            android:rowCount="2">
+
+            <ImageView
+                android:layout_width="194dp"
+                android:layout_height="100dp"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_gravity="fill"
+                android:src="@drawable/icona_google"/>
+
+            <TextView
+                android:layout_width="409dp"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_rowSpan="1"
+                android:layout_column="1"
+                android:includeFontPadding="false"
+                android:paddingTop="20sp"
+                android:shadowColor="#0E0E0E"
+                android:text="Sign In"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="45sp" />
+
+            <TextView
+                android:layout_width="409dp"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_rowSpan="1"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:shadowColor="#0E0E0E"
+                android:text="Sign-In with Google using Firebase!"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:layout_marginTop="25dp"/>
+
+        </GridLayout>>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
+
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="215dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:src="@drawable/f1_car" />
+
+        <Button
+            android:id="@+id/google_signIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/icon_red"
+            android:elevation="8dp"
+            android:text="Sign In with Google"
+            android:textColor="#fff" />
+
+
+
+    </LinearLayout>>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
