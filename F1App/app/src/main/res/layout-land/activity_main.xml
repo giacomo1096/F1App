@@ -59,7 +59,7 @@
                 android:textSize="14sp"
                 android:layout_marginTop="25dp"/>
 
-        </GridLayout>>
+        </GridLayout>
 
         <Space
             android:layout_width="match_parent"
