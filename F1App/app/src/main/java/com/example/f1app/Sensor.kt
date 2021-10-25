@@ -80,10 +80,10 @@ class Sensor(private val mContext: SensorThread, private val context: Context) :
     }
 
     companion object {
-        private const val FORCE_THRESHOLD = 850
-        private const val TIME_THRESHOLD = 100
+        private const val FORCE_THRESHOLD = 950
+        private const val TIME_THRESHOLD = 200
         private const val SHAKE_TIMEOUT = 500
-        private const val SHAKE_DURATION = 1000
+        private const val SHAKE_DURATION = 1200
         private const val SHAKE_COUNT = 3
     }
 

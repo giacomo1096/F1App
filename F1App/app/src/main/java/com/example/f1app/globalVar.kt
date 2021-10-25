@@ -10,3 +10,4 @@ var userName : String = ""
 var userToken : String = ""
 var userPrefeNewsId : MutableList<String> = mutableListOf<String>()
 
+

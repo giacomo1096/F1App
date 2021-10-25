@@ -102,7 +102,6 @@ class MainActivity : AppCompatActivity() {
     private fun checkAlreadyRegister(ID : String): String {
         val url = URL_PYTHONANYWHERE + "checkemail?email="+userMail
 
-        Toast.makeText(this, "in else $userMail", Toast.LENGTH_SHORT).show()
         val requestQueue = Volley.newRequestQueue(this)
         var accountId = ""
         val stringRequest = JsonObjectRequest(

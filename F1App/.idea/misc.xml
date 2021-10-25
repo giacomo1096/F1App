@@ -44,6 +44,7 @@
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.21875" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.21875" />
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.21875" />
+        <entry key="app/src/main/res/layout-land/activity_homepage.xml" value="0.5152919369786839" />
         <entry key="app/src/main/res/layout/activity_circuit_details.xml" value="0.13677536231884058" />
         <entry key="app/src/main/res/layout/activity_homepage.xml" value="0.20260416666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3109375" />
@@ -60,6 +61,7 @@
         <entry key="app/src/main/res/layout/fragment_teamsdrivers.xml" value="0.20425724637681159" />
         <entry key="app/src/main/res/layout/freagment_team.xml" value="0.2625" />
         <entry key="app/src/main/res/layout/news_row.xml" value="0.30520833333333336" />
+        <entry key="app/src/main/res/layout/standing_result_shake.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/layout/standing_row.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="app/src/main/res/menu/logout_menu.xml" value="0.190625" />

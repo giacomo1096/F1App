@@ -1,6 +1,7 @@
 package com.example.f1app.ui.favAndShake
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +19,14 @@ import com.example.f1app.R
 import com.example.f1app.URL_PYTHONANYWHERE
 import com.example.f1app.userId
 import kotlinx.android.synthetic.main.fragment_favandshake.*
+
 import org.json.JSONException
 
 
 class favAndShakeFragment : Fragment() {
-    //userId va reso dinamico
-    private val url = URL_PYTHONANYWHERE + "favorites?userId="+userId
 
+    private val url = URL_PYTHONANYWHERE + "favorites?userId="+userId
+    var listStatePrefe: Parcelable? = null
     val news_list: MutableList<News> = mutableListOf<News>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -35,6 +37,7 @@ class favAndShakeFragment : Fragment() {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
+        listStatePrefe= savedInstanceState?.getParcelable("ListStatePrefe");
         prepareData()
     }
 
@@ -65,6 +68,7 @@ class favAndShakeFragment : Fragment() {
                         layoutManager = LinearLayoutManager( context)
                         adapter = favoritesAdapter(context, news_list)
                     }
+                    rvfavorites.getLayoutManager()?.onRestoreInstanceState(listStatePrefe);
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
@@ -90,6 +94,10 @@ class favAndShakeFragment : Fragment() {
         requestQueue.add(stringRequest)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable("ListStatePrefe", rvfavorites?.getLayoutManager()?.onSaveInstanceState())
+    }
 
 
 }

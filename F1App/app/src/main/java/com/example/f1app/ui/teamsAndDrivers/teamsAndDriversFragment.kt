@@ -1,6 +1,7 @@
 package com.example.f1app.ui.teamsAndDrivers
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.android.volley.DefaultRetryPolicy
 import com.android.volley.RetryPolicy
 import com.android.volley.VolleyError
 import com.example.f1app.URL_PYTHONANYWHERE
+import kotlinx.android.synthetic.main.fragment_favandshake.*
 import kotlinx.android.synthetic.main.fragment_teamsdrivers.*
 
 
@@ -26,6 +28,7 @@ class teamsAndDriversFragment : Fragment() {
 
     private val url_drivers = URL_PYTHONANYWHERE + "drivers"
     private val url_teams =  URL_PYTHONANYWHERE + "teams"
+    var listStatePrefe: Parcelable? = null
     var query = 0 //0 drivers, 1 teams
     val jsonResponses: MutableList<Map<String,String>> = mutableListOf<Map<String,String>>()
 
@@ -39,6 +42,8 @@ class teamsAndDriversFragment : Fragment() {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
+        listStatePrefe= savedInstanceState?.getParcelable("ListState")
+
         val requestQueue = Volley.newRequestQueue(context)
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url_drivers, null,
@@ -62,6 +67,7 @@ class teamsAndDriversFragment : Fragment() {
                         // set the custom adapter to the RecyclerView
                         adapter = teamsDriversAdapter(context, jsonResponses, query)
                     }
+                    teams_drivers.getLayoutManager()?.onRestoreInstanceState(listStatePrefe);
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     Toast.makeText(context, "sei nel catch", Toast.LENGTH_LONG)
@@ -112,6 +118,7 @@ class teamsAndDriversFragment : Fragment() {
                             // set the custom adapter to the RecyclerView
                             adapter = teamsDriversAdapter(context, jsonResponses, query)
                         }
+                        teams_drivers.getLayoutManager()?.onRestoreInstanceState(listStatePrefe);
                     } catch (e: JSONException) {
                         e.printStackTrace()
                         Toast.makeText(context, "sei nel catch", Toast.LENGTH_LONG)
@@ -162,6 +169,7 @@ class teamsAndDriversFragment : Fragment() {
                             // set the custom adapter to the RecyclerView
                             adapter = teamsDriversAdapter(context, jsonResponses, query)
                         }
+                        teams_drivers.getLayoutManager()?.onRestoreInstanceState(listStatePrefe);
                     } catch (e: JSONException) {
                         e.printStackTrace()
                         Toast.makeText(context, "sei nel catch", Toast.LENGTH_LONG)
@@ -189,6 +197,12 @@ class teamsAndDriversFragment : Fragment() {
         }
 
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable("ListState", teams_drivers?.getLayoutManager()?.onSaveInstanceState())
+    }
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.f1app.ui.home
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,15 +17,18 @@ import com.example.f1app.R
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONArray
 import org.json.JSONException
-import org.json.JSONObject
 import java.security.MessageDigest
+import androidx.recyclerview.widget.RecyclerView
+
+
+
 
 
 class homeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     val news_list: MutableList<News> = mutableListOf<News>()
-
     var mSwipeRefreshLayout: SwipeRefreshLayout? = null
+    var listState: Parcelable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -34,6 +38,8 @@ class homeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
+        listState= savedInstanceState?.getParcelable("ListState");
+
         prepareData()
 
         mSwipeRefreshLayout = itemView.findViewById(R.id.swipe_container)
@@ -70,12 +76,10 @@ class homeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                     }
 
                     rvnews.apply {
-                        // set a LinearLayoutManager to handle Android
-                        // RecyclerView behavior
                         layoutManager = LinearLayoutManager(context)
-                        // set the custom adapter to the RecyclerView
                         adapter = newsAdapter(context, news_list)
                     }
+                    rvnews.getLayoutManager()?.onRestoreInstanceState(listState);
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
@@ -88,7 +92,6 @@ class homeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         //add string request to request queue
         requestQueue.add(stringRequest)
     }
-
 
     private fun hashString( input: String): String {
         val HEX_CHARS = "0123456789ABCDEF"
@@ -108,6 +111,11 @@ class homeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     override fun onRefresh() {
         prepareData()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable("ListState", rvnews?.getLayoutManager()?.onSaveInstanceState())
     }
 
 }

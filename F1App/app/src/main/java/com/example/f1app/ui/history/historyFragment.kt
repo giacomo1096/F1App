@@ -1,6 +1,7 @@
 package com.example.f1app.ui.history
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +14,15 @@ import com.android.volley.toolbox.JsonObjectRequest
 import kotlinx.android.synthetic.main.fragment_history.*
 import com.example.f1app.R
 import com.example.f1app.URL_PYTHONANYWHERE
+import kotlinx.android.synthetic.main.fragment_teamsdrivers.*
 import org.json.JSONException
 
 class historyFragment : Fragment() {
 
     private val url = URL_PYTHONANYWHERE + "circuits"
     val jsonResponses: MutableList<Map<String,String>> = mutableListOf<Map<String,String>>()
+
+    var listStatePrefe: Parcelable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -28,6 +32,7 @@ class historyFragment : Fragment() {
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
+        listStatePrefe= savedInstanceState?.getParcelable("ListState")
 
         val requestQueue = Volley.newRequestQueue(context)
         val jsonObjectRequest = JsonObjectRequest(
@@ -50,6 +55,7 @@ class historyFragment : Fragment() {
                         // set the custom adapter to the RecyclerView
                         adapter = circuitAdapter(context, jsonResponses)
                     }
+                    rvcircuits.getLayoutManager()?.onRestoreInstanceState(listStatePrefe);
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     Toast.makeText(context, "sei nel catch", Toast.LENGTH_LONG).show() //display the response on screen
@@ -58,6 +64,11 @@ class historyFragment : Fragment() {
             }) { error -> error.printStackTrace() }
 
         requestQueue.add(jsonObjectRequest)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable("ListState", rvcircuits?.getLayoutManager()?.onSaveInstanceState())
     }
 
 }
