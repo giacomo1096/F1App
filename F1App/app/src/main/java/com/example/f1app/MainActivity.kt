@@ -110,9 +110,12 @@ class MainActivity : AppCompatActivity() {
                 try {
                     if( response.getString("userId") != "none"){
                         accountId = response.getString("userId")
+                        Toast.makeText(this, "Welcome $userName!", Toast.LENGTH_SHORT).show()
+
                     }
                     else{
                         createNewAccount(ID)
+                        Toast.makeText(this, "Welcome $userName!", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()

@@ -44,6 +44,7 @@ class HomepageActivity : AppCompatActivity() {
                 val intent= Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
+                Toast.makeText(this, "Bye bye $userName!", Toast.LENGTH_SHORT).show()
             }
         }
         if (id == R.id.delete){
@@ -116,7 +117,7 @@ class HomepageActivity : AppCompatActivity() {
             Request.Method.DELETE, url, null,
             { response ->
                 try {
-                    Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Your account has been deleted successfully", Toast.LENGTH_SHORT).show()
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }

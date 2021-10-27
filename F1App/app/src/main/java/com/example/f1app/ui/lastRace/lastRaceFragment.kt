@@ -156,6 +156,20 @@ class lastRaceFragment : Fragment() {
                 }
             }) { error -> error.printStackTrace() }
 
+        jsonObjectRequest_lastRace.setRetryPolicy(object : RetryPolicy {
+            override fun getCurrentTimeout(): Int {
+                return 9000000
+            }
+
+            override fun getCurrentRetryCount(): Int {
+                return 9000000
+            }
+
+            @Throws(VolleyError::class)
+            override fun retry(error: VolleyError) {
+            }
+        })
+
         requestQueue.add(jsonObjectRequest_lastRace)
 
     }

@@ -13,10 +13,11 @@ import com.example.f1app.R
 import android.annotation.SuppressLint
 import androidx.fragment.app.FragmentManager
 import androidx.appcompat.app.AppCompatActivity
+import org.json.JSONObject
 
-class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,String>>) : RecyclerView.Adapter<circuitAdapter.ViewHolder>() {
+class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<JSONObject>) : RecyclerView.Adapter<circuitAdapter.ViewHolder>() {
     private var context : Context = contextFrag
-    private var resp : MutableList<Map<String,String>> = jsonResponses
+    private var resp : MutableList<JSONObject> = jsonResponses
 
     @SuppressLint("RestrictedApi")
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -32,10 +33,10 @@ class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,
             circuitName.setOnClickListener {
                 var position: Int = getAdapterPosition()
                 val context = itemView.context
-                val id = resp.get(position).keys.toString().removeSurrounding("[","]")
+                val id = resp.get(position).getString("id")
 
                 //Toast.makeText(context, "ID :$id", Toast.LENGTH_LONG).show() //display the response on screen
-                val fragment: Fragment = circuitsInfo(id, resp.get(position).values.toString().removeSurrounding("[","]"))
+                val fragment: Fragment = circuitsInfo(id, resp.get(position).getString("circuit"))
                 val fragmentManager: FragmentManager = (context as AppCompatActivity).getSupportFragmentManager()
                 val fragmentTransaction = fragmentManager.beginTransaction()
                 fragmentTransaction.replace(R.id.nav_host_fragment_activity_homepage, fragment)
@@ -53,7 +54,7 @@ class circuitAdapter(contextFrag: Context, jsonResponses:MutableList<Map<String,
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        viewHolder.circuitName.text = resp.get(i).values.toString().removeSurrounding("[","]")
+        viewHolder.circuitName.text = resp.get(i).getString("circuit")
     }
 
     override fun getItemCount(): Int {

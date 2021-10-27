@@ -16,11 +16,12 @@ import com.example.f1app.R
 import com.example.f1app.URL_PYTHONANYWHERE
 import kotlinx.android.synthetic.main.fragment_teamsdrivers.*
 import org.json.JSONException
+import org.json.JSONObject
 
 class historyFragment : Fragment() {
 
     private val url = URL_PYTHONANYWHERE + "circuits"
-    val jsonResponses: MutableList<Map<String,String>> = mutableListOf<Map<String,String>>()
+    val jsonResponses: MutableList<JSONObject> = mutableListOf<JSONObject>()
 
     var listStatePrefe: Parcelable? = null
 
@@ -42,10 +43,7 @@ class historyFragment : Fragment() {
                     val jsonArray = response.getJSONArray("list")
                     for (i in 0 until jsonArray.length()) {
                         val jsonObject = jsonArray.getJSONObject(i)
-                        val id = jsonObject.getString("id")
-                        val circuit_name = jsonObject.getString("circuit")
-                        val item = mapOf(id to circuit_name)
-                        jsonResponses.add(item)
+                        jsonResponses.add(jsonObject)
                     }
                     //Toast.makeText(context, "Response :$jsonResponses", Toast.LENGTH_LONG).show() //display the response on screen
                     rvcircuits.apply {
