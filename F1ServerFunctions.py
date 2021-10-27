@@ -145,8 +145,22 @@ def get_circuit_results(circuitName):
         response = urllib.request.urlopen(url)
         my_xml = response.read()
         my_dic = xmltodict.parse(my_xml)
-        if int(my_dic['MRData']['@total']) >= 1:
+        if int(my_dic['MRData']['@total']) == 1:
             dri = my_dic['MRData']['RaceTable']['Race']['ResultsList']['Result']
+            print("PILOTAAAA  ")
+            print(dri['Driver'])
+            print("\n")
+            name = dri['Driver']['GivenName']
+            surname = dri['Driver']['FamilyName']
+            number = dri['Driver']['PermanentNumber']
+            team = dri['Constructor']['Name']
+            driver = {'name':name, 'surname':surname, 'number':number, 'team':team}
+            results.append(driver)
+        if int(my_dic['MRData']['@total']) > 1:
+            dri = my_dic['MRData']['RaceTable']['Race'][0]['ResultsList']['Result']
+            print("PILOTAAAA  ")
+            print(dri['Driver'])
+            print("\n")
             name = dri['Driver']['GivenName']
             surname = dri['Driver']['FamilyName']
             number = dri['Driver']['PermanentNumber']
@@ -162,8 +176,17 @@ def get_circuit_poles(circuitName):
         response = urllib.request.urlopen(url)
         my_xml = response.read()
         my_dic = xmltodict.parse(my_xml)
-        if int(my_dic['MRData']['@total']) >= 1:
+        if int(my_dic['MRData']['@total']) == 1:
             dri = my_dic['MRData']['RaceTable']['Race']['QualifyingList']['QualifyingResult']
+            name = dri['Driver']['GivenName']
+            surname = dri['Driver']['FamilyName']
+            number = dri['Driver']['PermanentNumber']
+            team = dri['Constructor']['Name']
+            time = dri['Q3']
+            driver = {'name':name, 'surname':surname, 'number':number, 'team':team, 'time':time}
+            results.append(driver)
+        if int(my_dic['MRData']['@total']) > 1:
+            dri = my_dic['MRData']['RaceTable']['Race'][0]['QualifyingList']['QualifyingResult']
             name = dri['Driver']['GivenName']
             surname = dri['Driver']['FamilyName']
             number = dri['Driver']['PermanentNumber']

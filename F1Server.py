@@ -56,6 +56,7 @@ def get_circuits():
 def get_circuit():
 
     circuitName = request.args.get('name')
+    print(circuitName)
     results = F1ServerFunctions.get_circuit_results(circuitName)
     poles = F1ServerFunctions.get_circuit_poles(circuitName)
     ret = {'results': results, 'poles':poles}
@@ -394,6 +395,5 @@ def deleteAccount():
 if __name__ == '__main__':
 
     dbFunctions.init_db(DATABASE, SCHEMA)
-    if 'liveconsole' not in gethostname():
-        app.run()
+    app.run()
 
