@@ -1,7 +1,7 @@
 import urllib.request, json, xmltodict
 
 
-def get_team_nation(teamName): 
+def get_team_nation(teamName):
     url = "https://ergast.com/api/f1/constructors/"+teamName
     response = urllib.request.urlopen(url)
     my_xml = response.read()
@@ -89,7 +89,7 @@ def get_driver_pole(driverName):
     my_xml = response.read()
     my_dic = xmltodict.parse(my_xml)
     poleraces = my_dic['MRData']['@total']
-    
+
     return poleraces
 
 def get_driver_champions(driverName):
@@ -98,7 +98,7 @@ def get_driver_champions(driverName):
     my_xml = response.read()
     my_dic = xmltodict.parse(my_xml)
     wonchamp = my_dic['MRData']['@total']
-    
+
     return wonchamp
 
 def get_driver_teams(driverName):
@@ -115,7 +115,7 @@ def get_driver_teams(driverName):
             nationality = t['Nationality']
             team = {'id':tid, 'name': name, 'nationality': nationality }
             teams.append(team)
-    else : 
+    else :
         tid = teams_list['@constructorId']
         name = teams_list['Name']
         nationality = teams_list['Nationality']
@@ -168,7 +168,7 @@ def get_circuit_poles(circuitName):
             surname = dri['Driver']['FamilyName']
             number = dri['Driver']['PermanentNumber']
             team = dri['Constructor']['Name']
-            time = dri['Q1']
+            time = dri['Q3']
             driver = {'name':name, 'surname':surname, 'number':number, 'team':team, 'time':time}
             results.append(driver)
     return results

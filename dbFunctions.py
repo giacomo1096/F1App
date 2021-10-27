@@ -1,7 +1,5 @@
 from sqlite3.dbapi2 import IntegrityError
 import sqlite3
-#from google.oauth2 import id_token
-#from google.auth.transport import requests
 
 
 #Database creation and connection
@@ -10,7 +8,7 @@ def init_db(database, schema):
 
     with open(schema) as f:
         connection.executescript(f.read())
-        
+
     connection.commit()
     connection.close()
 
@@ -55,12 +53,10 @@ def checkIfEmailExists(database, email):
 
     emailInDatabase = connection.execute('SELECT EXISTS(SELECT email FROM accounts WHERE email="'+email+'");').fetchall()
     emailInDatabase = dict(emailInDatabase[0])['EXISTS(SELECT email FROM accounts WHERE email="'+email+'")']
-
     connection.commit()
     connection.close()
 
     return emailInDatabase
-
 
 #check if exist an account with passed userid (ret 0/1)
 def checkIfUserIDExists(database, userid):
@@ -102,7 +98,7 @@ def insertFavorite(database, userid, news):
     resourceCreated = False
     cur = connection.cursor()
     try:
-        cur.execute("INSERT INTO news (id, webTitle, webImage, webDesc, webUrl) VALUES (?,?,?,?,?)", (news['id'], news['webTitle'], news['webImage'], news['webUrl'], news['webUrl']))
+        cur.execute("INSERT INTO news (id, webTitle, webImage, webDesc, webUrl) VALUES (?,?,?,?,?)", (news['id'], news['webTitle'], news['webImage'], news['webDesc'], news['webUrl']))
     except IntegrityError:
         # News registered yet
         pass
@@ -119,7 +115,7 @@ def insertFavorite(database, userid, news):
 
     return resourceCreated
 
-#delete favorite news 
+#delete favorite news
 def deleteFavorite(database, userid, news):
     connection = get_db_connection(database)
 
@@ -138,8 +134,7 @@ def deleteFavorite(database, userid, news):
 
     return resourceDeleted
 
-
-# Web server 
+# Web server
 
 def checkTokenID(tokenID):
     try:
